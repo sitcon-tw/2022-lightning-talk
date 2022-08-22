@@ -27,6 +27,9 @@ html, body
   margin: 0
   padding: 0
   font-family: 'Noto Sans TC', sans-serif
+img
+  max-width: 100%
+
 #app
   height: 100vh
   width: 100vw

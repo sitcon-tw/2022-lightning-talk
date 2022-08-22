@@ -46,6 +46,8 @@ nav
   display: none
   .home &
     display: initial
+  img
+    height: 36px
 
 .back
   display: initial
