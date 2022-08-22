@@ -1,5 +1,19 @@
 <template>
   <div id="app">
+    <Head>
+      <!-- Google Fonts -->
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin="true"
+      />
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Barlow:wght@500&family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Syncopate:wght@700&family=Roboto+Condensed:wght@400;700&display=swap"
+        crossorigin="true"
+      />
+    </Head>
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
