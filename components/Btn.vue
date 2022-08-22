@@ -33,7 +33,7 @@ const props = defineProps({
   background: #82D357
   color: #FFFFFF
   border-radius: 10px
-  padding: 8px 32px
+  padding: 12px 32px
   text-decoration: none
   text-align: center
   box-shadow: inset 0 0 0 2px #82D357

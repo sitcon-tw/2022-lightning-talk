@@ -52,11 +52,12 @@ h2
   margin: 0
   color: #383838
   background: #FFFFFF
-  padding: 10px 36px
+  padding: 10px 32px
   border-radius: 10px
   text-align: center
   font-size: 40px
   font-weight: 900
+  letter-spacing: 4px
 
 .btns-wrap
   width: 70%
