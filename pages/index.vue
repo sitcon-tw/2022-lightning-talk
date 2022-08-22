@@ -42,10 +42,12 @@ h1
   margin: 0
   font-size: 24px
   font-weight: 900
-  color: #82D357
-  -webkit-text-stroke: 1px #FFFFFF
+  color: transparent
   text-align: center
-  background: url(~/assets/img/閃電秀.svg) no-repeat center center
+  background-image: url(~/assets/img/lightning-talk.png)
+  background-repeat: no-repeat
+  background-size: contain
+  background-position: center
   text-indent: 8px
   letter-spacing: 8.6px
 h2
