@@ -39,10 +39,6 @@ jobs:
         run: npm ci
       - name: Static HTML export with Nuxt
         run: npm run generate
-      - name: Fixed index.html
-        run: |
-          ln -s index.html ./dist/404.html
-          ln -s index.html ./dist/200.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
