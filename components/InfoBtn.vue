@@ -6,14 +6,14 @@ const open = ref(false)
   <div class="info-btn">
     <img @click="open = true" src="~/assets/img/info.svg" />
     <Teleport to="body">
-      <transition name="infoModal">
+      <Transition name="modal">
         <div v-if="open" class="modal">
           <div class="modal-wrap">
             <p>Hello from the modal!</p>
             <button @click="open = false">Close</button>
           </div>
         </div>
-      </transition>
+      </Transition>
     </Teleport>
   </div>
 </template>
@@ -38,7 +38,6 @@ const open = ref(false)
   max-height: calc(100vh - 40px)
   margin: 20px auto
   padding: 16px
-  border: none
   border-radius: 10px
   background-color: #FFFFFF
   color: #383838
@@ -60,15 +59,4 @@ const open = ref(false)
   to
     opacity: 1
     transform: none
-
-.infoModal-enter-active, .infoModal-leave-active
-    transition: all .25s ease-in-out
-.infoModal-enter-from
-  opacity: 0
-  .modal
-    transform: scale(.5)
-.infoModal-leave-to
-  opacity: 0
-  .modal
-    transform: scale(.5)
 </style>

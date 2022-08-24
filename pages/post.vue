@@ -22,25 +22,24 @@ const submit = () => {
 <template>
   <div class="form">
     <span class="text">講者姓名</span>
-    <input v-model="name" type="text" placeholder="請輸入姓名..." />
+    <input type="text" v-model="name" placeholder="請輸入姓名..." />
 
     <span class="text">議題</span>
-    <input v-model="title" type="text" placeholder="請輸入議題..." />
+    <input type="text" v-model="title" placeholder="請輸入議題..." />
 
     <span class="text">摘要</span>
     <textarea v-model="abstract" placeholder="請輸入摘要..."></textarea>
 
     <span class="text">聯絡方式</span>
-    <input v-model="contact" type="text" placeholder="請輸入聯絡方式..." />
+    <input type="text" v-model="contact" placeholder="請輸入聯絡方式..." />
 
-    <btn @click="submit">送出</btn>
+    <btn class="submit" @click="submit">送出</btn>
   </div>
 </template>
 
 <style scoped lang="sass">
 .form
   height: 100%
-  padding-bottom: 16px
   display: flex
   flex-direction: column
   justify-content: space-between
@@ -51,7 +50,6 @@ const submit = () => {
 input, textarea
   width: 100%
   height: 50px
-  border: none
   border-radius: 5px
   padding: 0 16px
   font-size: 14px
@@ -61,6 +59,8 @@ input, textarea
   &:focus
     outline: 1px solid #82D357
 textarea
-  flex: auto
+  flex: 1
   padding-top: 16px
+.submit
+  margin-bottom: 16px
 </style>

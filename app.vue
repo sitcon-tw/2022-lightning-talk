@@ -29,9 +29,22 @@ html, body
   font-family: 'Noto Sans TC', sans-serif
 img
   max-width: 100%
+button, input, textarea
+  border: none
 
 #app
   height: 100vh
   width: 100vw
   background: #F4EEE1
+
+.modal-enter-active, .modal-leave-active
+  transition: all .25s ease-in-out
+.modal-enter-from
+  opacity: 0
+  .modal
+    transform: scale(.5)
+.modal-leave-to
+  opacity: 0
+  .modal
+    transform: scale(.5)
 </style>
