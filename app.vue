@@ -1,3 +1,17 @@
+<script setup>
+const updateVh = () => {
+  const vh = window.innerHeight * 0.01
+  document.documentElement.style.setProperty('--vh', `${vh}px`)
+}
+onMounted(() => {
+  updateVh()
+  document.addEventListener('resize', updateVh)
+})
+onBeforeUnmount(() => {
+  document.removeEventListener('resize', updateVh)
+})
+</script>
+
 <template>
   <div id="app">
     <Head>
@@ -33,7 +47,9 @@ button, input, textarea
   border: none
 
 #app
-  height: 100vh
+  height: calc(var(--vh,1vh) * 100)
+  @supports (height: 100dvh)
+    height: 100dvh
   width: 100vw
   background: #F4EEE1
 
