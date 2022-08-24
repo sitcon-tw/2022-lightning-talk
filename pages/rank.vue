@@ -42,7 +42,7 @@ const addComma = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
         </div>
       </div>
     </div>
-    <talk-model v-model:talk="modelTalk" />
+    <talk-modal v-model:talk="modelTalk" />
   </div>
 </template>
 

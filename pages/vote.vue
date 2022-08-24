@@ -46,7 +46,7 @@ const submit = () => {
       </div>
       <btn class="submit" @click="submit">送出</btn>
     </div>
-    <talk-model v-model:talk="modelTalk" v-model:vote="vote[modelTalk?.id]" />
+    <talk-modal v-model:talk="modelTalk" v-model:vote="vote[modelTalk?.id]" />
   </div>
 </template>
 
