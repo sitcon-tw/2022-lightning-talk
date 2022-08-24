@@ -92,8 +92,6 @@ const addComma = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     color: #82D357
 
 hr
-  border: 0.5px solid #C6C6C6
-  margin: 0
   margin-bottom: 10px
 
 .text

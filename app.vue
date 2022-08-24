@@ -45,6 +45,9 @@ img
   max-width: 100%
 button, input, textarea
   border: none
+hr
+  border: 0.5px solid #C6C6C6
+  margin: 0
 
 #app
   height: calc(var(--vh,1vh) * 100)

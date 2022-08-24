@@ -69,9 +69,7 @@ const submit = () => {
     font-weight: 900
     letter-spacing: 5px
     margin: 16px 26px
-  hr
-    border: 0.5px solid #C6C6C6
-    margin: 0
+
   .vote
     display: inline-flex
     justify-content: space-between
