@@ -21,7 +21,7 @@ useHead({
         <span class="time">開放時段：XX:XX ~ XX:XX</span>
         <btn to="/vote">我要投票</btn>
         <span class="time">開放時段：XX:XX ~ XX:XX</span>
-        <btn to="/rank">查看排名</btn>
+        <btn to="/rank" disabled>查看排名</btn>
       </div>
     </div>
   </div>

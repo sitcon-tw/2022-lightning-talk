@@ -12,15 +12,17 @@ const props = defineProps({
     type: String,
     default: "_blank",
   },
-  large: {
+  disabled: {
     type: Boolean,
     default: false,
   },
 })
+
+const link = computed(() => props.disabled ? "" : props.href || props.to)
 </script>
 
 <template>
-  <NuxtLink class="btn" :to="href || to" :target="href ? target : ''" :class="{ large }">
+  <NuxtLink class="btn" :class="{ disabled }" :to="link" :target="href ? target : ''">
     <slot />
   </NuxtLink>
 </template>
@@ -45,4 +47,9 @@ const props = defineProps({
   &:hover
     background: transparent
     color: #82D357
+  &.disabled
+    box-shadow: none
+    background: #D4D4D4
+    color: #AEAEAE
+    cursor: not-allowed
 </style>
