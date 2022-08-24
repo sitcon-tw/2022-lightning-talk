@@ -1,21 +1,37 @@
 <script setup>
 const props = defineProps({
-  modelValue: {
+  talk: {
     type: Object,
   },
+  vote: {
+    type: Number,
+    default: null,
+  },
 })
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:talk', 'update:vote'])
 
-const open = computed(() => !!props.modelValue)
-const close = () => emit('update:modelValue', null)
+const open = computed(() => !!props.talk)
+const close = (update = false) => {
+  if (update) emit('update:vote', curVote.value)
+  emit('update:talk', null)
+}
+
+const curVote = ref(null)
+watch(open, (v) => {
+  if (v) {
+    curVote.value = props.vote
+  }
+})
 </script>
 
 <template>
   <Transition name="modal">
     <div class="modal" v-if="open">
       <div class="modal-wrap">
-        <p>Hello from the modal!</p>
-        <button @click="close">Close</button>
+        <p>Hello from the modal! {{ talk }} {{ vote }}</p>
+        <button @click="close(false)">Close</button>
+        <input-counter v-model="curVote" />
+        <button @click="close(true)">確認</button>
       </div>
     </div>
   </Transition>
