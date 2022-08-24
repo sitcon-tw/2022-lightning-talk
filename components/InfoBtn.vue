@@ -52,7 +52,7 @@ const open = ref(false)
   min-width: calc(100vw - 40px)
   min-height: 500px
   max-height: calc(100vh - 40px)
-  margin: 20px 4px
+  margin: 20px 8px
   padding: 16px
   border-radius: 10px
   background-color: #FFFFFF
@@ -93,11 +93,13 @@ const open = ref(false)
   height: 24px
 
 h2
+  margin: 8px 0
   text-align: center
   font-size: 16px
   font-weight: 700
-ol, h2
+ol
   margin: 8px 0
+  padding-inline-start: 24px
 li
   font-size: 14px
   font-weight: 400

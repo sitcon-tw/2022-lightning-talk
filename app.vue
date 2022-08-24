@@ -23,10 +23,13 @@ onBeforeUnmount(() => {
 <style lang="sass">
 *
   box-sizing: border-box
+  line-height: inherit
 html, body
   margin: 0
   padding: 0
   font-family: 'Noto Sans TC', sans-serif
+  overflow: hidden
+  line-height: 1.5
 img
   max-width: 100%
 button, input, textarea

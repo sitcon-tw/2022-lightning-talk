@@ -90,6 +90,7 @@ const addComma = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     font-size: 64px
     font-weight: 700
     color: #82D357
+    -webkit-text-stroke: 1px
 
 hr
   margin-bottom: 10px
@@ -105,7 +106,7 @@ hr
   flex: 1
   font-size: 14px
   font-weight: 400
-  margin: 2px 0
+  margin: 0
 
 .lookup
   height: 36px
