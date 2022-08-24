@@ -50,6 +50,7 @@ h1
   background-position: center
   text-indent: 8px
   letter-spacing: 8.6px
+  text-indent: 8.6px
 h2
   margin: 0
   color: #383838
@@ -60,6 +61,7 @@ h2
   font-size: 40px
   font-weight: 900
   letter-spacing: 4px
+  text-indent: 4px
 
 .btns-wrap
   width: 70%

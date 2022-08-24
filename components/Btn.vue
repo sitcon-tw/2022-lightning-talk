@@ -40,6 +40,7 @@ const props = defineProps({
   font-weight: 400
   font-size: 20px
   letter-spacing: 8px
+  text-indent: 8px
   transition: all 0.2s ease
   &:hover
     background: transparent
