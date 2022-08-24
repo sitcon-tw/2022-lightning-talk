@@ -61,6 +61,4 @@ input, textarea
 textarea
   flex: 1
   padding-top: 16px
-.submit
-  margin-top: 0
 </style>
