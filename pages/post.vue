@@ -52,7 +52,7 @@ input, textarea
   height: 50px
   border-radius: 5px
   padding: 0 16px
-  font-size: 14px
+  font-size: 16px
   font-weight: 500
   color: #383838
   background: #EBE1CC
