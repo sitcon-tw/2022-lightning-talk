@@ -28,7 +28,7 @@ const submit = () => {
 
 <template>
   <div class="root">
-    <div class="votepage">
+    <div class="page">
       <div class="talks">
         <div class="talk" v-for="talk in talks" :key="talk.id">
           <h1 class="title">{{ talk.title }}</h1>
@@ -47,13 +47,6 @@ const submit = () => {
 </template>
 
 <style scoped lang="sass">
-.root
-  height: 100%
-  position: relative
-.votepage
-  height: 100%
-  display: flex
-  flex-direction: column
 .talks
   overflow: scroll
   display: grid
@@ -94,6 +87,4 @@ const submit = () => {
     font-weight: 400
     color: #FFFFFF
     background: #82D357
-.submit
-  margin: 16px 0
 </style>

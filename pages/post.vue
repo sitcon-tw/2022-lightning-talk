@@ -62,5 +62,5 @@ textarea
   flex: 1
   padding-top: 16px
 .submit
-  margin-bottom: 16px
+  margin-top: 0
 </style>

@@ -37,6 +37,17 @@ button, input, textarea
   width: 100vw
   background: #F4EEE1
 
+
+.root
+  height: 100%
+  position: relative
+  .page
+    height: 100%
+    display: flex
+    flex-direction: column
+    .submit
+      margin: 16px 0
+
 .modal-enter-active, .modal-leave-active
   transition: all .25s ease-in-out
 .modal-enter-from
