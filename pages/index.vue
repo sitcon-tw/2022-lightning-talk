@@ -34,6 +34,7 @@ useHead({
   align-items: center
 .text-wrap
   position: relative
+  width: 100%
 h1
   position: absolute
   top: 0
@@ -55,7 +56,8 @@ h2
   margin: 0
   color: #383838
   background: #FFFFFF
-  padding: 10px 32px
+  width: 100%
+  padding: 10px 0
   border-radius: 10px
   text-align: center
   font-size: 40px
