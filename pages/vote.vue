@@ -3,13 +3,97 @@ useHead({
   title: '投票頁面',
 })
 
+const talks = ref(
+  Array(10)
+    .fill()
+    .map((v, id) => ({
+      id,
+      title:
+        'AI 分析 - 貓咪之可愛程度與貓咪成液態狀的比例之探討 AI 分析 - 貓咪之可愛程度與貓咪成液態狀的比例之探討 AI 分析 - 貓咪之可愛程度與貓咪成液態狀的比例之探討 AI 分析 - 貓咪之可愛程度與貓咪成液態狀的比例之探討',
+      abstract:
+        '貓咪是一種可愛的動物，但是貓咪成液態狀的比例是多少呢？貓咪之可愛程度與貓咪成液態狀的比例之探討',
+    })),
+)
+const modelTalk = ref(null)
+
+const vote = ref({})
+for (const talk of talks.value) {
+  vote.value[talk.id] = 0
+}
+
+const submit = () => {
+  console.log(vote.value)
+}
 </script>
 
 <template>
-  <div>
-    vote
+  <div class="root">
+    <div class="votepage">
+      <div class="talks">
+        <div class="talk" v-for="talk in talks" :key="talk.id">
+          <h1 class="title">{{ talk.title }}</h1>
+          <hr />
+          <div class="vote">
+            <div class="text">票數</div>
+            <input-counter v-model="vote[talk.id]" />
+          </div>
+          <button class="lookup" @click="modelTalk = talk">查看摘要</button>
+        </div>
+      </div>
+      <btn class="submit" @click="submit">送出</btn>
+    </div>
+    <talk-model v-model="modelTalk" />
   </div>
 </template>
 
 <style scoped lang="sass">
+.root
+  height: 100%
+  position: relative
+.votepage
+  height: 100%
+  display: flex
+  flex-direction: column
+.talks
+  overflow: scroll
+  display: grid
+  // grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+  gap: 16px
+.talk
+  height: 240px
+  display: flex
+  flex-direction: column
+  background: #FFFFFF
+  border-radius: 10px
+  overflow: hidden
+  .title
+    overflow: hidden
+    display: -webkit-box
+    -webkit-line-clamp: 3
+    -webkit-box-orient: vertical
+    flex: 1
+    font-size: 24px
+    font-weight: 900
+    letter-spacing: 5px
+    margin: 16px 26px
+  hr
+    border: 0.5px solid #C6C6C6
+    margin: 0
+  .vote
+    display: inline-flex
+    justify-content: space-between
+    align-items: center
+    height: 36px
+    margin: 12px 26px
+    .text
+      font-size: 14px
+      font-weight: 350
+  .lookup
+    height: 36px
+    font-size: 20px
+    font-weight: 400
+    color: #FFFFFF
+    background: #82D357
+.submit
+  margin: 16px 0
 </style>
