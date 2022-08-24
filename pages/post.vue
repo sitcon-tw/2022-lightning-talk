@@ -5,14 +5,14 @@ useHead({
 
 const name = ref('')
 const title = ref('')
-const abstract = ref('')
+const description = ref('')
 const contact = ref('')
 
 const submit = () => {
   const data = {
     name: name.value,
     title: title.value,
-    abstract: abstract.value,
+    description: description.value,
     contact: contact.value,
   }
   console.log(data)
@@ -28,7 +28,7 @@ const submit = () => {
     <input type="text" v-model="title" placeholder="請輸入議題..." />
 
     <span class="text">摘要</span>
-    <textarea v-model="abstract" placeholder="請輸入摘要..."></textarea>
+    <textarea v-model="description" placeholder="請輸入摘要..."></textarea>
 
     <span class="text">聯絡方式</span>
     <input type="text" v-model="contact" placeholder="請輸入聯絡方式..." />
