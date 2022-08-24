@@ -11,7 +11,14 @@ const talks = ref(
       title:
         'AI 分析 - 貓咪之可愛程度與貓咪成液態狀的比例之探討 AI 分析 - 貓咪之可愛程度與貓咪成液態狀的比例之探討 AI 分析 - 貓咪之可愛程度與貓咪成液態狀的比例之探討 AI 分析 - 貓咪之可愛程度與貓咪成液態狀的比例之探討',
       description:
-        '貓咪是一種可愛的動物，但是貓咪成液態狀的比例是多少呢？貓咪之可愛程度與貓咪成液態狀的比例之探討',
+        `
+        貓咪是一種可愛的動物，但是貓咪成液態狀的比例是多少呢？貓咪之可愛程度與貓咪成液態狀的比例之探討
+        貓咪是一種可愛的動物，但是貓咪成液態狀的比例是多少呢？貓咪之可愛程度與貓咪成液態狀的比例之探討
+        貓咪是一種可愛的動物，但是貓咪成液態狀的比例是多少呢？貓咪之可愛程度與貓咪成液態狀的比例之探討
+        貓咪是一種可愛的動物，但是貓咪成液態狀的比例是多少呢？貓咪之可愛程度與貓咪成液態狀的比例之探討
+        貓咪是一種可愛的動物，但是貓咪成液態狀的比例是多少呢？貓咪之可愛程度與貓咪成液態狀的比例之探討
+        貓咪是一種可愛的動物，但是貓咪成液態狀的比例是多少呢？貓咪之可愛程度與貓咪成液態狀的比例之探討
+        `,
     })),
 )
 const modelTalk = ref(null)
@@ -33,10 +40,7 @@ const submit = () => {
         <div class="talk" v-for="talk in talks" :key="talk.id">
           <h1 class="title">{{ talk.title }}</h1>
           <hr />
-          <div class="vote">
-            <div class="text">票數</div>
-            <input-counter v-model="vote[talk.id]" />
-          </div>
+          <vote-counter v-model="vote[talk.id]" />
           <button class="lookup" @click="modelTalk = talk">查看摘要</button>
         </div>
       </div>
@@ -69,16 +73,6 @@ const submit = () => {
     font-weight: 900
     letter-spacing: 5px
     margin: 16px 26px
-
-  .vote
-    display: inline-flex
-    justify-content: space-between
-    align-items: center
-    height: 36px
-    margin: 12px 26px
-    .text
-      font-size: 14px
-      font-weight: 350
   .lookup
     height: 36px
     font-size: 20px
