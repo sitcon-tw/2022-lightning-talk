@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="outer-container">
     <nav-bar />
     <div class="container">
       <slot />
@@ -8,6 +8,9 @@
 </template>
 
 <style scoped lang="sass">
+.outer-container
+  height: 100%
 .container
+  height: calc(100% - 70px)
   padding: 0 20px
 </style>
