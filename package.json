@@ -9,6 +9,7 @@
   "devDependencies": {
     "@pinia/nuxt": "^0.4.1",
     "nuxt": "npm:nuxt3@latest",
+    "ordinal": "^1.0.3",
     "pinia": "^2.0.20",
     "sass": "^1.54.5"
   }

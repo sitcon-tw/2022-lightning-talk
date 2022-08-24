@@ -30,8 +30,10 @@ watch(open, (v) => {
       <div class="modal-wrap">
         <p>Hello from the modal! {{ talk }} {{ vote }}</p>
         <button @click="close(false)">Close</button>
-        <input-counter v-model="curVote" />
-        <button @click="close(true)">確認</button>
+        <template v-if="curVote">
+          <input-counter v-model="curVote" />
+          <button @click="close(true)">確認</button>
+        </template>
       </div>
     </div>
   </Transition>
