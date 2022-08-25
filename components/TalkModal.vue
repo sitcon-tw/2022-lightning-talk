@@ -16,7 +16,7 @@ const close = (update = false) => {
   emit('update:talk', null)
 }
 
-const curVote = ref(null)
+const curVote = ref()
 watch(open, (v) => {
   if (v) {
     curVote.value = props.vote

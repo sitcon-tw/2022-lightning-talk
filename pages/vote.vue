@@ -21,7 +21,7 @@ const talks = ref(
         `,
     })),
 )
-const modelTalk = ref(null)
+const modelTalk = ref()
 
 const vote = ref({})
 for (const talk of talks.value) {

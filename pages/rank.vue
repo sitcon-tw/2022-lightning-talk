@@ -18,7 +18,7 @@ const talks = ref(
     })),
 )
 const sortedTalks = computed(() => talks.value.sort((a, b) => b.vote - a.vote))
-const modelTalk = ref(null)
+const modelTalk = ref()
 
 const addComma = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 </script>
