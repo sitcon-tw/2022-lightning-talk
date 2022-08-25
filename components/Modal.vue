@@ -4,9 +4,9 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  allowClose: {
+  disableClose: {
     type: Boolean,
-    default: true,
+    default: false,
   },
 })
 const emit = defineEmits(['update:modelValue'])
@@ -19,7 +19,7 @@ const close = () => emit('update:modelValue', false)
     <Transition name="modal">
       <div v-if="modelValue" class="modal">
         <div class="modal-wrap">
-          <a class="close" v-if="allowClose" @click="close">
+          <a class="close" v-if="!disableClose" @click="close">
             <img src="~/assets/img/X.svg" />
           </a>
           <slot />
