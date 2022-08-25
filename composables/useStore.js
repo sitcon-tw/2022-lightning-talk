@@ -11,7 +11,7 @@ export const useStore = defineStore('main', () => {
 
   const token = useLocalStorage('token', null)
 
-  setupToken(token).then(success => {
+  setupToken(token).then((success) => {
     if (!success) token.value = null
   })
   async function setupToken(newToken) {
@@ -33,5 +33,10 @@ export const useStore = defineStore('main', () => {
     return available_time.format('HH:mm') + ' ~ ' + expire_time.format('HH:mm')
   }
 
-  return { config, token, setupToken, getTimeText }
+  return {
+    config: readonly(config),
+    token: readonly(token),
+    setupToken,
+    getTimeText,
+  }
 })
