@@ -46,6 +46,7 @@ export default defineNuxtConfig({
       ],
     },
   },
+  ssr: false,
   nitro: {
     prerender: {
       routes: ['/404.html'],
