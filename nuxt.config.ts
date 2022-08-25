@@ -31,6 +31,11 @@ export default defineNuxtConfig({
           href: '/2022-lightning-talk/favicon-16x16.png',
         },
         { rel: 'manifest', href: '/2022-lightning-talk/site.webmanifest' },
+        // Style
+        {
+          rel: 'stylesheet',
+          href: 'https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css',
+        },
         // Google Fonts
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         {
