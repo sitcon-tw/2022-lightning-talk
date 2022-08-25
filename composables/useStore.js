@@ -4,9 +4,13 @@ import dayjs from 'dayjs'
 
 export const useStore = defineStore('main', () => {
 
-  const token = useLocalStorage('token')
+  const token = useLocalStorage('token', null)
 
+  setupToken(token).then(success => {
+    if (!success) token.value = null
+  })
   async function setupToken(newToken) {
+    newToken = unref(newToken)
     if (!newToken) return false
     const res = await fetch(`https://sitcon.opass.app/status?token=${encodeURIComponent(newToken)}`)
       .then((res) => res.json())
