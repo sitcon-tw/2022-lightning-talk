@@ -1,8 +1,13 @@
 import { defineStore } from 'pinia'
-import config from '@/config.json'
+import configJson from '@/config.json'
 import dayjs from 'dayjs'
 
 export const useStore = defineStore('main', () => {
+  const config = ref(configJson)
+  for (const scope in config.value.scopes)
+    for (const key in config.value.scopes[scope])
+      if (key.endsWith('_time'))
+        config.value.scopes[scope][key] = dayjs(config.value.scopes[scope][key], 'YYYY-MM-DD HH:mm')
 
   const token = useLocalStorage('token', null)
 
@@ -22,14 +27,10 @@ export const useStore = defineStore('main', () => {
     return true
   }
 
-  function time2text(time) {
-    return dayjs(time, 'YYYY-MM-DD HH:mm').format('HH:mm')
-  }
-
   function getTimeText(scope) {
-    if (!(scope in config.scopes)) return 'XX:XX - XX:XX'
-    const { available_time, expire_time } = config.scopes[scope]
-    return time2text(available_time) + ' ~ ' + time2text(expire_time)
+    if (!config.value.scopes[scope]) return 'XX:XX - XX:XX'
+    const { available_time, expire_time } = config.value.scopes[scope]
+    return available_time.format('HH:mm') + ' ~ ' + expire_time.format('HH:mm')
   }
 
   return { config, token, setupToken, getTimeText }
