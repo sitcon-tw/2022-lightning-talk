@@ -2,6 +2,8 @@
 useHead({
   title: '首頁',
 })
+
+const store = useStore()
 </script>
 
 <template>

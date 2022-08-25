@@ -1,4 +1,9 @@
 <script setup>
+const route = useRoute()
+const router = useRouter()
+const store = useStore()
+store.setupToken(route.query.token)
+
 const updateVh = () => {
   const vh = window.innerHeight * 0.01
   document.documentElement.style.setProperty('--vh', `${vh}px`)
