@@ -1,0 +1,16 @@
+{
+  "scopes": {
+    "post": {
+      "available_time": "2022-08-24 07:00",
+      "expire_time":    "2022-09-24 23:00"
+    },
+    "vote": {
+      "available_time": "2022-08-24 07:00",
+      "expire_time":    "2022-09-24 23:00"
+    },
+    "rank": {
+      "available_time": "2022-08-24 07:00",
+      "expire_time":    "2022-09-24 23:00"
+    }
+  }
+}

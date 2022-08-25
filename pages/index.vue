@@ -18,11 +18,11 @@ const store = useStore()
 
     <div class="btns-wrap">
       <div class="btns">
-        <span class="time">開放時段：XX:XX ~ XX:XX</span>
+        <span class="time">開放時段：{{ store.getTimeText('post') }}</span>
         <btn to="/post">我要投稿</btn>
-        <span class="time">開放時段：XX:XX ~ XX:XX</span>
+        <span class="time">開放時段：{{ store.getTimeText('vote') }}</span>
         <btn to="/vote">我要投票</btn>
-        <span class="time">開放時段：XX:XX ~ XX:XX</span>
+        <span class="time">開放時段：{{ store.getTimeText('rank') }}</span>
         <btn to="/rank">查看排名</btn>
       </div>
     </div>

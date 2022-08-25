@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia'
+import config from '@/config.json'
+import dayjs from 'dayjs'
 
 export const useStore = defineStore('main', () => {
 
@@ -16,5 +18,15 @@ export const useStore = defineStore('main', () => {
     return true
   }
 
-  return { config, token, setupToken }
+  function time2text(time) {
+    return dayjs(time, 'YYYY-MM-DD HH:mm').format('HH:mm')
+  }
+
+  function getTimeText(scope) {
+    if (!(scope in config.scopes)) return 'XX:XX - XX:XX'
+    const { available_time, expire_time } = config.scopes[scope]
+    return time2text(available_time) + ' ~ ' + time2text(expire_time)
+  }
+
+  return { config, token, setupToken, getTimeText }
 })
