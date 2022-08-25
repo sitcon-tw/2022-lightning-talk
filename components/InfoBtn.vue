@@ -48,7 +48,6 @@ const open = ref(false)
 
 h2
   margin: 8px 0
-  text-align: center
   font-size: 16px
   font-weight: 700
 ol
@@ -57,8 +56,4 @@ ol
 li
   font-size: 14px
   font-weight: 400
-
-.btn
-  width: 40%
-  margin: 0 auto
 </style>

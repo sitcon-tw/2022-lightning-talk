@@ -44,8 +44,12 @@ const close = () => emit('update:modelValue', false)
   animation: fade-in 0.25s ease-in-out
 
 .modal-wrap
+  display: flex
+  flex-direction: column
+  justify-content: space-around
+  align-items: center
   min-width: calc(100vw - 40px)
-  min-height: 500px
+  min-height: 200px
   max-height: calc(100vh - 40px)
   margin: 20px 8px
   padding: 16px
@@ -57,6 +61,21 @@ const close = () => emit('update:modelValue', false)
   cursor: initial
   transition: all 0.25s ease
   animation: modal-show 0.25s ease-in-out
+
+.close
+  position: absolute
+  top: 8px
+  right: 8px
+  transition: all .25s ease
+  width: 40px
+  height: 40px
+  &:hover
+    opacity: 0.8
+    cursor: pointer
+    transform: scale(.95)
+
+:slotted(.btn)
+  width: 50%
 
 @keyframes fade-in
   from

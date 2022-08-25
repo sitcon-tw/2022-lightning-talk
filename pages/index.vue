@@ -46,7 +46,6 @@ h1
   font-size: 24px
   font-weight: 900
   color: transparent
-  text-align: center
   background-image: url(~/assets/img/lightning-talk.png)
   background-repeat: no-repeat
   background-size: contain
@@ -61,7 +60,6 @@ h2
   width: 100%
   padding: 10px 0
   border-radius: 10px
-  text-align: center
   font-size: 40px
   font-weight: 900
   letter-spacing: 4px

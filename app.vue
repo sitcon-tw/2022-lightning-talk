@@ -35,6 +35,9 @@ html, body
   font-family: 'Noto Sans TC', sans-serif
   overflow: hidden
   line-height: 1.5
+h1, h2
+  margin: 0
+  text-align: center
 img
   max-width: 100%
 button, input, textarea
