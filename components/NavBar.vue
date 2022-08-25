@@ -7,12 +7,12 @@ const isHome = computed(() => route.name === 'index')
 const router = useRouter()
 const clearAfterEach = router.afterEach(() => {
   nextTick(() => {
-    title.value = document.title
+    title.value = document.title.split(' | ')[0]
   })
 })
 
 onMounted(() => {
-  title.value = document.title
+  title.value = document.title.split(' | ')[0]
 })
 onUnmounted(() => {
   clearAfterEach()

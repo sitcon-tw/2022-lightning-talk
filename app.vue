@@ -3,6 +3,10 @@ import dayjs from 'dayjs'
 import isBetween from 'dayjs/plugin/isBetween'
 dayjs.extend(isBetween)
 
+useHead({
+  titleTemplate: '%s | 閃電秀投稿投票系統',
+})
+
 const route = useRoute()
 const router = useRouter()
 const store = useStore()
