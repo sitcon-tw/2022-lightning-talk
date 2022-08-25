@@ -1,4 +1,8 @@
 <script setup>
+import dayjs from 'dayjs'
+import isBetween from 'dayjs/plugin/isBetween'
+dayjs.extend(isBetween)
+
 const route = useRoute()
 const router = useRouter()
 const store = useStore()

@@ -1,26 +1,28 @@
 <script setup>
-const title = ref("");
+const title = ref('')
 
-const route = useRoute();
-const isHome = computed(() => route.path === "/");
+const route = useRoute()
+const isHome = computed(() => route.name === 'index')
 
 const router = useRouter()
 const clearAfterEach = router.afterEach(() => {
   nextTick(() => {
-    title.value = document.title;
-  });
-});
+    title.value = document.title
+  })
+})
 
 onMounted(() => {
-  title.value = document.title;
-});
+  title.value = document.title
+})
 onUnmounted(() => {
-  clearAfterEach();
-});
+  clearAfterEach()
+})
 </script>
 
 <template>
   <nav :class="{ home: isHome }" class="nav-bar">
+    <time-check-modal :title="title" />
+
     <NuxtLink to="/" class="back">
       <img src="~/assets/img/arrow-left.svg" />
     </NuxtLink>
