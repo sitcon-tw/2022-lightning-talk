@@ -11,6 +11,7 @@ const route = useRoute()
 const router = useRouter()
 const store = useStore()
 store.setupToken(route.query.token)
+const hide = computed(() => !store.canVisit())
 
 const updateVh = () => {
   const vh = window.innerHeight * 0.01
@@ -26,7 +27,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div id="app">
+  <div id="app" class="{ hide }">
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
@@ -68,6 +69,8 @@ hr
     height: 100%
     display: flex
     flex-direction: column
+    .hide &
+      display: none
     > :nth-child(1)
       margin-bottom: 16px
 

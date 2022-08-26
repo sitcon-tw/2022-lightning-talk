@@ -3,6 +3,8 @@ import configJson from '@/config.json'
 import dayjs from 'dayjs'
 
 export const useStore = defineStore('main', () => {
+  const route = useRoute()
+
   const config = ref(configJson)
   for (const scope in config.value.scopes)
     for (const key in config.value.scopes[scope])
@@ -18,7 +20,8 @@ export const useStore = defineStore('main', () => {
   function getIsExpire(scope) {
     return config.value.scopes[scope]?.is_expire ?? false
   }
-  function invisableMessage(scope) {
+
+  function invisableMessage(scope = route.name) {
     if (!getIsAvailable(scope)) return '尚未開放'
     if (getIsExpire(scope)) return '已經結束'
     if (scope === 'rank' && !isVoted.value)

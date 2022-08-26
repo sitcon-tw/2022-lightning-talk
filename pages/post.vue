@@ -20,9 +20,10 @@ const submit = () => {
 </script>
 
 <template>
-  <div class="form">
+  <div class="root">
     <non-token-modal  />
 
+    <div class="page">
     <span class="text">講者姓名</span>
     <input type="text" v-model="name" placeholder="請輸入姓名..." />
 
@@ -36,6 +37,7 @@ const submit = () => {
     <input type="text" v-model="contact" placeholder="請輸入聯絡方式..." />
 
     <btn class="submit" @click="submit">送出</btn>
+  </div>
   </div>
 </template>
 

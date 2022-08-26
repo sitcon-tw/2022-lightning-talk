@@ -5,11 +5,9 @@ const props = defineProps({
   },
 })
 
-const route = useRoute()
-
 const store = useStore()
 
-const message = computed(() => store.invisableMessage(route.name))
+const message = computed(() => store.invisableMessage())
 const open = computed(() => message.value !== '')
 const text = computed(() => typeof message.value === 'string' ? message.value : '')
 const msg = computed(() => message.value?.msg)
