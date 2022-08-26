@@ -65,9 +65,8 @@ const onDecode = (token) => {
     <modal v-model:open="scanQRCodeModal">
       <h2 class="title">掃描票券 QR Code</h2>
       <p class="text">請開啟 OPass 中的我的票券，並掃描其中的 QR Code。</p>
-      <qr-stream class="qrstream" @decode="onDecode">
-        <div class="frame"></div>
-      </qr-stream>
+      <qrcode-stream class="qrstream" @decode="onDecode">
+      </qrcode-stream>
     </modal>
   </div>
 </template>
