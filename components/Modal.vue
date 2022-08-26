@@ -54,7 +54,9 @@ const close = () => emit('update:open', false)
   align-items: center
   min-width: calc(100vw - 40px)
   min-height: 200px
-  max-height: calc(100vh - 40px)
+  max-height: calc(var(--vh,1vh) * 100 - 40px)
+  @supports (height: 100dvh)
+    max-height: calc(100dvh - 40px)
   margin: 20px 8px
   padding: 16px
   border-radius: 10px
