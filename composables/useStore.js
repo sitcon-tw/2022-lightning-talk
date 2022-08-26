@@ -22,7 +22,7 @@ export const useStore = defineStore('main', () => {
     if (!getIsAvailable(scope)) return '尚未開放'
     if (getIsExpire(scope)) return '已經結束'
     if (scope === 'rank' && !isVoted.value)
-      return { msg: '請先投票', btnText: '前往投票', to: 'vote' }
+      return { msg: '請先投票', btnText: '前往投票', to: '/vote' }
     return ''
   }
   function canVisit(scope) {

@@ -35,7 +35,7 @@ const routes = [
       <div class="btns">
         <template v-for="{ name, text, disabled } in routes">
           <span class="time">開放時段：{{ store.getTimeText(name) }}</span>
-          <btn :to="name" :disabled="!store.canVisit(name)">{{ text }}</btn>
+          <btn :to="`/${name}`" :disabled="!store.canVisit(name)">{{ text }}</btn>
         </template>
       </div>
     </div>
