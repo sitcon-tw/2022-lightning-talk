@@ -5,7 +5,7 @@ const open = ref(false)
 <template>
   <div class="info-btn">
     <img @click="open = true" src="~/assets/img/info.svg" />
-    <modal v-model="open" disable-close>
+    <modal v-model:open="open" disable-close>
       <div class="info-bar"></div>
       <img class="info" src="~/assets/img/info-fill.svg" />
       <div class="pad"></div>

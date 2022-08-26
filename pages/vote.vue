@@ -35,6 +35,8 @@ const submit = () => {
 
 <template>
   <div class="root">
+    <non-token-modal  />
+
     <div class="page">
       <div class="talks">
         <div class="talk" v-for="talk in talks" :key="talk.id">

@@ -21,6 +21,8 @@ const submit = () => {
 
 <template>
   <div class="form">
+    <non-token-modal  />
+
     <span class="text">講者姓名</span>
     <input type="text" v-model="name" placeholder="請輸入姓名..." />
 

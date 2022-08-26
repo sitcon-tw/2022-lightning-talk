@@ -4,6 +4,21 @@ useHead({
 })
 
 const store = useStore()
+
+const routes = [
+  {
+    name: 'post',
+    text: '我要投稿',
+  },
+  {
+    name: 'vote',
+    text: '我要投票',
+  },
+  {
+    name: 'rank',
+    text: '查看排名',
+  },
+]
 </script>
 
 <template>
@@ -18,12 +33,10 @@ const store = useStore()
 
     <div class="btns-wrap">
       <div class="btns">
-        <span class="time">開放時段：{{ store.getTimeText('post') }}</span>
-        <btn to="/post">我要投稿</btn>
-        <span class="time">開放時段：{{ store.getTimeText('vote') }}</span>
-        <btn to="/vote">我要投票</btn>
-        <span class="time">開放時段：{{ store.getTimeText('rank') }}</span>
-        <btn to="/rank">查看排名</btn>
+        <template v-for="{ name, text, disabled } in routes">
+          <span class="time">開放時段：{{ store.getTimeText(name) }}</span>
+          <btn :to="name" :disabled="!store.canVisit(name)">{{ text }}</btn>
+        </template>
       </div>
     </div>
   </div>

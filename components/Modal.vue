@@ -1,6 +1,6 @@
 <script setup>
 const props = defineProps({
-  modelValue: {
+  open: {
     type: Boolean,
     default: false,
   },
@@ -8,16 +8,20 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  style: {
+    type: Object,
+    default: {},
+  },
 })
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:open'])
 
-const close = () => emit('update:modelValue', false)
+const close = () => emit('update:open', false)
 </script>
 
 <template>
   <Teleport to="body">
     <Transition name="modal">
-      <div v-if="modelValue" class="modal">
+      <div v-if="open" class="modal" :style="style">
         <div class="modal-wrap">
           <a class="close" v-if="!disableClose" @click="close">
             <img src="~/assets/img/X.svg" />
@@ -73,9 +77,6 @@ const close = () => emit('update:modelValue', false)
     opacity: 0.8
     cursor: pointer
     transform: scale(.95)
-
-:slotted(.btn)
-  width: 50%
 
 @keyframes fade-in
   from
