@@ -112,4 +112,7 @@ input
 
 .btn
   margin-top: 16px
+
+.qrstream
+  overflow: hidden
 </style>
