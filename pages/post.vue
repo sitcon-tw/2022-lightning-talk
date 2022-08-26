@@ -24,20 +24,20 @@ const submit = () => {
     <non-token-modal  />
 
     <div class="page">
-    <span class="text">講者姓名</span>
-    <input type="text" v-model="name" placeholder="請輸入姓名..." />
+      <span class="text">講者姓名</span>
+      <input type="text" v-model="name" placeholder="請輸入姓名..." />
 
-    <span class="text">議題</span>
-    <input type="text" v-model="title" placeholder="請輸入議題..." />
+      <span class="text">議題</span>
+      <input type="text" v-model="title" placeholder="請輸入議題..." />
 
-    <span class="text">摘要</span>
-    <textarea v-model="description" placeholder="請輸入摘要..."></textarea>
+      <span class="text">摘要</span>
+      <textarea v-model="description" placeholder="請輸入摘要..."></textarea>
 
-    <span class="text">聯絡方式</span>
-    <input type="text" v-model="contact" placeholder="請輸入聯絡方式..." />
+      <span class="text">聯絡方式</span>
+      <input type="text" v-model="contact" placeholder="請輸入聯絡方式..." />
 
-    <btn class="submit" @click="submit">送出</btn>
-  </div>
+      <btn class="submit" @click="submit">送出</btn>
+    </div>
   </div>
 </template>
 
