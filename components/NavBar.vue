@@ -21,7 +21,7 @@ onUnmounted(() => {
 
 <template>
   <nav :class="{ home: isHome }" class="nav-bar">
-    <time-check-modal :title="title" />
+    <visable-check-modal :title="title" />
 
     <NuxtLink to="/" class="back">
       <img src="~/assets/img/arrow-left.svg" />
