@@ -1,4 +1,5 @@
 {
+  "opass_url": "https://ccip.opass.app",
   "scopes": {
     "post": {
       "available_time": "2022-08-24 07:00",
