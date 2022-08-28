@@ -7,20 +7,26 @@ const props = defineProps({
     type: Number,
     default: null,
   },
+  count: {
+    type: Object,
+    default: null,
+  },
 })
 const emit = defineEmits(['update:talk', 'update:vote'])
 
 const open = computed(() => !!props.talk)
 const close = (update = false) => {
-  if (update) emit('update:vote', curVote.value)
+  if (!update) emit('update:vote', savedVote)
   emit('update:talk', null)
 }
 
-const curVote = ref()
+let savedVote = props.vote
+const curVote = computed({
+  get: () => props.vote,
+  set: (val) => emit('update:vote', val)
+})
 watch(open, (v) => {
-  if (v) {
-    curVote.value = props.vote
-  }
+  if (v) savedVote = props.vote
 })
 </script>
 
@@ -37,7 +43,7 @@ watch(open, (v) => {
       </div>
       <template v-if="curVote !== null">
         <hr />
-        <vote-counter v-model="curVote" />
+        <vote-counter v-model="curVote" :disableIncrease="count.remain <= 0" />
         <hr />
         <btn @click="close(true)">確認</btn>
       </template>

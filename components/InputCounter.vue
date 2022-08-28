@@ -7,6 +7,14 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  disableDecrease: {
+    type: Boolean,
+    default: false,
+  },
+  disableIncrease: {
+    type: Boolean,
+    default: false,
+  },
 })
 const emit = defineEmits(['update:modelValue'])
 
@@ -26,14 +34,14 @@ const increase = () => update(props.modelValue + 1)
   <div class="counter">
     <button
       class="control"
-      :disabled="disabled || modelValue <= 0"
+      :disabled="disabled || disableDecrease || modelValue <= 0"
       @click="decrease"
     >
       -
     </button>
     <div class="value">{{ modelValue }}</div>
     <!-- <input disabled v-model="modelValue" /> -->
-    <button class="control" :disabled="disabled" @click="increase">+</button>
+    <button class="control" :disabled="disabled || disableIncrease" @click="increase">+</button>
   </div>
 </template>
 
