@@ -1,6 +1,5 @@
 <script setup>
 const store = useStore()
-store.title = '投票頁面'
 
 const talks = ref(
   Array(10)

@@ -1,11 +1,9 @@
 <script setup>
-const props = defineProps({
-  title: {
-    type: String,
-  },
-})
+import { storeToRefs } from 'pinia'
 
 const store = useStore()
+const { title } = storeToRefs(store)
+
 
 const message = computed(() => store.invisableMessage())
 const open = computed(() => message.value !== '')

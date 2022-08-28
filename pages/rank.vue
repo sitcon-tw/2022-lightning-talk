@@ -2,7 +2,6 @@
 import ordinal from 'ordinal'
 
 const store = useStore()
-store.title = '投票結果'
 
 const talks = ref(
   Array(10)

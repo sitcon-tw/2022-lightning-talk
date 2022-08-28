@@ -1,9 +1,5 @@
 <script setup>
-import { storeToRefs } from 'pinia'
-
 const store = useStore()
-store.title = '投稿頁面'
-const { token } = storeToRefs(store)
 
 const form = ref(null)
 

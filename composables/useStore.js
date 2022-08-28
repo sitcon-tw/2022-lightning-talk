@@ -13,7 +13,7 @@ export const useStore = defineStore('main', () => {
     return config.scopes[scope]?.required ?? []
   }
 
-  const title = ref('')
+  const title = computed(() => config.scopes[route.name]?.title ?? 'Unknown')
 
   function invisableMessage(scope = route.name) {
     if (!getIsAvailable(scope)) return '尚未開放'
