@@ -16,6 +16,7 @@ export const useStore = defineStore('main', () => {
   const title = computed(() => config.scopes[route.name]?.title ?? 'Unknown')
 
   function invisableMessage(scope = route.name) {
+    if (scope === 'index') return ''
     if (!getIsAvailable(scope)) return '尚未開放'
     if (getIsExpire(scope)) return '已經結束'
     if (status.value[scope]) return '已經完成'
@@ -27,12 +28,12 @@ export const useStore = defineStore('main', () => {
     }
     return ''
   }
-  function canVisit(scope) {
+  function canVisit(scope = route.name) {
     return !invisableMessage(scope)
   }
 
   const token = useLocalStorage('token', null)
-  const status = useLocalStorage('status', ref({}))
+  const status = useLocalStorage('status', {})
 
   setupToken(route.query.token ?? token)
     .then((success) => !success && (token.value = null))
