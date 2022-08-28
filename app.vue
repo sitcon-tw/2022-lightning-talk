@@ -7,9 +7,7 @@ useHead({
   titleTemplate: '%s | 閃電秀投稿投票系統',
 })
 
-const route = useRoute()
 const store = useStore()
-store.setupToken(route.query.token)
 const hide = computed(() => !store.canVisit())
 
 const updateVh = () => {

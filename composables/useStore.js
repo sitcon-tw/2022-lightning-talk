@@ -26,9 +26,8 @@ export const useStore = defineStore('main', () => {
   const token = useLocalStorage('token', null)
   const isVoted = useLocalStorage('isVoted', false)
 
-  setupToken(token).then((success) => {
-    if (!success) token.value = null
-  })
+  setupToken(route.query.token ?? token)
+    .then((success) => !success && (token.value = null))
   async function setupToken(newToken) {
     newToken = unref(newToken)
     if (!newToken) return false
