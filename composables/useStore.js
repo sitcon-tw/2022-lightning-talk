@@ -9,14 +9,22 @@ export const useStore = defineStore('main', () => {
   function getIsExpire(scope) {
     return config.scopes[scope]?.is_expire ?? false
   }
+  function getRequired(scope) {
+    return config.scopes[scope]?.required ?? []
+  }
 
   const title = ref('')
 
   function invisableMessage(scope = route.name) {
     if (!getIsAvailable(scope)) return '尚未開放'
     if (getIsExpire(scope)) return '已經結束'
-    if (scope === 'rank' && !isVoted.value)
-      return { msg: '請先投票', btnText: '前往投票', to: '/vote' }
+    if (status.value[scope]) return '已經完成'
+    for (const req of getRequired(scope)) {
+      if (!status.value[req]) {
+        const name = config.scopes[req]?.name ?? req
+        return { msg: `尚未完成${name}`, btnText: `前往${name}`, to: `/${req}` }
+      }
+    }
     return ''
   }
   function canVisit(scope) {
@@ -24,7 +32,7 @@ export const useStore = defineStore('main', () => {
   }
 
   const token = useLocalStorage('token', null)
-  const isVoted = useLocalStorage('isVoted', false)
+  const status = useLocalStorage('status', ref({}))
 
   setupToken(route.query.token ?? token)
     .then((success) => !success && (token.value = null))
@@ -50,11 +58,12 @@ export const useStore = defineStore('main', () => {
   return {
     getIsAvailable,
     getIsExpire,
+    getRequired,
     title,
     invisableMessage,
     canVisit,
     token: readonly(token),
-    isVoted: readonly(isVoted),
+    status,
     setupToken,
     getTimeText,
   }

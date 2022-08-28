@@ -3,14 +3,18 @@
   "worker_url": "http://localhost:8787",
   "scopes": {
     "post": {
+      "name": "投稿",
       "available_time": "2022-08-24 07:00",
       "expire_time":    "2022-09-24 23:00"
     },
     "vote": {
+      "name": "投票",
       "available_time": "2022-08-24 07:00",
       "expire_time":    "2022-09-24 23:00"
     },
     "rank": {
+      "name": "結果",
+      "required": ["vote"],
       "available_time": "2022-08-24 07:00",
       "expire_time":    "2022-09-24 23:00"
     }
