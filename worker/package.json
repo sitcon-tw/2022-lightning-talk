@@ -1,8 +1,16 @@
 {
   "private": true,
   "main": "index.js",
+  "scripts": {
+    "dev": "wrangler dev -l",
+    "preview": "wrangler dev",
+    "publish": "wrangler publish"
+  },
   "dependencies": {
     "google-spreadsheet": "^3.3.0",
     "itty-router": "^2.6.1"
+  },
+  "devDependencies": {
+    "wrangler": "^2.0.27"
   }
 }
