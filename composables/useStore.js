@@ -10,6 +10,8 @@ export const useStore = defineStore('main', () => {
     return config.scopes[scope]?.is_expire ?? false
   }
 
+  const title = ref('')
+
   function invisableMessage(scope = route.name) {
     if (!getIsAvailable(scope)) return '尚未開放'
     if (getIsExpire(scope)) return '已經結束'
@@ -49,6 +51,7 @@ export const useStore = defineStore('main', () => {
   return {
     getIsAvailable,
     getIsExpire,
+    title,
     invisableMessage,
     canVisit,
     token: readonly(token),

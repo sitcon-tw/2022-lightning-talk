@@ -1,22 +1,13 @@
 <script setup>
-const title = ref('')
+import { storeToRefs } from 'pinia'
+
+const store = useStore()
+const { title } = storeToRefs(store)
 
 const route = useRoute()
 const isHome = computed(() => route.name === 'index')
 
-const router = useRouter()
-const clearAfterEach = router.afterEach(() => {
-  nextTick(() => {
-    title.value = document.title.split(' | ')[0]
-  })
-})
-
-onMounted(() => {
-  title.value = document.title.split(' | ')[0]
-})
-onUnmounted(() => {
-  clearAfterEach()
-})
+useHead({ title })
 </script>
 
 <template>

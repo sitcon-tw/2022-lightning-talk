@@ -1,9 +1,8 @@
 <script setup>
 import ordinal from 'ordinal'
 
-useHead({
-  title: '投票結果',
-})
+const store = useStore()
+store.title = '投票結果'
 
 const talks = ref(
   Array(10)

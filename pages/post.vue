@@ -1,7 +1,8 @@
 <script setup>
-useHead({
-  title: '投稿頁面',
-})
+import { storeToRefs } from 'pinia'
+
+const store = useStore()
+store.title = '投稿頁面'
 
 const name = ref('')
 const title = ref('')

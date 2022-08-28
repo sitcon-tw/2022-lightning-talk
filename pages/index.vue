@@ -1,9 +1,6 @@
 <script setup>
-useHead({
-  title: '首頁',
-})
-
 const store = useStore()
+store.title = '首頁'
 
 const routes = [
   {
