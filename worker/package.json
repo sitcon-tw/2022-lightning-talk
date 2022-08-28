@@ -1,8 +1,8 @@
 {
-    "private": true,
-    "main": "index.js",
-    "dependencies": {
-        "itty-router": "^2.1.9",
-        "serverless-cloudflare-workers": "^1.2.0"
-    }
+  "private": true,
+  "main": "index.js",
+  "dependencies": {
+    "google-spreadsheet": "^3.3.0",
+    "itty-router": "^2.6.1"
+  }
 }

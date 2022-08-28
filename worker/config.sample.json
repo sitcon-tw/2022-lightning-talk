@@ -1,0 +1,9 @@
+{
+  "server_url": "",
+  "actions": [
+    "post",
+    "talk",
+    "vote",
+    "rank"
+  ]
+}
