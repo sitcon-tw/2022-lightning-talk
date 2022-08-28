@@ -4,10 +4,11 @@ const VoteCount = 10
 const debug = false
 
 const SheetsSchema = {
-  talks: ['uuid', 'time', 'isValid', 'token', 'name', 'title', 'description', 'contact'],
-  votes: ['time', 'isValid', 'token', 'votes.json'],
-  rank: ['uuid', 'count', 'title', 'contact']
+  talks: ['uuid', 'time', 'valid', 'token', 'name', 'title', 'description', 'contact'],
+  votes: ['time', 'valid', 'token', 'votes.json'],
+  rank: ['uuid', 'time', 'count', 'title', 'contact']
 }
+const dataCols = ['uuid','count','title','description']
 
 const SpreadSheet = SpreadsheetApp.openById(SpreadsheetId)
 const Sheets = {}
@@ -16,27 +17,16 @@ for(const name in SheetsSchema) {
   const sheet = SpreadSheet.getSheetByName(name)
   sheet.headers = headers
   sheet.mapping = generateMapping(headers)
+  sheet.append = (obj) => sheet.appendRow(toArray(headers)(obj))
+  sheet.getAllRange = (cRow = sheet.getLastRow()-1) => sheet.getRange(2,1,cRow,sheet.getLastColumn())
   sheet.getAllData = (validate = true) => {
-    const rawData = sheet.getSheetValues(2,1,sheet.getLastRow()-1,sheet.getLastColumn())
-      .map(ary => {
-        const obj = Object.create(null)
-        for(let i = 0; i < headers.length; i++) {
-          let name = headers[i]
-          let data = ary[i]
-          if (name.endsWith('.json')) {
-            name = name.replace('.json','')
-            data = JSON.parse(data)
-          }
-          obj[name] = data
-        }
-        return obj
-      })
-    if (!headers.some(v => v === 'isValid') || !validate) return rawData
+    const rawData = sheet.getAllRange().getValues().map(toObject(headers))
+    if (!headers.some(v => v === 'valid') || !validate) return rawData
     const tokenSet = new Set()
     const data = []
     for(const row of rawData) {
-      const { token, isValid } = row
-      if (!isValid || tokenSet.has(token)) continue
+      const { token, valid } = row
+      if (!valid || tokenSet.has(token)) continue
       tokenSet.add(token)
       data.push(row)
     }
@@ -51,6 +41,51 @@ for(const name in SheetsSchema) {
     return null
   }
   Sheets[name] = sheet
+}
+
+function toObject(headers) {
+  return (ary) => {
+    const obj = Object.create(null)
+    for(let i = 0; i < headers.length; i++) {
+      let name = headers[i]
+      let data = ary[i]
+      if (name === 'time') {
+        data = new Date(data)
+      }
+      if (name.endsWith('.json')) {
+        name = name.replace('.json','')
+        data = JSON.parse(data)
+      }
+      obj[name] = data
+    }
+    return obj
+  }
+}
+function toArray(headers) {
+  return (obj) => {
+    const ary = Array(headers.length)
+    for(let i = 0; i < headers.length; i++) {
+      const name = headers[i]
+      const key = name.replace('.json','')
+      let data = obj[key]
+      if (name === 'time') {
+        data = data ?? new Date()
+      }
+      if (name.endsWith('.json'))
+        data = JSOn.stringify(data)
+      ary[i] = data
+    }
+    return ary
+  }
+}
+Array.prototype.filterCol = function (dataCols) {
+  return this.map(data => {
+    const obj = Object.create(null)
+    for(const col of dataCols)
+      if (col in data)
+        obj[col] = data[col]
+    return obj
+  })
 }
 
 function generateMapping(ary) {
@@ -102,27 +137,16 @@ function saveTalk(data) {
   const uuid = Utilities.getUuid()
   const valid = isValid(token)
   // const oldRow = valid ? Sheets.talks.getRow(token) : null
-  const row = [
-    uuid,
-    new Date().toLocaleString(),
-    valid,
-    token, name, title, description, contact
-  ]
-  Sheets.talks.appendRow(row)
+  const row = { uuid, valid, token, name, title, description, contact }
+  Sheets.talks.append(row)
   if (!valid) return { message: 'Invalid token' }
   // if (oldRow) return { message: 'Token used', uuid: oldRow.uuid }
   return { uuid }
 }
 
 function showTalk() {
-  const dataCols = ['uuid','title','description']
-  const talks = Sheets.talks.getAllData().map(data => {
-    const talk = Object.create(null)
-    for(const col of dataCols)
-      talk[col] = data[col]
-    return talk
-  })
-  return { talks }
+  const talks = Sheets.talks.getAllData()
+  return { talks: talks.filterCol(dataCols) }
 
 }
 showTalk = wrapCache(showTalk)
@@ -135,12 +159,8 @@ function saveVote(data) {
 
   const valid = isValid(token)
   // const oldRow = valid ? Sheets.votes.getRow(token) : null
-  const row = [
-    new Date().toLocaleString(),
-    valid,
-    token, JSON.stringify(votes)
-  ]
-  Sheets.votes.appendRow(row)
+  const row = { valid, token, votes }
+  Sheets.votes.append(row)
   if (!valid) return { message: 'Invalid token' }
   // if (oldRow) return { message: 'Token used', vote: true }
   if (votes.length > VoteCount) return { message: `You only have ${VoteCount} vote(s).` }
@@ -156,8 +176,10 @@ function showRank() {
   const talks = Sheets.talks.getAllData()
   for(const talk of talks)
     talk.count = votesMap.get(talk.uuid) ?? 0
-  talks.sort((a, b) => b.count - a.count)
-  return talks
+  talks.sort((a, b) => b.count - a.count || b.time.getTime() - a.time.getTime())
+  const savedTalks = talks.map(toArray(SheetsSchema.rank))
+  Sheets.rank.getAllRange(savedTalks.length).setValues(savedTalks)
+  return { talks: talks.filterCol(dataCols) }
 }
 showRank = wrapCache(showRank)
 
