@@ -1,5 +1,6 @@
 const OPassURL = ''
 const SpreadsheetId = ''
+const debug = false
 
 const SheetsSchema = {
   talks: ['uuid', 'time', 'isValid', 'token', 'name', 'title', 'description', 'contact'],
@@ -10,9 +11,27 @@ const SheetsSchema = {
 const SpreadSheet = SpreadsheetApp.openById(SpreadsheetId)
 const Sheets = {}
 for(const name in SheetsSchema) {
+  const headers = SheetsSchema[name]
   const sheet = SpreadSheet.getSheetByName(name)
-  sheet.headers = SheetsSchema[name]
-  sheet.mapping = generateMapping(sheet.headers)
+  sheet.headers = headers
+  sheet.mapping = generateMapping(headers)
+  sheet.getAllData = () => {
+    return sheet.getSheetValues(2,1,sheet.getLastRow()-1,sheet.getLastColumn())
+      .map(ary => {
+        const data = Object.create(null)
+        for(let i = 0; i < headers.length; i++)
+          data[ headers[i] ] = ary[i]
+        return data
+      })
+  }
+  // TODO: race condition :(
+  sheet.getRow = (token) => {
+    const data = sheet.getAllData()
+    for(const row of data)
+      if (token === row.token)
+        return row
+    return null
+  }
   Sheets[name] = sheet
 }
 
@@ -21,9 +40,6 @@ function generateMapping(ary) {
   for(let i = 0; i < ary.length; i++)
     mapping.set(ary[i], i)
   return mapping
-}
-function getAllData(sheet) {
-  return sheet.getSheetValues(2,1,sheet.getLastRow()-1,sheet.getLastColumn())
 }
 
 function init() {
@@ -36,7 +52,7 @@ function respJson(resp) {
       .setMimeType(ContentService.MimeType.JSON)
 }
 function wrapCache(func) {
-  return func
+  if (debug) return func
   return (...args) => {
     const cache = CacheService.getScriptCache()
     const cache_key = func.name + Array.from(args).join()
@@ -57,16 +73,6 @@ function isValid(token) {
 }
 isValid = wrapCache(isValid)
 
-// TODO: race condition :(
-function isUsed(sheet, token) {
-  const tokenCol = sheet.mapping.get('token')
-  const data = sheet.getSheetValues(2, tokenCol+1, sheet.getLastRow(), 1)
-  for(const row of data)
-    if (token === row[0])
-      return true
-  return false
-}
-
 function saveTalk(data) {
   const { token, name, title, description, contact } = data
   if (!token) return { message: 'Missing token' }
@@ -77,7 +83,7 @@ function saveTalk(data) {
 
   const uuid = Utilities.getUuid()
   const valid = isValid(token)
-  const firstUsed = valid ? !isUsed(Sheets.talks, token) : null
+  const oldRow = valid ? Sheets.talks.getRow(token) : null
   const row = [
     uuid,
     new Date().toLocaleString(),
@@ -86,23 +92,18 @@ function saveTalk(data) {
   ]
   Sheets.talks.appendRow(row)
   if (!valid) return { message: 'Invalid token' }
-  if (!firstUsed) return { message: 'Token used' }
+  if (oldRow) return { message: 'Token used', uuid: oldRow.uuid }
   return { uuid }
 }
 
 function getValidTalks() {
   const tokenSet = new Set()
-  const { mapping, headers } = Sheets.talks
-  const tokenCol = mapping.get('token')
-  const rawData = getAllData(Sheets.talks)
+  const data = Sheets.talks.getAllData()
   const talks = []
-  for(const data of rawData) {
-    const token = data[tokenCol]
+  for(const talk of data) {
+    const { token } = talk
     if (!isValid(token) || tokenSet.has(token)) continue
     tokenSet.add(token)
-    const talk = Object.create(null)
-    for(let i = 0; i < headers.length; i++)
-      talk[ headers[i] ] = data[i]
     talks.push(talk)
   }
   return talks
@@ -156,7 +157,7 @@ function handle(e) {
     Object.assign(resp, res)
   } catch (e) {
     resp.message = e.message
-    resp.stack = e.stack
+    if (debug) resp.stack = e.stack
   } finally {
     return respJson(resp)
   }
