@@ -32,12 +32,14 @@ onMounted(() => {
 *
   box-sizing: border-box
   line-height: inherit
+  word-break: inherit
 html, body
   margin: 0
   padding: 0
   font-family: 'Noto Sans TC', sans-serif
   overflow: hidden
   line-height: 1.5
+  word-break: break-all
 h1, h2
   margin: 0
   text-align: center

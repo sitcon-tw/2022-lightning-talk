@@ -39,7 +39,7 @@ watch(open, (v) => {
       <div class="info">
         <h1 class="title">{{ talk.title }}</h1>
         <div class="text">摘要</div>
-        <div class="description">{{ talk.description }}</div>
+        <div class="description">{{ talk.description || '講者未填寫摘要' }}</div>
       </div>
       <template v-if="curVote !== null">
         <hr />
@@ -79,7 +79,12 @@ watch(open, (v) => {
 
 .info
   overflow-y: scroll
+  flex: 1
+  display: flex
+  flex-direction: column
 .title
+  align-self: center
+  text-align: left
   font-size: 24px
   font-weight: 900
   letter-spacing: 1px
