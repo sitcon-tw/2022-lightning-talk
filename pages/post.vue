@@ -13,6 +13,8 @@ const data = ref({
 const submit = async () => {
   if (!form.value.reportValidity())
     return false
+  if (!confirm("送出投稿後將無法修改，確定送出嗎？"))
+    return false
   const res = await workerFetch('post', data)
   if (res.uuid) store.status.post = true
 }
