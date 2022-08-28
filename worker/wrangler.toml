@@ -1,4 +1,4 @@
-name = "sitcon_2022_lightning_talk_worker"
+name = "testing_sitcon_2022_lightning_talk_worker"
 main = "index.js"
 
 workers_dev = true

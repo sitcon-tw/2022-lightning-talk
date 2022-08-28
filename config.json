@@ -1,6 +1,6 @@
 {
   "opass_url": "https://sitcon.opass.app",
-  "worker_url": "http://localhost:8787",
+  "worker_url": "https://testing_sitcon_2022_lightning_talk_worker.nella17.workers.dev",
   "vote_count": 10,
   "scopes": {
     "index": {
