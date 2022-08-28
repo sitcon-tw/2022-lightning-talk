@@ -59,7 +59,7 @@ function respJson(resp) {
       .createTextOutput(JSON.stringify(resp))
       .setMimeType(ContentService.MimeType.JSON)
 }
-function wrapCache(func) {
+function wrapCache(func, timeout = 60) {
   if (debug) return func
   return (...args) => {
     const cache = CacheService.getScriptCache()
@@ -68,7 +68,7 @@ function wrapCache(func) {
     if (cached != null) return JSON.parse(cached)
 
     const ret = func(...args)
-    cache.put(cache_key, JSON.stringify(ret), 60)
+    cache.put(cache_key, JSON.stringify(ret), timeout)
     return ret
   }
 }
@@ -79,7 +79,7 @@ function isValid(token) {
   const res = JSON.parse(resp.getContentText())
   return !res.message
 }
-isValid = wrapCache(isValid)
+isValid = wrapCache(isValid, 60*60*24)
 
 function saveTalk(data) {
   const { token, name, title, description, contact } = data
