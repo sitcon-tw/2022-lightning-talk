@@ -50,10 +50,10 @@ const submit = async () => {
     </template>
 
     <div class="status-text" v-if="loading">稿件載入中...</div>
+    <div class="status-text" v-else-if="!talks || !talks.length">尚無稿件!?</div>
     <div class="page" v-else>
       <div class="talks">
-        <div class="status-text" v-if="!talks || !talks.length">尚無稿件!?</div>
-        <div class="talk" v-else v-for="talk in talks" :key="talk.uuid">
+        <div class="talk" v-for="talk in talks" :key="talk.uuid">
           <h1 class="title">{{ talk.title }}</h1>
           <hr />
           <vote-counter v-model="vote[talk.uuid]" :disableIncrease="count.remain <= 0" />
@@ -71,39 +71,10 @@ const submit = async () => {
   color: #383838
   font-size: 14px
   font-weight: 400
-.talks
-  overflow: scroll
-  flex: 1
-  display: grid
-  // grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
-  gap: 16px
-.status-text
-  height: 100%
-  display: flex
-  justify-content: center
-  align-items: center
-  font-size: 24px
+
 .talk
-  height: 240px
-  display: flex
-  flex-direction: column
-  background: #FFFFFF
-  border-radius: 10px
-  overflow: hidden
   .title
-    overflow: hidden
-    display: -webkit-box
-    -webkit-line-clamp: 3
-    -webkit-box-orient: vertical
-    flex: 1
     font-size: 24px
     font-weight: 900
-    letter-spacing: 5px
     margin: 16px 26px
-  .lookup
-    height: 36px
-    font-size: 20px
-    font-weight: 400
-    color: #FFFFFF
-    background: #82D357
 </style>

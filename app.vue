@@ -70,6 +70,13 @@ hr
     > :nth-child(1)
       margin-bottom: 16px
 
+.status-text
+  height: 100%
+  display: flex
+  justify-content: center
+  align-items: center
+  font-size: 24px
+
 .submit
   margin-bottom: 16px
 
@@ -83,4 +90,34 @@ hr
   opacity: 0
   .modal
     transform: scale(.5)
+
+
+.talks
+  overflow: scroll
+  flex: 1
+  display: grid
+  gap: 16px
+.talk
+  height: 240px
+  position: relative
+  display: flex
+  flex-direction: column
+  background: #FFFFFF
+  border-radius: 10px
+  overflow: hidden
+  .title
+    overflow: hidden
+    display: -webkit-box
+    -webkit-line-clamp: 3
+    -webkit-box-orient: vertical
+    text-align: left
+    align-self: center
+    flex: 1
+    letter-spacing: 5px
+  .lookup
+    height: 36px
+    font-size: 20px
+    font-weight: 400
+    color: #FFFFFF
+    background: #82D357
 </style>

@@ -6,7 +6,7 @@ const debug = false
 const SheetsSchema = {
   talks: ['uuid', 'time', 'isValid', 'token', 'name', 'title', 'description', 'contact'],
   votes: ['time', 'isValid', 'token', 'votes.json'],
-  rank: ['uuid', 'title', 'contact']
+  rank: ['uuid', 'count', 'title', 'contact']
 }
 
 const SpreadSheet = SpreadsheetApp.openById(SpreadsheetId)
@@ -148,7 +148,16 @@ function saveVote(data) {
 }
 
 function showRank() {
-  throw new Error('TODO')
+  const votes = Sheets.votes.getAllData().map(row => row.votes).reduce((s,a) => s.concat(a), [])
+  const votesMap = new Map()
+  for(const uuid of votes) {
+    votesMap.set(uuid, (votesMap.get(uuid) ?? 0) + 1)
+  }
+  const talks = Sheets.talks.getAllData()
+  for(const talk of talks)
+    talk.count = votesMap.get(talk.uuid) ?? 0
+  talks.sort((a, b) => b.count - a.count)
+  return talks
 }
 showRank = wrapCache(showRank)
 
