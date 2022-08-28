@@ -13,18 +13,8 @@ const data = ref({
 const submit = async () => {
   if (!form.value.reportValidity())
     return false
-  const res = await fetch(`${config.worker_url}/post`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      token: unref(token),
-      ...unref(data),
-    }),
-  }).then(res => res.json())
+  const res = await workerFetch('post', data)
   if (res.uuid) store.status.post = true
-  if (res.message) alert(res.message)
 }
 </script>
 
