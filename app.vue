@@ -8,7 +8,6 @@ useHead({
 })
 
 const route = useRoute()
-const router = useRouter()
 const store = useStore()
 store.setupToken(route.query.token)
 const hide = computed(() => !store.canVisit())
@@ -17,17 +16,14 @@ const updateVh = () => {
   const vh = window.innerHeight * 0.01
   document.documentElement.style.setProperty('--vh', `${vh}px`)
 }
+useEventListener(document,' resize', updateVh)
 onMounted(() => {
   updateVh()
-  document.addEventListener('resize', updateVh)
-})
-onBeforeUnmount(() => {
-  document.removeEventListener('resize', updateVh)
 })
 </script>
 
 <template>
-  <div id="app" class="{ hide }">
+  <div id="app" :class="{ hide }">
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>

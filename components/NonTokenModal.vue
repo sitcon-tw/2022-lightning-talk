@@ -8,8 +8,6 @@ const props = defineProps({
   },
 })
 
-const router = useRouter()
-
 const store = useStore()
 const { token } = storeToRefs(store)
 const open = computed({
@@ -17,7 +15,7 @@ const open = computed({
     return !token.value
   },
   set(value) {
-    if (!value) router.push('/')
+    if (!value) navigateTo('/')
   },
 })
 

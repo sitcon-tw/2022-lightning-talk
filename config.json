@@ -1,5 +1,6 @@
 {
-  "opass_url": "https://ccip.opass.app",
+  "opass_url": "https://sitcon.opass.app",
+  "worker_url": "http://localhost:8787",
   "scopes": {
     "post": {
       "available_time": "2022-08-24 07:00",

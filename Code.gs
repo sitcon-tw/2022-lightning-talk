@@ -9,12 +9,11 @@ const SheetsSchema = {
 
 const SpreadSheet = SpreadsheetApp.openById(SpreadsheetId)
 const Sheets = {}
-const RevSheets = new Map()
 for(const name in SheetsSchema) {
-  Sheets[name] = SpreadSheet.getSheetByName(name)
-  RevSheets.set(Sheets[name], name)
-  Sheets[name].headers = SheetsSchema[name]
-  Sheets[name].mapping = generateMapping(Sheets[name].headers)
+  const sheet = SpreadSheet.getSheetByName(name)
+  sheet.headers = SheetsSchema[name]
+  sheet.mapping = generateMapping(sheet.headers)
+  Sheets[name] = sheet
 }
 
 function generateMapping(ary) {
@@ -22,12 +21,6 @@ function generateMapping(ary) {
   for(let i = 0; i < ary.length; i++)
     mapping.set(ary[i], i)
   return mapping
-}
-function getHeaders(sheet) {
-  return Sheets[RevSheets.get(sheet)].headers
-}
-function getHeadersMapping(sheet) {
-  return Sheets[RevSheets.get(sheet)].mapping
 }
 function getAllData(sheet) {
   return sheet.getSheetValues(2,1,sheet.getLastRow()-1,sheet.getLastColumn())
@@ -66,7 +59,7 @@ isValid = wrapCache(isValid)
 
 // TODO: race condition :(
 function isUsed(sheet, token) {
-  const tokenCol = getHeadersMapping(sheet).get('token')
+  const tokenCol = sheet.mapping.get('token')
   const data = sheet.getSheetValues(2, tokenCol+1, sheet.getLastRow(), 1)
   for(const row of data)
     if (token === row[0])
