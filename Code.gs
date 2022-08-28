@@ -16,8 +16,8 @@ for(const name in SheetsSchema) {
   const sheet = SpreadSheet.getSheetByName(name)
   sheet.headers = headers
   sheet.mapping = generateMapping(headers)
-  sheet.getAllData = () => {
-    return sheet.getSheetValues(2,1,sheet.getLastRow()-1,sheet.getLastColumn())
+  sheet.getAllData = (validate = true) => {
+    const rawData = sheet.getSheetValues(2,1,sheet.getLastRow()-1,sheet.getLastColumn())
       .map(ary => {
         const obj = Object.create(null)
         for(let i = 0; i < headers.length; i++) {
@@ -31,10 +31,20 @@ for(const name in SheetsSchema) {
         }
         return obj
       })
+    if (!headers.some(v => v === 'isValid') || !validate) return rawData
+    const tokenSet = new Set()
+    const data = []
+    for(const row of rawData) {
+      const { token, isValid } = row
+      if (!isValid || tokenSet.has(token)) continue
+      tokenSet.add(token)
+      data.push(row)
+    }
+    return data
   }
   // TODO: race condition :(
   sheet.getRow = (token) => {
-    const data = sheet.getAllData()
+    const data = sheet.getAllData(true)
     for(const row of data)
       if (token === row.token)
         return row
@@ -104,23 +114,9 @@ function saveTalk(data) {
   return { uuid }
 }
 
-function getValidTalks() {
-  const tokenSet = new Set()
-  const data = Sheets.talks.getAllData()
-  const talks = []
-  for(const talk of data) {
-    const { token, isValid } = talk
-    if (!isValid || tokenSet.has(token)) continue
-    tokenSet.add(token)
-    talks.push(talk)
-  }
-  return talks
-}
-getValidTalks = wrapCache(getValidTalks)
-
 function showTalk() {
   const dataCols = ['uuid','title','description']
-  const talks = getValidTalks().map(data => {
+  const talks = Sheets.talks.getAllData().map(data => {
     const talk = Object.create(null)
     for(const col of dataCols)
       talk[col] = data[col]
