@@ -1,6 +1,7 @@
 {
   "opass_url": "https://sitcon.opass.app",
   "worker_url": "http://localhost:8787",
+  "vote_count": 10,
   "scopes": {
     "index": {
       "title": "首頁"

@@ -1,33 +1,41 @@
 <script setup>
 const store = useStore()
 
-const talks = ref(
-  Array(10)
-    .fill()
-    .map((v, id) => ({
-      id,
-      title:
-        'AI 分析 - 貓咪之可愛程度與貓咪成液態狀的比例之探討 AI 分析 - 貓咪之可愛程度與貓咪成液態狀的比例之探討 AI 分析 - 貓咪之可愛程度與貓咪成液態狀的比例之探討 AI 分析 - 貓咪之可愛程度與貓咪成液態狀的比例之探討',
-      description:
-        `
-        貓咪是一種可愛的動物，但是貓咪成液態狀的比例是多少呢？貓咪之可愛程度與貓咪成液態狀的比例之探討
-        貓咪是一種可愛的動物，但是貓咪成液態狀的比例是多少呢？貓咪之可愛程度與貓咪成液態狀的比例之探討
-        貓咪是一種可愛的動物，但是貓咪成液態狀的比例是多少呢？貓咪之可愛程度與貓咪成液態狀的比例之探討
-        貓咪是一種可愛的動物，但是貓咪成液態狀的比例是多少呢？貓咪之可愛程度與貓咪成液態狀的比例之探討
-        貓咪是一種可愛的動物，但是貓咪成液態狀的比例是多少呢？貓咪之可愛程度與貓咪成液態狀的比例之探討
-        貓咪是一種可愛的動物，但是貓咪成液態狀的比例是多少呢？貓咪之可愛程度與貓咪成液態狀的比例之探討
-        `,
-    })),
-)
+const talks = ref([])
+const loading = ref(true)
+workerFetch('talk')
+  .then(res => {
+    talks.value = res.talks
+    loading.value = false
+  })
 const modelTalk = ref()
 
-const vote = ref({})
-for (const talk of talks.value) {
-  vote.value[talk.id] = 0
-}
+const vote = ref(Object.create(null))
+watch(talks, () => {
+  vote.value = Object.create(null)
+  for (const talk of talks.value)
+    vote.value[talk.uuid] = 0
+})
 
-const submit = () => {
-  console.log(vote.value)
+const count = ref({
+  total: config.vote_count,
+  get current() {
+    return Object.values(vote.value).reduce((a, b) => a + b, 0)
+  },
+  get remain() {
+    return this.total - this.current
+  }
+})
+
+const submit = async () => {
+  if (!confirm("送出投票後將無法修改，確定送出嗎？"))
+    return false
+  const data = Object.entries(vote.value)
+    .filter(([,v]) => v > 0)
+    .reduce((a, [k, v]) => a.concat(Array(v).fill(k)), [])
+  const res = await workerFetch('vote', { votes: data })
+  if (res.vote) store.status.vote = true
+  return true
 }
 </script>
 
@@ -35,27 +43,46 @@ const submit = () => {
   <div class="root">
     <non-token-modal  />
 
-    <div class="page">
+    <template v-if="!loading && store.canVisit()">
+      <Teleport to="#title">
+        <div class="remain-text">剩餘票數：{{ count.remain }}</div>
+      </Teleport>
+    </template>
+
+    <div class="status-text" v-if="loading">稿件載入中...</div>
+    <div class="page" v-else>
       <div class="talks">
-        <div class="talk" v-for="talk in talks" :key="talk.id">
+        <div class="status-text" v-if="!talks || !talks.length">尚無稿件!?</div>
+        <div class="talk" v-else v-for="talk in talks" :key="talk.uuid">
           <h1 class="title">{{ talk.title }}</h1>
           <hr />
-          <vote-counter v-model="vote[talk.id]" />
+          <vote-counter v-model="vote[talk.uuid]" :disableIncrease="count.remain <= 0" />
           <button class="lookup" @click="modelTalk = talk">查看摘要</button>
         </div>
       </div>
       <btn class="submit" @click="submit">送出</btn>
     </div>
-    <talk-modal v-model:talk="modelTalk" v-model:vote="vote[modelTalk?.id]" />
+    <talk-modal v-model:talk="modelTalk" v-model:vote="vote[modelTalk?.uuid]" :count="count" />
   </div>
 </template>
 
 <style scoped lang="sass">
+.remain-text
+  color: #383838
+  font-size: 14px
+  font-weight: 400
 .talks
   overflow: scroll
+  flex: 1
   display: grid
   // grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
   gap: 16px
+.status-text
+  height: 100%
+  display: flex
+  justify-content: center
+  align-items: center
+  font-size: 24px
 .talk
   height: 240px
   display: flex

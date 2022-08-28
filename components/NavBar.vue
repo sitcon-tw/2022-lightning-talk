@@ -20,7 +20,7 @@ useHead({ title })
     <NuxtLink to="/" class="logo">
       <img src="~/assets/img/logo.svg" />
     </NuxtLink>
-    <div class="title">
+    <div class="title" id="title">
       <span v-if="!isHome">{{ title }}</span>
     </div>
     <info-btn />

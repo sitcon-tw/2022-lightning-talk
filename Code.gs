@@ -1,10 +1,11 @@
 const OPassURL = ''
 const SpreadsheetId = ''
+const VoteCount = 10
 const debug = false
 
 const SheetsSchema = {
   talks: ['uuid', 'time', 'isValid', 'token', 'name', 'title', 'description', 'contact'],
-  votes: ['time', 'isValid', 'token', 'votes'],
+  votes: ['time', 'isValid', 'token', 'votes.json'],
   rank: ['uuid', 'title', 'contact']
 }
 
@@ -18,10 +19,17 @@ for(const name in SheetsSchema) {
   sheet.getAllData = () => {
     return sheet.getSheetValues(2,1,sheet.getLastRow()-1,sheet.getLastColumn())
       .map(ary => {
-        const data = Object.create(null)
-        for(let i = 0; i < headers.length; i++)
-          data[ headers[i] ] = ary[i]
-        return data
+        const obj = Object.create(null)
+        for(let i = 0; i < headers.length; i++) {
+          let name = headers[i]
+          let data = ary[i]
+          if (name.endsWith('.json')) {
+            name = name.replace('.json','')
+            data = JSON.parse(data)
+          }
+          obj[name] = data
+        }
+        return obj
       })
   }
   // TODO: race condition :(
@@ -43,7 +51,7 @@ function generateMapping(ary) {
 }
 
 function init() {
-  // SpreadSheet.insertSheet()
+  throw new Error('TODO')
 }
 
 function respJson(resp) {
@@ -83,7 +91,7 @@ function saveTalk(data) {
 
   const uuid = Utilities.getUuid()
   const valid = isValid(token)
-  const oldRow = valid ? Sheets.talks.getRow(token) : null
+  // const oldRow = valid ? Sheets.talks.getRow(token) : null
   const row = [
     uuid,
     new Date().toLocaleString(),
@@ -92,7 +100,7 @@ function saveTalk(data) {
   ]
   Sheets.talks.appendRow(row)
   if (!valid) return { message: 'Invalid token' }
-  if (oldRow) return { message: 'Token used', uuid: oldRow.uuid }
+  // if (oldRow) return { message: 'Token used', uuid: oldRow.uuid }
   return { uuid }
 }
 
@@ -101,8 +109,8 @@ function getValidTalks() {
   const data = Sheets.talks.getAllData()
   const talks = []
   for(const talk of data) {
-    const { token } = talk
-    if (!isValid(token) || tokenSet.has(token)) continue
+    const { token, isValid } = talk
+    if (!isValid || tokenSet.has(token)) continue
     tokenSet.add(token)
     talks.push(talk)
   }
@@ -124,7 +132,23 @@ function showTalk() {
 showTalk = wrapCache(showTalk)
 
 function saveVote(data) {
-  throw new Error('TODO')
+  const { token, votes } = data
+  if (!token) return { message: 'Missing token' }
+  if (!votes) return { message: 'Missing votes' }
+  if (!votes instanceof Array) return { message: 'Votes not array !?' }
+
+  const valid = isValid(token)
+  // const oldRow = valid ? Sheets.votes.getRow(token) : null
+  const row = [
+    new Date().toLocaleString(),
+    valid,
+    token, JSON.stringify(votes)
+  ]
+  Sheets.votes.appendRow(row)
+  if (!valid) return { message: 'Invalid token' }
+  // if (oldRow) return { message: 'Token used', vote: true }
+  if (votes.length > VoteCount) return { message: `You only have ${VoteCount} vote(s).` }
+  return { vote: true }
 }
 
 function showRank() {
