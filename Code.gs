@@ -72,7 +72,7 @@ function toArray(headers) {
         data = data ?? new Date()
       }
       if (name.endsWith('.json'))
-        data = JSOn.stringify(data)
+        data = JSON.stringify(data)
       ary[i] = data
     }
     return ary

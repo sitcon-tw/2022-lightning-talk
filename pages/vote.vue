@@ -30,10 +30,10 @@ const count = ref({
 const submit = async () => {
   if (!confirm("送出投票後將無法修改，確定送出嗎？"))
     return false
-  const data = Object.entries(vote.value)
+  const votes = Object.entries(vote.value)
     .filter(([,v]) => v > 0)
     .reduce((a, [k, v]) => a.concat(Array(v).fill(k)), [])
-  const res = await workerFetch('vote', { votes: data })
+  const res = await workerFetch('vote', { votes })
   if (res.vote) store.status.vote = true
   return true
 }
