@@ -143,12 +143,11 @@ function isValid(token) {
 }
 isValid = wrapCache(isValid, TIMEOUT.LONG)
 
-function saveTalk(data) {
-  const { token, name, title, description, contact } = data
+function saveTalk({ token, name, title, description, contact }) {
   if (!token) return { message: 'Missing token' }
   if (!name) return { message: 'Missing name' }
   if (!title) return { message: 'Missing title' }
-  // if (!description) return { message: 'Missing description' }
+  if (!description) return { message: 'Missing description' }
   if (!contact) return { message: 'Missing contact' }
 
   const uuid = Utilities.getUuid()
@@ -168,8 +167,7 @@ function showTalk() {
 }
 showTalk = wrapCache(showTalk)
 
-function saveVote(data) {
-  const { token, votes } = data
+function saveVote({ token, votes }) {
   if (!token) return { message: 'Missing token' }
   if (!votes) return { message: 'Missing votes' }
   if (!votes instanceof Array) return { message: 'Votes not array !?' }
@@ -200,11 +198,21 @@ function showRank() {
 }
 showRank = wrapCache(showRank)
 
+function showStat({ token }) {
+  const status = {
+    post: !!Sheets.talks.getRow(token),
+    vote: !!Sheets.votes.getRow(token),
+  }
+  return status
+}
+
+
 const actions = {
   'post': saveTalk,
   'talk': showTalk,
   'vote': saveVote,
   'rank': showRank,
+  'stat': showStat,
 }
 
 function getBody({ postData: { type, contents } = {}, parameter }) {
