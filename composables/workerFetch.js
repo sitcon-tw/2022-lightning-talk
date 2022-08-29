@@ -11,8 +11,7 @@ export const workerFetch = async (action, body) => {
         ...unref(body),
     })
   }
-  if (!process.client) return {}
-  const res = await fetch(`${config.worker_url}/${action}`, opt).then(res => res.json())
+  const res = await fetchJSON(`${config.worker_url}/${action}`, opt)
   if (res.message) alert(res.message)
   return res
 }
