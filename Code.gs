@@ -6,7 +6,7 @@ const debug = false
 const SheetsSchema = {
   talks: ['uuid', 'time', 'valid', 'token', 'name', 'title', 'description', 'contact'],
   votes: ['time', 'valid', 'token', 'votes.json'],
-  rank: ['uuid', 'time', 'count', 'title', 'contact']
+  rank: ['uuid', 'time', 'count', 'title', 'name', 'contact']
 }
 const dataCols = ['uuid','count','title','description']
 
