@@ -40,19 +40,13 @@ for(const name in SheetsSchema) {
     return data
   }
   // TODO: race condition :(
-  sheet.getRow = (token) => {
-    const cache_key = `${name}getRow${token}`
-    const cached = cache.get(cache_key)
-    if (!debug && cached != null) return JSON.parse(cached)
-
+  sheet.getRow = wrapCache( (token) => {
     const data = sheet.getAllData(true)
     for(const row of data)
-      if (token === row.token) {
-        cache.put(cache_key, JSON.stringify(row), TIMEOUT.MID)
+      if (token === row.token)
         return row
-      }
     return null
-  }
+  } )
   Sheets[name] = sheet
 }
 
