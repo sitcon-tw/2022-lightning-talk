@@ -1,7 +1,7 @@
 export const workerFetch = async (action, body) => {
   const store = useStore()
   body = unref(body)
-  const opt = !body ? null : {
+  const opt = !body ? {} : {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
@@ -11,7 +11,7 @@ export const workerFetch = async (action, body) => {
         ...unref(body),
     })
   }
-  const res = await fetch(`${config.worker_url}/${action}`, opt).then(res => res.json())
+  const { data: res } = await useFetch(`${config.worker_url}/${action}`, opt)
   if (res.message) alert(res.message)
   return res
 }

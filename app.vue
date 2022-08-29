@@ -14,9 +14,9 @@ const updateVh = () => {
   const vh = window.innerHeight * 0.01
   document.documentElement.style.setProperty('--vh', `${vh}px`)
 }
-useEventListener(document,' resize', updateVh)
+if (process.client) useEventListener(window, 'resize', updateVh)
 onMounted(() => {
-  updateVh()
+  if (process.client) updateVh()
 })
 </script>
 

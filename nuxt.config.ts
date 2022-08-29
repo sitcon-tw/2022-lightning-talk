@@ -51,7 +51,7 @@ export default defineNuxtConfig({
       ],
     },
   },
-  ssr: false,
+  ssr: process.env.NODE_ENV !== 'development',
   nitro: {
     prerender: {
       routes: ['/404.html'],

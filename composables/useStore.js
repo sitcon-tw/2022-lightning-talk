@@ -40,8 +40,7 @@ export const useStore = defineStore('main', () => {
   async function setupToken(newToken) {
     newToken = unref(newToken)
     if (!newToken) return false
-    const res = await fetch(`${config.opass_url}/status?token=${encodeURIComponent(newToken)}`)
-      .then((res) => res.json())
+    const { data: res } = await useFetch(`${config.opass_url}/status?token=${encodeURIComponent(newToken)}`)
     if (res.message) {
       alert(res.message)
       return false

@@ -30,6 +30,12 @@ const onDecode = (token) => {
   scanQRCodeModal.value = false
   store.setupToken(token)
 }
+
+const qrcodestream = ref()
+onMounted(async () => {
+  const { QrcodeStream } = await import("qrcode-reader-vue3")
+  qrcodestream.value = QrcodeStream
+})
 </script>
 
 <template>
@@ -63,8 +69,8 @@ const onDecode = (token) => {
     <modal v-model:open="scanQRCodeModal">
       <h2 class="title">掃描票券 QR Code</h2>
       <p class="text">請開啟 OPass 中的我的票券，並掃描其中的 QR Code。</p>
-      <qrcode-stream class="qrstream" @decode="onDecode">
-      </qrcode-stream>
+      <component :is="qrcodestream" class="qrstream" @decode="onDecode">
+      </component>
     </modal>
   </div>
 </template>
