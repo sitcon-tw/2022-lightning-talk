@@ -4,6 +4,7 @@
     "post",
     "talk",
     "vote",
-    "rank"
+    "rank",
+    "stat"
   ]
 }

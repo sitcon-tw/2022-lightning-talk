@@ -198,12 +198,10 @@ function showRank() {
 }
 showRank = wrapCache(showRank)
 
-function showStat({ token }) {
-  const status = {
-    post: !!Sheets.talks.getRow(token),
-    vote: !!Sheets.votes.getRow(token),
-  }
-  return status
+function showStat({ token, post, vote }) {
+  if (!post) post = !!Sheets.talks.getRow(token)
+  if (!vote) vote = !!Sheets.votes.getRow(token)
+  return { post, vote }
 }
 
 
