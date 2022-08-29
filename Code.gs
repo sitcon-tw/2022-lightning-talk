@@ -176,7 +176,7 @@ function showRank() {
   const talks = Sheets.talks.getAllData()
   for(const talk of talks)
     talk.count = votesMap.get(talk.uuid) ?? 0
-  talks.sort((a, b) => b.count - a.count || b.time.getTime() - a.time.getTime())
+  talks.sort((a, b) => b.count - a.count || a.time.getTime() - b.time.getTime())
   const savedTalks = talks.map(toArray(SheetsSchema.rank))
   Sheets.rank.getAllRange(savedTalks.length).setValues(savedTalks)
   return { talks: talks.filterCol(dataCols) }
