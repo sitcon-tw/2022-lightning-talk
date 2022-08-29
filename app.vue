@@ -39,7 +39,7 @@ html, body
   font-family: 'Noto Sans TC', sans-serif
   overflow: hidden
   line-height: 1.5
-  word-break: break-all
+  word-break: break-word
 h1, h2
   margin: 0
   text-align: center
