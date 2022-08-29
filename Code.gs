@@ -88,6 +88,11 @@ Array.prototype.filterCol = function (dataCols) {
   })
 }
 
+function sha1(str) {
+  return Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_1, str)
+    .map(v => ((v+0x100)%0x100).toString(16).padStart(2,'0')).join('')
+}
+
 function generateMapping(ary) {
   const mapping = new Map()
   for(let i = 0; i < ary.length; i++)
@@ -203,7 +208,7 @@ function handle(e) {
   const resp = {}
   try {
     const reqData = getBody(e)
-    if (reqData?.token) reqData.token = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_1, reqData.token)
+    if (reqData?.token) reqData.token = sha1(reqData.token)
     const { action } = e.parameter
     const res = actions[action](reqData)
     Object.assign(resp, res)
