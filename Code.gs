@@ -10,6 +10,13 @@ const SheetsSchema = {
 }
 const dataCols = ['uuid','count','title','description']
 
+const cache = CacheService.getScriptCache()
+const TIMEOUT = {
+  SHROT: 60,          // 1min
+  MID: 60 * 60,       // 1hour
+  LONG: 60 * 60 * 24, // 1day
+}
+
 const SpreadSheet = SpreadsheetApp.openById(SpreadsheetId)
 const Sheets = {}
 for(const name in SheetsSchema) {
@@ -34,10 +41,16 @@ for(const name in SheetsSchema) {
   }
   // TODO: race condition :(
   sheet.getRow = (token) => {
+    const cache_key = `${name}getRow${token}`
+    const cached = cache.get(cache_key)
+    if (!debug && cached != null) return JSON.parse(cached)
+
     const data = sheet.getAllData(true)
     for(const row of data)
-      if (token === row.token)
+      if (token === row.token) {
+        cache.put(cache_key, JSON.stringify(row), TIMEOUT.MID)
         return row
+      }
     return null
   }
   Sheets[name] = sheet
@@ -109,16 +122,15 @@ function respJson(resp) {
       .createTextOutput(JSON.stringify(resp))
       .setMimeType(ContentService.MimeType.JSON)
 }
-function wrapCache(func, timeout = 60) {
+function wrapCache(func, timeout = TIMEOUT.SHROT) {
   if (debug) return func
   return (...args) => {
-    const cache = CacheService.getScriptCache()
-    const cache_key = func.name + Array.from(args).join()
+    const cache_key = sha1(func + JSON.stringify(args))
     const cached = cache.get(cache_key)
     if (cached != null) return JSON.parse(cached)
 
     const ret = func(...args)
-    cache.put(cache_key, JSON.stringify(ret), timeout)
+    if (ret) cache.put(cache_key, JSON.stringify(ret), timeout)
     return ret
   }
 }
@@ -129,7 +141,7 @@ function isValid(token) {
   const res = JSON.parse(resp.getContentText())
   return !res.message
 }
-isValid = wrapCache(isValid, 60*60*24)
+isValid = wrapCache(isValid, TIMEOUT.LONG)
 
 function saveTalk(data) {
   const { token, name, title, description, contact } = data
