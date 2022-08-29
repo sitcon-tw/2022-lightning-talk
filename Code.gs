@@ -1,4 +1,4 @@
-const OPassURL = ''
+const OPassURL = 'https://sitcon.opass.app'
 const SpreadsheetId = ''
 const VoteCount = 10
 const debug = false
@@ -119,7 +119,7 @@ function wrapCache(func, timeout = 60) {
 }
 
 function isValid(token) {
-  const url = `${OPassURL}/status?token=${encodeURIComponent(token)}`
+  const url = `${OPassURL}/event/puzzle?token=${encodeURIComponent(token)}`
   const resp = UrlFetchApp.fetch(url, { muteHttpExceptions: true })
   const res = JSON.parse(resp.getContentText())
   return !res.message
@@ -203,6 +203,7 @@ function handle(e) {
   const resp = {}
   try {
     const reqData = getBody(e)
+    if (reqData?.token) reqData.token = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_1, reqData.token)
     const { action } = e.parameter
     const res = actions[action](reqData)
     Object.assign(resp, res)
