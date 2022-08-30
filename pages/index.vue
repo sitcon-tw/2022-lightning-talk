@@ -50,9 +50,10 @@ const routes = [
     grid-template-columns: 1fr 1fr
 
 .right
-  max-width: 540px
   display: flex
   flex-direction: column
+  @media screen and (min-width: 769px)
+    max-width: 540px
 
 .banner
   display: flex

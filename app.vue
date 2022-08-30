@@ -124,15 +124,7 @@ hr
   border-radius: 10px
   overflow: hidden
   &.active
-    &::before
-      content: ''
-      position: absolute
-      top: 0
-      left: 0
-      width: calc(100% - 12px)
-      height: calc(100% - 12px)
-      border: 6px solid #82D357
-      border-radius: 10px
+    box-shadow: 0px 0px 8px #82D357
   .title
     overflow: hidden
     display: -webkit-box
