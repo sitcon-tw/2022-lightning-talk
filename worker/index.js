@@ -39,14 +39,14 @@ function requestData(action, body = null) {
     .then(res => res.json())
 }
 
-router.get('/:action', async (request) => {
+router.get('/:action', async (request, event) => {
   const action = request.params.action
   const returnData = await requestData(action)
   if (returnData instanceof Response) return returnData
   return responseJson(returnData)
 })
 
-router.post('/:action', async (request) => {
+router.post('/:action', async (request, event) => {
   if (!request.headers.get('Content-Type').startsWith('application/json'))
     return badRequest('Content-Type must be application/json')
   const action = request.params.action
@@ -56,7 +56,7 @@ router.post('/:action', async (request) => {
   return responseJson(returnData)
 })
 
-router.options('/:action', async (request) => {
+router.options('/:action', async (request, event) => {
   const action = request.params.action
   const res = check_action(action)
   if (res !== true) return res
@@ -66,11 +66,11 @@ router.options('/:action', async (request) => {
 router.all('*', () => badRequest('404, not found!', 404))
 
 addEventListener('fetch', (e) => {
-  const resp = router.handle(e.request)
+  const resp = router.handle(e.request, e)
     .then(res => add_cors_headers(e.request, res))
     .catch(e => {
       console.error(e)
-      return responseJson({ message: 'Internal Server Error' }, 500)
+      return badRequest('Internal Server Error', 500)
     })
   e.respondWith(resp)
 })
