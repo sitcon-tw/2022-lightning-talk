@@ -30,9 +30,8 @@ async function requestData(event, action, body = null) {
   if (res !== true) return res
 
   const url = `${config.server_url}?action=${encodeURIComponent(action)}`
-  const cacheKey = new Request(url, event.request)
+  const cacheKey = new Request(url, event.request.clone())
   let resp = await caches.default.match(cacheKey)
-  // console.log('cached', resp)
 
   if (!resp) {
     const opt = {}
@@ -46,8 +45,8 @@ async function requestData(event, action, body = null) {
     resp = new Response(resp.body, resp)
     if (!body && resp.ok) {
       resp.headers.set('Cache-Control', 'public, max-age=60')
+      event.waitUntil(caches.default.put(cacheKey, resp.clone()))
     }
-    event.waitUntil(caches.default.put(cacheKey, resp.clone()))
   }
   const ret = await resp.json()
   return ret
@@ -80,10 +79,10 @@ router.options('/:action', async (request, event) => {
 router.all('*', () => badRequest('404, not found!', 404))
 
 addEventListener('fetch', (e) => {
-  const resp = router.handle(e.request, e)
-    .then(res => add_cors_headers(e.request, res))
+  const resp = router.handle(e.request.clone(), e)
+    .then(res => add_cors_headers(e.request.clone(), res))
     .catch(e => {
-      console.error(e)
+      console.error(e.message, e.stack)
       return badRequest('Internal Server Error', 500)
     })
   e.respondWith(resp)
