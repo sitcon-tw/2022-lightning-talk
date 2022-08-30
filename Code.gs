@@ -244,14 +244,14 @@ function getBody({ postData: { type, contents } = {}, parameter }) {
 function handle(e) {
   const resp = {}
   try {
-    const reqData = getBody(e)
+    const reqData = getBody(e) ?? {}
     if (reqData?.token) reqData.token = sha1(reqData.token)
     const { action } = e.parameter
     const res = actions[action](reqData)
     Object.assign(resp, res)
   } catch (e) {
     console.error(e)
-    resp.message = "Internal server erorr, contact admin :("
+    resp.message = "Internal server error, contact admin :("
     if (DEBUG) {
     resp.message = e.message
       resp.stack = e.stack
