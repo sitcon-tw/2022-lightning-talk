@@ -1,5 +1,5 @@
 import { Router } from 'itty-router'
-import config from './config.json'
+import config from './config'
 
 const router = Router()
 
@@ -22,6 +22,19 @@ function add_cors_headers(req, res) {
 function check_action(action) {
   if (!action) return badRequest('action is required')
   if (!config.actions.some(v => v === action)) return badRequest('action is invalid')
+  const scope = config.scopes[action]
+  if (scope) {
+    let { available_time, expire_time } = scope
+    let now = new Date().getTime()
+    if (available_time) {
+      available_time = new Date(available_time).getTime()
+      if (now < available_time) return badRequest('action is not available yet')
+    }
+    if (expire_time) {
+      expire_time = new Date(expire_time).getTime()
+      if (now > expire_time) return badRequest('action is expired')
+    }
+  }
   return true
 }
 
