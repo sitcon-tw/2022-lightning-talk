@@ -50,15 +50,18 @@ const submit = async () => {
     max-height: 900px
     padding-right: 50%
     align-items: flex-end
-    background: url(~/assets/img/cat-post.svg) no-repeat calc(50% + 300px) bottom
+    background-image: url(~/assets/img/cat-post.svg) no-repeat
+    background-repeat: no-repeat
+    background-size: auto 200%
+    background-position: calc(50% + 300px) bottom
     &::before
       content: '感謝您的投稿！'
       font-size: 24px
       font-weight: 700
       letter-spacing: 5px
       position: absolute
-      bottom: 445px
-      left: calc(50% + 450px)
+      bottom: calc(50% + 80px)
+      left: calc(50% + 320px)
       transform: rotate(-25deg)
 .inputs
   height: 100%
@@ -86,8 +89,9 @@ input, textarea
     outline: 1px solid #82D357
   &:required:invalid:not(:empty)
     outline: 1px solid #FF5252
-.text + *:is(input, textarea)
-  margin-top: -24px
+@media screen and (min-width: 769px)
+  .text + *:is(input, textarea)
+    margin-top: -24px
 textarea
   flex: 1
   max-height: 300px

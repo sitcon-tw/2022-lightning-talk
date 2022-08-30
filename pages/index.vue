@@ -20,7 +20,6 @@ const routes = [
 <template>
   <div class="index">
     <div class="left hide-mobile">
-      <img src="~/assets/img/cat-index.svg" />
     </div>
     <div class="right">
       <div class="banner">
@@ -48,6 +47,12 @@ const routes = [
   display: grid
   @media screen and (min-width: 769px)
     grid-template-columns: 1fr 1fr
+
+.left
+  background-image: url(~/assets/img/cat-index.svg)
+  background-repeat: no-repeat
+  background-size: cover
+  background-position: right
 
 .right
   display: flex
