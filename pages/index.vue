@@ -93,6 +93,7 @@ h1
     left: 50%
     transform: translate(-50%, -50%)
     font-size: 24px
+    margin: 0
   @media screen and (min-width: 769px)
     font-size: 36px
     line-height: 40px
