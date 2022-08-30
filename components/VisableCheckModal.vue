@@ -14,7 +14,7 @@ const hide = () => {
 
 const message = computed(() => store.invisableMessage())
 const open = computed(() => !loading.value && message.value !== '')
-const icon = computed(() => message?.icon || `bx bxs-info-circle`)
+const icon = computed(() => message?.value?.icon || `bx bxs-info-circle`)
 const text = computed(() => typeof message.value === 'string' ? message.value : message.value?.msg ?? title)
 const to = computed(() => message.value?.to ?? '/')
 const btnText = computed(() => message.value?.btnText ?? '返回')
