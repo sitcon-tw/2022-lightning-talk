@@ -216,8 +216,8 @@ function showRank() {
 }
 
 function showStat({ token, post, vote }) {
-  if (!post) post = !!Sheets.talks.getRow(token)
-  if (!vote) vote = !!Sheets.votes.getRow(token)
+  if (!post) post = Sheets.talks.getRow(token)
+  if (!vote) vote = Sheets.votes.getRow(token)
   return { post, vote }
 }
 
