@@ -79,7 +79,7 @@ const addComma = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
         color: #9D9D9D
     &:nth-of-type(3) .rank-bg
         color: #D29E62
-  @media screen and (max-width: 1200px)
+  @media screen and (min-width: 769px) and (max-width: 1200px)
     .rank-bg
       width: 100px
       font-size: 46px
