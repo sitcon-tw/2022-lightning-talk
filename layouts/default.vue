@@ -11,6 +11,7 @@
 .outer-container
   height: 100%
 .container
+  overflow-y: scroll
   height: calc(100% - 70px)
   padding: 0 20px
 </style>

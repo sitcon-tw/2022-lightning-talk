@@ -45,6 +45,7 @@ const routes = [
 <style scoped lang="sass">
 .index
   display: grid
+  height: 100%
   @media screen and (min-width: 769px)
     grid-template-columns: 1fr 1fr
 
@@ -56,7 +57,7 @@ const routes = [
     top: 0
     right: 0
     width: 200%
-    height: 200%
+    height: 100%
     background-image: url(~/assets/img/cat-index.svg)
     background-repeat: no-repeat
     background-size: 70%
