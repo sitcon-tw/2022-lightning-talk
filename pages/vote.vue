@@ -49,7 +49,9 @@ const submit = async () => {
       </Teleport>
     </template>
 
-    <div class="status-text" v-if="loading">稿件載入中...</div>
+    <div class="status-text" v-if="loading">
+      <Loader />
+    </div>
     <div class="status-text" v-else-if="!talks || !talks.length">尚無稿件!?</div>
     <div class="page has-talk-modal" v-else>
       <div class="talks">

@@ -17,7 +17,9 @@ const addComma = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
 <template>
   <div class="root">
-    <div class="status-text" v-if="loading">結果載入中...</div>
+    <div class="status-text" v-if="loading">
+      <Loader />
+    </div>
     <div class="status-text" v-else-if="!talks || !talks.length">尚無稿件!?</div>
     <div class="page" v-else>
       <div class="talks">
