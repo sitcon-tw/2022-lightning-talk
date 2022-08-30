@@ -44,8 +44,8 @@ const addComma = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 <style scoped lang="sass">
 .talk
   padding: 0px 26px 16px 26px
+  cursor: pointer
   @media screen and (min-width: 769px)
-    gap: 30px
     flex-direction: row
     align-items: center
     font-size: 64px
@@ -69,34 +69,42 @@ const addComma = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
         color: #FFFFFF
   @media screen and (min-width: 769px)
     .rank-bg
-      width: 15%
-    .rank
+      width: 150px
+      font-size: 60px
+      font-weight: 700
       color: #D9D9D9
-    &:nth-of-type(1) .rank
+    &:nth-of-type(1) .rank-bg
         color: #FFBE76
-    &:nth-of-type(2) .rank
+    &:nth-of-type(2) .rank-bg
         color: #9D9D9D
-    &:nth-of-type(3) .rank
+    &:nth-of-type(3) .rank-bg
         color: #D29E62
+  @media screen and (max-width: 1200px)
+    .rank-bg
+      width: 100px
+      font-size: 46px
 
   .vote
     text-align: end
+    font-size: 32px
     font-weight: 500
     @media screen and (max-width: 768px)
       display: inline-block
       align-self: flex-start
       width: 80%
-      font-size: 32px
     @media screen and (min-width: 769px)
-      width: 30%
-      font-size: 40px
+      width: 200px
+    @media screen and (min-width: 1200px)
+      width: 280px
     .number
       font-size: 64px
       font-weight: 700
       color: #82D357
       -webkit-text-stroke: 1px
       @media screen and (min-width: 769px)
-        font-size: 96px
+        font-size: 60px
+      @media screen and (min-width: 1200px)
+        font-size: 90px
 
 
   hr
@@ -104,6 +112,7 @@ const addComma = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
       margin-bottom: 10px
     @media screen and (min-width: 769px)
       height: 50%
+      margin: 0 30px
 
   .text
     font-size: 12px

@@ -62,7 +62,11 @@ nav
 
 .back
   width: 32px
-  height: 32px
+  height: 100%
+  z-index: 1
+  background: #F4EEE1
+  display: flex
+  justify-content: center
   .home &
     display: none
   @media screen and (min-width: 769px)

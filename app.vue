@@ -150,4 +150,5 @@ hr
     color: #FFFFFF
     background: #82D357
     border-radius: 0 0 10px 10px
+    cursor: pointer
 </style>
