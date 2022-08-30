@@ -69,16 +69,26 @@ hr
 .root
   height: 100%
   position: relative
+  display: flex
+  flex-direction: column
+  @media screen and (min-width: 769px)
+    gap: 30px
+    flex-direction: row
   .page
     height: 100%
+    flex: 6
     display: flex
     flex-direction: column
-    .hide &
-      display: none
     > :nth-child(1)
       margin-bottom: 16px
+    @media screen and (min-width: 769px)
+      &.has-talk-modal
+        width: 60%
+  .hide & > *
+    display: none
 
 .status-text
+  flex: 1
   height: 100%
   display: flex
   justify-content: center
@@ -111,8 +121,19 @@ hr
   display: flex
   flex-direction: column
   background: #FFFFFF
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2)
   border-radius: 10px
-  overflow: hidden
+  // overflow: hidden
+  &.active
+    &::before
+      content: ''
+      position: absolute
+      top: 0
+      left: 0
+      width: calc(100% - 8px)
+      height: calc(100% - 8px)
+      border: 6px solid #82D357
+      border-radius: 10px
   .title
     overflow: hidden
     display: -webkit-box
@@ -128,4 +149,5 @@ hr
     font-weight: 400
     color: #FFFFFF
     background: #82D357
+    border-radius: 0 0 10px 10px
 </style>

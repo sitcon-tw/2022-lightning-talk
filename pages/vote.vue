@@ -45,22 +45,26 @@ const submit = async () => {
 
     <template v-if="!loading && store.canVisit()">
       <Teleport to="#title">
-        <div class="remain-text">剩餘票數：{{ count.remain }}</div>
+        <div class="remain-text hide-desktop">剩餘票數：{{ count.remain }}</div>
       </Teleport>
     </template>
 
     <div class="status-text" v-if="loading">稿件載入中...</div>
     <div class="status-text" v-else-if="!talks || !talks.length">尚無稿件!?</div>
-    <div class="page" v-else>
+    <div class="page has-talk-modal" v-else>
       <div class="talks">
-        <div class="talk" v-for="talk in talks" :key="talk.uuid">
+        <div class="talk" v-for="talk in talks" :key="talk.uuid" :class="{ active: modelTalk === talk }">
           <h1 class="title">{{ talk.title }}</h1>
           <hr />
           <vote-counter v-model="vote[talk.uuid]" :disableIncrease="count.remain <= 0" />
           <button class="lookup" @click="modelTalk = talk">查看摘要</button>
         </div>
       </div>
-      <btn class="submit" @click="submit">送出</btn>
+      <hr class="hide-mobile" />
+      <div class="footer">
+        <div class="remain-text hide-mobile">剩餘票數：{{ count.remain }}</div>
+        <btn class="submit" @click="submit">送出</btn>
+      </div>
     </div>
     <talk-modal v-model:talk="modelTalk" v-model:vote="vote[modelTalk?.uuid]" :count="count" />
   </div>
@@ -72,9 +76,26 @@ const submit = async () => {
   font-size: 14px
   font-weight: 400
 
+.talks
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+
 .talk
   .title
     font-size: 24px
     font-weight: 900
     margin: 16px 26px
+
+.footer
+  display: flex
+  justify-content: space-between
+  align-items: center
+  @media screen and (min-width: 769px)
+    margin-top: 16px
+    margin-bottom: 56px
+  .remain-text
+    font-size: 20px
+    font-weight: 500
+  .btn
+    @media screen and (max-width: 768px)
+      flex: 1
 </style>

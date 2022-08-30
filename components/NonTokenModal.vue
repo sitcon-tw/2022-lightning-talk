@@ -39,7 +39,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div>
+  <div class="non-token-modal">
     <modal v-model:open="open">
       <h2 class="title">尚未登入或未完成報到</h2>
       <p class="text">請檢查 OPass 是否已成功報到，或透過下列方式進入遊戲。</p>
@@ -76,6 +76,9 @@ onMounted(async () => {
 </template>
 
 <style scoped lang="sass">
+.non-token-modal
+  position: absolute
+
 .select-items
   display: flex
   gap: 16px
