@@ -123,15 +123,15 @@ hr
   background: #FFFFFF
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2)
   border-radius: 10px
-  // overflow: hidden
+  overflow: hidden
   &.active
     &::before
       content: ''
       position: absolute
       top: 0
       left: 0
-      width: calc(100% - 8px)
-      height: calc(100% - 8px)
+      width: calc(100% - 12px)
+      height: calc(100% - 12px)
       border: 6px solid #82D357
       border-radius: 10px
   .title
