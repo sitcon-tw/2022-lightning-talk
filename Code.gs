@@ -31,6 +31,7 @@ for(const name in SheetsSchema) {
   sheet.append = (obj) => sheet.appendRow(toArray(headers)(obj))
   sheet.getAllRange = (cRow = sheet.getLastRow()-1) => sheet.getRange(2,1,cRow,sheet.getLastColumn())
   sheet.getAllData = (validate = true) => {
+    if (sheet.getLastRow() <= 1) return []
     const rawData = sheet.getAllRange().getValues().map(toObject(headers))
     if (!headers.some(v => v === 'valid') || !validate) return rawData
     const tokenSet = new Set()
@@ -247,6 +248,7 @@ function handle(e) {
     const res = actions[action](reqData)
     Object.assign(resp, res)
   } catch (e) {
+    console.error(e)
     resp.message = e.message
     if (debug) resp.stack = e.stack
   } finally {
