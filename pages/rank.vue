@@ -24,15 +24,15 @@ const addComma = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
         <div class="talk" v-for="(talk, rank) in talks" :key="talk.uuid"
           @click="modelTalk = talk" :class="{ active: modelTalk === talk }">
           <div class="rank-bg">
-            <div class="rank">{{ ordinal(rank + 1) }}</div>
+            <div class="rank">{{  ordinal(rank + 1)  }}</div>
           </div>
           <div class="vote">
-            <span class="number">{{ addComma(talk.count) }}</span>
+            <span class="number">{{  addComma(talk.count)  }}</span>
             票
           </div>
           <hr />
           <div class="text hide-desktop">議程名稱</div>
-          <h1 class="title">{{ talk.title }}</h1>
+          <h1 class="title">{{  talk.title  }}</h1>
           <button class="lookup">查看摘要</button>
         </div>
       </div>
@@ -42,6 +42,10 @@ const addComma = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 </template>
 
 <style scoped lang="sass">
+.talks
+  padding: 16px 8px
+  padding-top: 0
+  margin: 0 -8px
 .talk
   padding: 0px 26px 16px 26px
   cursor: pointer
@@ -62,11 +66,11 @@ const addComma = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
       background: #82D357
       border-radius: 50%
     .rank
-        position: absolute
-        bottom: 24px
-        left: calc(50% - 44px)
-        font-size: 20px
-        color: #FFFFFF
+      position: absolute
+      bottom: 24px
+      left: calc(50% - 44px)
+      font-size: 20px
+      color: #FFFFFF
   @media screen and (min-width: 769px)
     .rank-bg
       width: 150px
@@ -74,11 +78,11 @@ const addComma = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
       font-weight: 700
       color: #D9D9D9
     &:nth-of-type(1) .rank-bg
-        color: #FFBE76
+      color: #FFBE76
     &:nth-of-type(2) .rank-bg
-        color: #9D9D9D
+      color: #9D9D9D
     &:nth-of-type(3) .rank-bg
-        color: #D29E62
+      color: #D29E62
   @media screen and (min-width: 769px) and (max-width: 1200px)
     .rank-bg
       width: 100px
@@ -124,7 +128,6 @@ const addComma = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     @media screen and (min-width: 769px)
       font-size: 24px
       font-weight: 900
-
   .lookup
     border-radius: 10px
 </style>
