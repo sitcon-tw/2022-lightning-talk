@@ -19,7 +19,9 @@ export const useStore = defineStore('main', () => {
     if (scope === 'index') return ''
     if (!getIsAvailable(scope)) return '尚未開放'
     if (getIsExpire(scope)) return '已經結束'
-    if (status.value[scope]) return '已經完成'
+    if (status.value[scope]) {
+      return { msg: `已完成${config.scopes[scope].name}`, btnText: '完成' }
+    }
     for (const req of getRequired(scope)) {
       if (!getIsExpire(req) && !status.value[req]) {
         const name = config.scopes[req]?.name ?? req

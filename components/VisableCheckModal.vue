@@ -14,16 +14,14 @@ const hide = () => {
 
 const message = computed(() => store.invisableMessage())
 const open = computed(() => !loading.value && message.value !== '')
-const text = computed(() => typeof message.value === 'string' ? message.value : '')
-const msg = computed(() => message.value?.msg)
+const text = computed(() => typeof message.value === 'string' ? message.value : message.value?.msg ?? title)
 const to = computed(() => message.value?.to ?? '/')
 const btnText = computed(() => message.value?.btnText ?? '返回')
 </script>
 
 <template>
   <modal :open="open" disable-close style="z-index: 200">
-    <h1>{{ title }} {{ text }}</h1>
-    <p>{{ msg }}</p>
+    <h1>{{ text }}</h1>
     <btn :to="to" @click="hide">{{ btnText }}</btn>
   </modal>
 </template>
