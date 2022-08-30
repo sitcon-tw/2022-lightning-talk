@@ -33,14 +33,13 @@ watch(open, (v) => {
 <template>
   <div class="talk-modal">
     <div class="modal placeholder hide-mobile" v-if="!open">點擊左側任一「查看摘要」按鈕以顯示內容。</div>
-    <Transition name="modal">
+    <Transition name="talk-modal">
       <div class="modal" v-if="open">
         <a class="close hide-desktop" @click="close(false)">
           <img src="~/assets/img/X.svg" />
         </a>
         <div class="info">
           <h1 class="title">{{  talk.title  }}</h1>
-          <hr class="hide-mobile" />
           <div class="text">摘要</div>
           <div class="description">{{  talk.description || '講者未填寫摘要'  }}</div>
         </div>
@@ -105,17 +104,17 @@ watch(open, (v) => {
   font-size: 24px
   font-weight: 900
   letter-spacing: 1px
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 1375px)
     margin-bottom: 40px
-  @media screen and (min-width: 769px)
+  @media screen and (min-width: 1376px)
     font-size: 40px
-    margin: 80px 0
+    margin-top: 1em
 .text
   font-size: 12px
   font-weight: 700
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 1375px)
     margin-bottom: 1em
-  @media screen and (min-width: 769px)
+  @media screen and (min-width: 1376px)
     font-size: 24px
     margin-top: 32px
     margin-bottom: 16px
@@ -123,7 +122,7 @@ watch(open, (v) => {
   font-size: 16px
   font-weight: 400
   white-space: per-line
-  @media screen and (min-width: 769px)
+  @media screen and (min-width: 1376px)
     font-size: 20px
 
 .btn

@@ -81,7 +81,7 @@ h1
     position: absolute
     top: 0
     left: 50%
-    transform: translate(-50%, -50%)
+    transform: translate(-50%, -100%)
     font-size: 24px
   @media screen and (min-width: 769px)
     font-size: 36px

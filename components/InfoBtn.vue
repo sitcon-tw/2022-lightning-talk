@@ -16,6 +16,8 @@ const open = ref(false)
 </template>
 
 <style scoped lang="sass">
+img
+  cursor: pointer
 .info
   position: absolute
   top: 0

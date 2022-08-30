@@ -47,31 +47,30 @@ const addComma = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   padding-top: 0
   margin: 0 -8px
 .talk
-  padding: 0px 26px 16px 26px
+  padding: 8px 16px
   cursor: pointer
-  @media screen and (min-width: 769px)
+  @media screen and (min-width: 1375px)
     flex-direction: row
     align-items: center
     font-size: 64px
 
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 1375px)
     .rank-bg
       position: absolute
       top: 0
       right: 0
-      transform: translate(50%, -50%)
-      width: 128px
-      height: 128px
+      width: 64px
+      height: 64px
       font-weight: 500
       background: #82D357
-      border-radius: 50%
+      border-radius: 0 6px 0 100%
     .rank
-      position: absolute
-      bottom: 24px
-      left: calc(50% - 44px)
       font-size: 20px
+      text-align: right
+      padding-top: 12px
+      padding-right: 4px
       color: #FFFFFF
-  @media screen and (min-width: 769px)
+  @media screen and (min-width: 1375px)
     .rank-bg
       width: 150px
       font-size: 60px
@@ -83,38 +82,33 @@ const addComma = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
       color: #9D9D9D
     &:nth-of-type(3) .rank-bg
       color: #D29E62
-  @media screen and (min-width: 769px) and (max-width: 1200px)
-    .rank-bg
-      width: 100px
-      font-size: 46px
 
   .vote
     text-align: end
     font-size: 32px
     font-weight: 500
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 1375px)
       display: inline-block
       align-self: flex-start
       width: 80%
-    @media screen and (min-width: 769px)
-      width: 200px
-    @media screen and (min-width: 1200px)
+    @media screen and (min-width: 1376px)
       width: 280px
+      font-size: 24px
     .number
-      font-size: 64px
+      font-size: 2em
       font-weight: 700
       color: #82D357
       -webkit-text-stroke: 1px
       @media screen and (min-width: 769px)
         font-size: 60px
-      @media screen and (min-width: 1200px)
+      @media screen and (min-width: 1376px)
         font-size: 90px
 
 
   hr
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 1376px)
       margin-bottom: 10px
-    @media screen and (min-width: 769px)
+    @media screen and (min-width: 1375px)
       height: 50%
       margin: 0 30px
 
@@ -126,9 +120,10 @@ const addComma = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     font-weight: 400
     margin: 0
     margin-bottom: 8px
-    @media screen and (min-width: 769px)
+    @media screen and (min-width: 1375px)
       font-size: 24px
       font-weight: 900
   .lookup
     border-radius: 10px
+    font-size: 12px
 </style>

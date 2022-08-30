@@ -46,6 +46,10 @@ const submit = async () => {
 <style scoped lang="sass">
 .page
   position: relative
+  margin: 0 -20px
+  margin-top: -24px
+  padding: 0 20px
+  padding-top: 24px
   @media screen and (min-width: 769px)
     max-height: 900px
     padding-right: 50%
@@ -89,9 +93,10 @@ input, textarea
     outline: 1px solid #82D357
   &:required:invalid:not(:empty)
     outline: 1px solid #FF5252
-@media screen and (min-width: 769px)
-  .text + *:is(input, textarea)
-    margin-top: -24px
+.text + *:is(input, textarea)
+  margin-top: -24px
+  @media screen and (max-width: 768px)
+    margin-top: -12px
 textarea
   flex: 1
   max-height: 300px

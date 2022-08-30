@@ -31,7 +31,7 @@ const submit = async () => {
   if (!confirm("送出投票後將無法修改，確定送出嗎？"))
     return false
   const votes = Object.entries(vote.value)
-    .filter(([,v]) => v > 0)
+    .filter(([, v]) => v > 0)
     .reduce((a, [k, v]) => a.concat(Array(v).fill(k)), [])
   const res = await workerFetch('vote', { votes })
   if (res.vote) store.status.vote = true
@@ -41,11 +41,11 @@ const submit = async () => {
 
 <template>
   <div class="root">
-    <non-token-modal  />
+    <non-token-modal />
 
     <template v-if="!loading && store.canVisit()">
       <Teleport to="#title">
-        <div class="remain-text hide-desktop">剩餘票數：{{ count.remain }}</div>
+        <div class="remain-text hide-desktop">剩餘票數：{{  count.remain  }}</div>
       </Teleport>
     </template>
 
@@ -54,7 +54,7 @@ const submit = async () => {
     <div class="page has-talk-modal" v-else>
       <div class="talks">
         <div class="talk" v-for="talk in talks" :key="talk.uuid" :class="{ active: modelTalk === talk }">
-          <h1 class="title">{{ talk.title }}</h1>
+          <h1 class="title">{{  talk.title  }}</h1>
           <hr />
           <vote-counter v-model="vote[talk.uuid]" :disableIncrease="count.remain <= 0" />
           <button class="lookup" @click="modelTalk = talk">查看摘要</button>
@@ -62,7 +62,7 @@ const submit = async () => {
       </div>
       <hr class="hide-mobile" />
       <div class="footer">
-        <div class="remain-text hide-mobile">剩餘票數：{{ count.remain }}</div>
+        <div class="remain-text hide-mobile">剩餘票數：{{  count.remain  }}</div>
         <btn class="submit" @click="submit">送出</btn>
       </div>
     </div>
@@ -83,7 +83,7 @@ const submit = async () => {
   .title
     font-size: 24px
     font-weight: 900
-    margin: 16px 26px
+    margin: 8px 16px
 
 .footer
   display: flex

@@ -98,11 +98,18 @@ hr
 .submit
   margin-bottom: 16px
 
-.modal-enter-active, .modal-leave-active
+.modal-enter-active, .modal-leave-active,
+.talk-modal-enter-active, .talk-modal-leave-active
   transition: all .25s ease-in-out
+.talk-modal-enter-active, .talk-modal-leave-active
   transform-origin: bottom center
 .modal-enter-from,
 .modal-leave-to
+  opacity: 0
+  .modal
+    transform: scale(0.9)
+.talk-modal-enter-from,
+.talk-modal-leave-to
   opacity: 0
   transform: translateY(10em)
 
@@ -115,16 +122,17 @@ hr
   padding: 8px
   margin: 0 -8px
 .talk
-  min-height: 248px
   position: relative
   display: flex
   flex-direction: column
   background: #FFFFFF
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2)
   border-radius: 10px
-  overflow: hidden
+  border: 4px solid transparent
+  padding: 4px 8px
+  transition: all .25s ease-in-out
   &.active
-    box-shadow: 0px 0px 8px #82D357
+    border: 4px solid #82D357
   .title
     overflow: hidden
     display: -webkit-box
@@ -134,10 +142,12 @@ hr
     flex: 1
   .lookup
     height: 36px
-    font-size: 20px
     font-weight: 400
     color: #FFFFFF
     background: #82D357
-    border-radius: 0 0 10px 10px
+    border-radius: 4px
     cursor: pointer
+    &:hover
+      background: #82D357
+      opacity: 0.8
 </style>

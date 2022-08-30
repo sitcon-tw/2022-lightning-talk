@@ -35,13 +35,12 @@ const increase = () => update(props.modelValue + 1)
     <button
       class="control"
       :disabled="disabled || disableDecrease || modelValue <= 0"
-      @click="decrease"
-    >
-      -
+      @click="decrease">
+      <i class='bx bx-minus'></i>
     </button>
-    <div class="value">{{ modelValue }}</div>
+    <div class="value">{{  modelValue  }}</div>
     <!-- <input disabled v-model="modelValue" /> -->
-    <button class="control" :disabled="disabled || disableIncrease" @click="increase">+</button>
+    <button class="control" :disabled="disabled || disableIncrease" @click="increase"><i class='bx bx-plus'></i></button>
   </div>
 </template>
 
@@ -52,6 +51,7 @@ const increase = () => update(props.modelValue + 1)
   align-items: center
   border: 0.5px solid #9D9D9D
   border-radius: 8px
+  overflow: hidden
 *
   font-size: 20px
 .value
@@ -61,9 +61,21 @@ const increase = () => update(props.modelValue + 1)
   width: 52px
 .control
   width: 36px
+  height: 36px
   color: #82D357
   background: none
+  display: flex
+  justify-content: center
+  align-items: center
+  cursor: pointer
+  border-radius: 8px
+  &:hover
+    background-color: rgba(0,0,0,.05)
+  &:active
+    background-color: rgba(0,0,0,.1)
   &:disabled
     color: #D4D4D4
     cursor: not-allowed
+    opacity: .5
+    pointer-events: none
 </style>

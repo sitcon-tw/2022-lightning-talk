@@ -41,7 +41,7 @@ const vote = computed({
   justify-content: space-between
   align-items: center
   height: 36px
-  margin: 12px 26px
+  margin: 8px 16px
   .text
     font-size: 14px
     font-weight: 350
