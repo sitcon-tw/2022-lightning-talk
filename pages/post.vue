@@ -44,12 +44,32 @@ const submit = async () => {
 </template>
 
 <style scoped lang="sass">
+.page
+  position: relative
+  @media screen and (min-width: 769px)
+    max-height: 900px
+    padding-right: 50%
+    align-items: flex-end
+    background: url(~/assets/img/cat-post.svg) no-repeat calc(50% + 300px) bottom
+    &::before
+      content: '感謝您的投稿！'
+      font-size: 24px
+      font-weight: 700
+      letter-spacing: 5px
+      position: absolute
+      bottom: 445px
+      left: calc(50% + 450px)
+      transform: rotate(-25deg)
 .inputs
   height: 100%
+  max-height: 700px
   display: flex
   flex-direction: column
   justify-content: space-between
   gap: 16px
+  @media screen and (min-width: 769px)
+    width: 100%
+    max-width: 445px
 .text
   font-size: 14px
   font-weight: 500
@@ -68,6 +88,7 @@ input, textarea
     outline: 1px solid #FF5252
 textarea
   flex: 1
+  max-height: 300px
   padding-top: 16px
   resize: none
 </style>
