@@ -84,7 +84,7 @@ input, textarea
   background: #EBE1CC
   &:focus
     outline: 1px solid #82D357
-  &:required:invalid
+  &:required:invalid:not(:empty)
     outline: 1px solid #FF5252
 .text + *:is(input, textarea)
   margin-top: -24px
