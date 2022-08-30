@@ -50,7 +50,7 @@ const submit = async () => {
   <div class="root">
     <non-token-modal />
 
-    <template v-if="!loading && store.canVisit()">
+    <template v-if="!loading && store.canView()">
       <Teleport to="#title">
         <div class="remain-text hide-desktop">剩餘票數：{{  count.remain  }}</div>
       </Teleport>

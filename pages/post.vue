@@ -110,7 +110,7 @@ input, textarea
   margin-bottom: 24px
   &:focus
     outline: 1px solid #82D357
-  .firstSubmit &:required:invalid, .firstSubmit &.invalid
+  .firstSubmit &:required:invalid, &.invalid
     outline: 1px solid #FF5252
   &:disabled,&[disabled]
     background: #EBE1CC

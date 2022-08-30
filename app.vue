@@ -8,7 +8,7 @@ useHead({
 })
 
 const store = useStore()
-const hide = computed(() => !store.canVisit())
+const hide = computed(() => !store.canView())
 
 const updateVh = () => {
   const vh = window.innerHeight * 0.01

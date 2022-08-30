@@ -16,12 +16,15 @@ export const useStore = defineStore('main', () => {
   const title = computed(() => config.scopes[route.name]?.title ?? 'Unknown')
 
   function invisableMessage(scope = route.name) {
-    if (scope === 'index') return ''
-    if (!getIsAvailable(scope)) return '尚未開放'
-    if (getIsExpire(scope)) return '已經結束'
+    if (scope === 'index') return null
+    const name = config.scopes[scope]?.name ?? title.value
+    if (!getIsAvailable(scope))
+      return { msg: `${name}尚未開放`, available: true }
+    if (getIsExpire(scope))
+      return { msg: `${name}已經結束`, expire: true }
     if (status.value[scope]) {
       return {
-        msg: `已完成${config.scopes[scope].name}`,
+        msg: `已完成${name}`,
         btnText: '完成',
         icon: `bx bxs-check-circle`,
         [scope]: status.value[scope],
@@ -30,13 +33,23 @@ export const useStore = defineStore('main', () => {
     for (const req of getRequired(scope)) {
       if (!getIsExpire(req) && !status.value[req]) {
         const name = config.scopes[req]?.name ?? req
-        return { msg: `尚未完成${name}`, btnText: `前往${name}`, to: `/${req}`, icon: 'bx bxs-error-alt' }
+        return {
+          msg: `尚未完成${name}`,
+          btnText: `前往${name}`,
+          to: `/${req}`,
+          icon: 'bx bxs-error-alt',
+          req,
+        }
       }
     }
-    return ''
+    return null
+  }
+  function canView(scope = route.name) {
+    return !invisableMessage(scope)
   }
   function canVisit(scope = route.name) {
-    return !invisableMessage(scope)
+    const invisable = invisableMessage(scope)
+    return !invisable || invisable.req
   }
 
   const token = useLocalStorage('token', null)
@@ -79,7 +92,8 @@ export const useStore = defineStore('main', () => {
     getIsExpire,
     getRequired,
     title,
-    invisableMessage,
+    invisable: computed(() => invisableMessage()),
+    canView,
     canVisit,
     token: readonly(token),
     status,
