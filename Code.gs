@@ -128,6 +128,10 @@ function init() {
     sheet.deleteColumns(size, sheet.getMaxColumns() - size)
     sheet.setFrozenRows(1)
     sheet.getRange(1,1,1,size).setValues([ headers ])
+    const count = sheet.getMaxRows()
+    sheet.getRange(1,1,count,size).setNumberFormats(Array.from(Array(count)).map(() =>
+      headers.map(v => v === 'time' ? 'yyyy-mm-dd hh:mm:ss' : '@')
+    ))
     const protection = sheet.protect().setDescription('protected sheet')
     protection.setWarningOnly(true)
     console.log(`${name} created`)
