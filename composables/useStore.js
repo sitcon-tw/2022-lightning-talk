@@ -20,12 +20,12 @@ export const useStore = defineStore('main', () => {
     if (!getIsAvailable(scope)) return '尚未開放'
     if (getIsExpire(scope)) return '已經結束'
     if (status.value[scope]) {
-      return { msg: `已完成${config.scopes[scope].name}`, btnText: '完成' }
+      return { msg: `已完成${config.scopes[scope].name}`, btnText: '完成', icon: `bx bxs-check-circle` }
     }
     for (const req of getRequired(scope)) {
       if (!getIsExpire(req) && !status.value[req]) {
         const name = config.scopes[req]?.name ?? req
-        return { msg: `尚未完成${name}`, btnText: `前往${name}`, to: `/${req}` }
+        return { msg: `尚未完成${name}`, btnText: `前往${name}`, to: `/${req}`, icon: 'bx bxs-error-alt' }
       }
     }
     return ''
