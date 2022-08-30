@@ -64,7 +64,7 @@ const close = () => emit('update:open', false)
     max-height: calc(100dvh - 40px)
   margin: 20px 8px
   padding: 16px
-  min-width: 512px
+  min-width: min(512px,100vw)
   border-radius: 10px
   background-color: #FFFFFF
   color: #383838
