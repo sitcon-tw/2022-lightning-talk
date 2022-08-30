@@ -25,32 +25,18 @@ function check_action(action) {
   return true
 }
 
-async function requestData(event, action, body = null) {
+function requestData(event, action, body = null) {
   const res = check_action(action)
   if (res !== true) return res
-  const url = `${config.server_url}?action=${encodeURIComponent(action)}`
-
-  const cacheKey = new Request(url, event.request)
-  const cache = caches.default
-  let response = await cache.match(cacheKey)
-
-  if (!response) {
-    const opt = {}
-    if (body) {
-      opt.method = 'POST'
-      opt.body = JSON.stringify(body)
-      if (!opt.headers) opt.headers = {}
-      opt.headers['Content-Type'] = 'application/json'
-    }
-    response = await fetch(url, opt)
-    response = new Response(response.body, response)
-    if (!body) {
-      response.headers.set('Cache-Control', 'max-age=60')
-    }
-    event.waitUntil(cache.put(cacheKey, response))
+  const opt = {}
+  if (body) {
+    opt.method = 'POST'
+    opt.body = JSON.stringify(body)
+    if (!opt.headers) opt.headers = {}
+    opt.headers['Content-Type'] = 'application/json'
   }
-  const ret = await response.json()
-  return ret
+  return fetch(`${config.server_url}?action=${encodeURIComponent(action)}`, opt)
+    .then(res => res.json())
 }
 
 router.get('/:action', async (request, event) => {
