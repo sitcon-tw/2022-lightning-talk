@@ -22,6 +22,10 @@ const Sheets = {}
 for(const name in SheetsSchema) {
   const headers = SheetsSchema[name]
   const sheet = SpreadSheet.getSheetByName(name)
+  if (!sheet) {
+    console.warn(`${name} sheet not exist`)
+    continue
+  }
   sheet.headers = headers
   sheet.mapping = generateMapping(headers)
   sheet.append = (obj) => sheet.appendRow(toArray(headers)(obj))
@@ -108,7 +112,23 @@ function generateMapping(ary) {
 }
 
 function init() {
-  throw new Error('TODO')
+  for(const name in SheetsSchema) {
+    if (SpreadSheet.getSheetByName(name)) {
+      if (debug) {
+        SpreadSheet.deleteSheet(SpreadSheet.getSheetByName(name))
+      } else {
+        console.warn(`${name} already exist!!`)
+        continue
+      }
+    }
+    const headers = SheetsSchema[name]
+    const size = headers.length
+    const sheet = SpreadSheet.insertSheet(name)
+    sheet.deleteColumns(size, sheet.getMaxColumns() - size)
+    sheet.setFrozenRows(1)
+    sheet.getRange(1,1,1,size).setValues([ headers ])
+    console.log(`${name} created`)
+  }
 }
 
 function respJson(resp) {
@@ -166,13 +186,15 @@ function saveVote({ token, votes }) {
   if (!votes) return { message: 'Missing votes' }
   if (!votes instanceof Array) return { message: 'Votes not array !?' }
 
-  const valid = isValid(token)
+  const validToken = isValid(token)
+  const validLength = votes.length <= VoteCount
+  const valid = validToken && validLength
   // const oldRow = valid ? Sheets.votes.getRow(token) : null
   const row = { valid, token, votes }
   Sheets.votes.append(row)
-  if (!valid) return { message: 'Invalid token' }
+  if (!validToken) return { message: 'Invalid token' }
   // if (oldRow) return { message: 'Token used', vote: true }
-  if (votes.length > VoteCount) return { message: `You only have ${VoteCount} vote(s).` }
+  if (!validLength) return { message: `You only have ${VoteCount} vote(s).` }
   return { vote: true }
 }
 
