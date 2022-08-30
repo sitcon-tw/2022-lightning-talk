@@ -72,7 +72,7 @@ const submit = async () => {
 
 <style scoped lang="sass">
 .root
-  margin-top: 24px
+  padding-top: 24px
 .remain-text
   color: #383838
   font-size: 14px
