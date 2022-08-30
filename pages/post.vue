@@ -20,14 +20,14 @@ const submit = async () => {
     return false
   if (countWords(data.value.title) > config.limit.title) {
     refTitle.value.classList.add('invalid')
-    alert(`議題名稱不可超過${config.limit.title}個字`)
+    alert(`議題名稱不可超過 ${config.limit.title} 個字`)
     return false
   } else {
     refTitle.value.classList.remove('invalid')
   }
   if (countWords(data.value.description) > config.limit.description) {
     refDescription.value.classList.add('invalid')
-    alert(`議題摘要不可超過${config.limit.description}個字`)
+    alert(`議題摘要不可超過 ${config.limit.description} 個字`)
     return false
   } else {
     refDescription.value.classList.remove('invalid')
@@ -59,9 +59,9 @@ const submit = async () => {
         <textarea ref="refDescription" v-model="data.description" placeholder="請輸入摘要…" required :disabled="watiSubmit" />
 
         <span class="text">聯絡方式</span>
-        <input  type="text" v-model="data.contact" placeholder="請輸入聯絡方式…" required :disabled="watiSubmit" />
+        <input type="text" v-model="data.contact" placeholder="請輸入聯絡方式…" required :disabled="watiSubmit" />
       </form>
-      <btn class="submit" @click="submit" :disabled="watiSubmit">{{ watiSubmit ? '正在投稿' : '送出' }}</btn>
+      <btn class="submit" @click="submit" :disabled="watiSubmit">{{  watiSubmit ? '正在投稿' : '送出'  }}</btn>
     </div>
   </div>
 </template>
