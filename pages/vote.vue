@@ -71,6 +71,8 @@ const submit = async () => {
 </template>
 
 <style scoped lang="sass">
+.root
+  margin-top: 24px
 .remain-text
   color: #383838
   font-size: 14px

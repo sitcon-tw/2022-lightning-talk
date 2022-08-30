@@ -42,6 +42,8 @@ const addComma = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 </template>
 
 <style scoped lang="sass">
+.root
+  margin-top: 24px
 .talks
   padding: 16px 8px
   padding-top: 0

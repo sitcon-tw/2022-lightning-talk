@@ -53,9 +53,7 @@ const submit = async () => {
 .page
   position: relative
   margin: 0 -20px
-  margin-top: -24px
-  padding: 0 20px
-  padding-top: 24px
+  padding: 24px
   @media screen and (min-width: 769px)
     max-height: 900px
     padding-right: 50%
@@ -74,18 +72,15 @@ const submit = async () => {
       left: calc(50% + 320px)
       transform: rotate(-25deg)
 .inputs
-  height: 100%
-  max-height: 700px
   display: flex
   flex-direction: column
-  justify-content: space-between
-  gap: 16px
   @media screen and (min-width: 769px)
     width: 100%
     max-width: 445px
 .text
   font-size: 14px
   font-weight: 500
+  margin-bottom: 8px
 input, textarea
   width: 100%
   height: 50px
@@ -95,6 +90,7 @@ input, textarea
   font-weight: 500
   color: #383838
   background: #EBE1CC
+  margin-bottom: 24px
   &:focus
     outline: 1px solid #82D357
   .firstSubmit &:required:invalid
@@ -102,13 +98,8 @@ input, textarea
   &:disabled,&[disabled]
     background: #EBE1CC
     color: #9D9D9D
-.text + *:is(input, textarea)
-  margin-top: -24px
-  @media screen and (max-width: 768px)
-    margin-top: -12px
 textarea
-  flex: 1
-  max-height: 300px
+  height: 200px
   padding-top: 16px
   resize: none
 </style>

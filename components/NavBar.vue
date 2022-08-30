@@ -22,7 +22,7 @@ useHead({ title })
         <img src="~/assets/img/logo.svg" />
       </NuxtLink>
       <div class="title" id="title">
-        <span v-if="!isHome">{{ title }}</span>
+        <span v-if="!isHome">{{  title  }}</span>
       </div>
       <info-btn />
     </div>
@@ -43,7 +43,6 @@ nav
   padding: 0 24px
   @media screen and (min-width: 769px)
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2)
-    margin-bottom: 24px
 
 .center
   position: relative
