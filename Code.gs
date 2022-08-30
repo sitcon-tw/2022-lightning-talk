@@ -1,7 +1,7 @@
 const OPassURL = 'https://sitcon.opass.app'
 const SpreadsheetId = ''
 const VoteCount = 10
-const debug = false
+const DEBUG = false
 
 const SheetsSchema = {
   talks: ['uuid', 'time', 'valid', 'token', 'name', 'title', 'description', 'contact'],
@@ -115,7 +115,7 @@ function generateMapping(ary) {
 function init() {
   for(const name in SheetsSchema) {
     if (SpreadSheet.getSheetByName(name)) {
-      if (debug) {
+      if (DEBUG) {
         SpreadSheet.deleteSheet(SpreadSheet.getSheetByName(name))
       } else {
         console.warn(`${name} already exist!!`)
@@ -138,7 +138,7 @@ function respJson(resp) {
       .setMimeType(ContentService.MimeType.JSON)
 }
 function wrapCache(func, timeout = TIMEOUT.SHROT) {
-  if (debug) return func
+  if (DEBUG) return func
   return (...args) => {
     const cache_key = sha1(func + JSON.stringify(args))
     const cached = cache.get(cache_key)
@@ -250,7 +250,7 @@ function handle(e) {
   } catch (e) {
     console.error(e)
     resp.message = "Internal server erorr, contact admin :("
-    if (debug) {
+    if (DEBUG) {
     resp.message = e.message
       resp.stack = e.stack
     }
