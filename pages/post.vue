@@ -3,6 +3,7 @@ const store = useStore()
 
 const form = ref(null)
 const loading = ref(false)
+const firstSubmit = ref(false)
 const data = ref({
   name: '',
   title: '',
@@ -11,6 +12,7 @@ const data = ref({
 })
 
 const submit = async () => {
+  firstSubmit.value = true
   if (!form.value.reportValidity())
     return false
   if (!confirm("送出投稿後將無法修改，確定送出嗎？"))
@@ -29,7 +31,7 @@ const submit = async () => {
     <non-token-modal />
 
     <div class="page">
-      <form class="inputs" ref="form" @submit.prevent="submit">
+      <form class="inputs" :class="{ firstSubmit }" ref="form" @submit.prevent="submit">
         <span class="text">講者姓名</span>
         <input type="text" v-model="data.name" placeholder="請輸入姓名…" required :disabled="loading" />
 
@@ -95,7 +97,7 @@ input, textarea
   background: #EBE1CC
   &:focus
     outline: 1px solid #82D357
-  &:required:invalid:not(:empty)
+  .firstSubmit &:required:invalid
     outline: 1px solid #FF5252
   &:disabled,&[disabled]
     background: #EBE1CC
