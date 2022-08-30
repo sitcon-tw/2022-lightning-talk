@@ -249,8 +249,11 @@ function handle(e) {
     Object.assign(resp, res)
   } catch (e) {
     console.error(e)
+    resp.message = "Internal server erorr, contact admin :("
+    if (debug) {
     resp.message = e.message
-    if (debug) resp.stack = e.stack
+      resp.stack = e.stack
+    }
   } finally {
     return respJson(resp)
   }
