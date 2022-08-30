@@ -39,10 +39,10 @@ watch(open, (v) => {
           <img src="~/assets/img/X.svg" />
         </a>
         <div class="info">
-          <h1 class="title">{{ talk.title }}</h1>
+          <h1 class="title">{{  talk.title  }}</h1>
           <hr class="hide-mobile" />
           <div class="text">摘要</div>
-          <div class="description">{{ talk.description || '講者未填寫摘要' }}</div>
+          <div class="description">{{  talk.description || '講者未填寫摘要'  }}</div>
         </div>
         <template v-if="curVote !== null">
           <hr class="hide-desktop" />
@@ -105,12 +105,16 @@ watch(open, (v) => {
   font-size: 24px
   font-weight: 900
   letter-spacing: 1px
+  @media screen and (max-width: 768px)
+    margin-bottom: 40px
   @media screen and (min-width: 769px)
     font-size: 40px
     margin: 80px 0
 .text
   font-size: 12px
   font-weight: 700
+  @media screen and (max-width: 768px)
+    margin-bottom: 1em
   @media screen and (min-width: 769px)
     font-size: 24px
     margin-top: 32px
