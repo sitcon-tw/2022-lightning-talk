@@ -35,8 +35,10 @@ export const useStore = defineStore('main', () => {
   }
 
   const token = useLocalStorage('token', null)
-  setupToken(route.query.token ?? token)
-    .then((success) => !success && (token.value = null))
+  nextTick(() => {
+    setupToken(route.query.token ?? token)
+      .then((success) => !success && (token.value = null))
+  })
 
   async function setupToken(newToken) {
     newToken = unref(newToken)
@@ -64,6 +66,8 @@ export const useStore = defineStore('main', () => {
     return available_time.format('HH:mm') + ' ~ ' + expire_time.format('HH:mm')
   }
 
+  const loading = ref(0)
+
   return {
     getIsAvailable,
     getIsExpire,
@@ -75,5 +79,6 @@ export const useStore = defineStore('main', () => {
     status,
     setupToken,
     getTimeText,
+    loading,
   }
 })

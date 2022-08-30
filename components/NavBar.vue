@@ -2,7 +2,7 @@
 import { storeToRefs } from 'pinia'
 
 const store = useStore()
-const { title } = storeToRefs(store)
+const { title, loading } = storeToRefs(store)
 
 const route = useRoute()
 const isHome = computed(() => route.name === 'index')
@@ -26,6 +26,10 @@ useHead({ title })
       </div>
       <info-btn />
     </div>
+
+    <transition name="fade" mode="in-out">
+      <div class="loading" v-if="loading > 0" />
+    </transition>
   </nav>
 </template>
 
@@ -90,4 +94,27 @@ nav
     right: 0
     .home &
       display: none
+
+.loading
+  width: 25px
+  height: 25px
+  border-radius: 50%
+  border: 4px solid #A89B85
+  border-top: 4px solid transparent
+  animation: loading 1s linear infinite
+  position: fixed
+  top: 8px
+  right: 8px
+  @media (max-width: 768px)
+    top: 2px
+    right: 2px
+    width: 20px
+    height: 20px
+    border: 2.5px solid #A89B85
+    border-top: 2.5px solid transparent
+@keyframes loading
+  0%
+    transform: rotate(0deg)
+  100%
+    transform: rotate(360deg)
 </style>
