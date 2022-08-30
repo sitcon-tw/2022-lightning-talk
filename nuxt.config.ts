@@ -10,25 +10,7 @@ export default defineNuxtConfig({
         // Favicon
         {
           rel: 'icon',
-          type: 'image/svg',
-          href: '/2022-lightning-talk/favicon.svg',
-        },
-        {
-          rel: 'apple-touch-icon',
-          sizes: '180x180',
-          href: '/2022-lightning-talk/apple-touch-icon.png',
-        },
-        {
-          rel: 'icon',
-          type: 'image/png',
-          sizes: '32x32',
-          href: '/2022-lightning-talk/favicon-32x32.png',
-        },
-        {
-          rel: 'icon',
-          type: 'image/png',
-          sizes: '16x16',
-          href: '/2022-lightning-talk/favicon-16x16.png',
+          href: '/2022-lightning-talk/icon.png',
         },
         { rel: 'manifest', href: '/2022-lightning-talk/site.webmanifest' },
         // normalize css
