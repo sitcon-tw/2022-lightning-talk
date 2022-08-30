@@ -18,27 +18,42 @@ const routes = [
 </script>
 
 <template>
-  <div>
-    <div class="banner">
-      <img src="~/assets/img/cat-flat.svg" />
-      <div class="text-wrap">
-        <h1>閃電秀</h1>
-        <h2>投稿投票系統</h2>
-      </div>
+  <div class="index">
+    <div class="left hide-mobile">
+      <img src="~/assets/img/cat-index.svg" />
     </div>
+    <div class="right">
+      <div class="banner">
+        <img class="hide-desktop" src="~/assets/img/cat-flat.svg" />
+        <div class="text-wrap">
+          <h1>閃電秀</h1>
+          <h2>投稿投票系統</h2>
+        </div>
+      </div>
 
-    <div class="btns-wrap">
+      <info-text class="align-left hide-mobile" />
+
       <div class="btns">
-        <template v-for="{ name, text, disabled } in routes">
-          <span class="time">開放時段：{{ store.getTimeText(name) }}</span>
+        <div class="btn-block" v-for="{ name, text } in routes" :class="name" :key="name">
+          <div class="time">開放時段：{{ store.getTimeText(name) }}</div>
           <btn :to="`/${name}`" :disabled="!store.canVisit(name)">{{ text }}</btn>
-        </template>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="sass">
+.index
+  display: grid
+  @media screen and (min-width: 769px)
+    grid-template-columns: 1fr 1fr
+
+.right
+  max-width: 540px
+  display: flex
+  flex-direction: column
+
 .banner
   display: flex
   flex-direction: column
@@ -47,12 +62,6 @@ const routes = [
   position: relative
   width: 100%
 h1
-  position: absolute
-  top: 0
-  left: 50%
-  transform: translate(-50%, -50%)
-  margin: 0
-  font-size: 24px
   font-weight: 900
   color: transparent
   background-image: url(~/assets/img/lightning-talk.png)
@@ -62,8 +71,18 @@ h1
   text-indent: 8px
   letter-spacing: 8.6px
   text-indent: 8.6px
+  @media screen and (max-width: 768px)
+    position: absolute
+    top: 0
+    left: 50%
+    transform: translate(-50%, -50%)
+    font-size: 24px
+  @media screen and (min-width: 769px)
+    font-size: 36px
+    line-height: 40px
+    background-position: left
+    text-align: left
 h2
-  margin: 0
   color: #383838
   background: #FFFFFF
   width: 100%
@@ -73,15 +92,35 @@ h2
   font-weight: 900
   letter-spacing: 4px
   text-indent: 4px
+  @media screen and (min-width: 769px)
+    padding: 0
+    text-align: left
+    background: none
+    font-size: 84px
+    line-height: 94px
+    margin-bottom: 24px
 
 .btns-wrap
-  width: 70%
   margin: 0 auto
 .btns
-  display: flex
-  flex-direction: column
-  justify-content: space-between
-  margin: 40px 0
+  align-self: center
+  display: grid
+  @media screen and (max-width: 768px)
+    width: 70%
+    margin: 40px 0
+    grid-template-areas: "post" "vote" "rank"
+  @media screen and (min-width: 769px)
+    width: 100%
+    margin: 24px 0
+    gap: 16px 30px
+    grid-template-columns: 1fr 1fr
+    grid-template-areas: "post vote" "rank rank"
+.post
+  grid-area: post
+.vote
+  grid-area: vote
+.rank
+  grid-area: rank
 .time
   color: #9D9D9D
   text-align: center

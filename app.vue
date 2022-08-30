@@ -51,6 +51,14 @@ hr
   border: 0.5px solid #C6C6C6
   margin: 0
 
+
+.hide-desktop
+  @media screen and (min-width: 769px)
+    display: none !important
+.hide-mobile
+  @media screen and (max-width: 768px)
+    display: none !important
+
 #app
   height: calc(var(--vh,1vh) * 100)
   @supports (height: 100dvh)

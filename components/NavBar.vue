@@ -17,39 +17,62 @@ useHead({ title })
     <NuxtLink to="/" class="back">
       <img src="~/assets/img/arrow-left.svg" />
     </NuxtLink>
-    <NuxtLink to="/" class="logo">
-      <img src="~/assets/img/logo.svg" />
-    </NuxtLink>
-    <div class="title" id="title">
-      <span v-if="!isHome">{{ title }}</span>
+    <div class="center">
+      <NuxtLink to="/" class="logo">
+        <img src="~/assets/img/logo.svg" />
+      </NuxtLink>
+      <div class="title" id="title">
+        <span v-if="!isHome">{{ title }}</span>
+      </div>
+      <info-btn />
     </div>
-    <info-btn />
   </nav>
 </template>
 
 <style scoped lang="sass">
 nav
+  position: relative
   display: flex
-  justify-content: space-between
+  justify-content: center
   align-items: center
   height: 70px
   padding: 0 24px
+  @media screen and (min-width: 769px)
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2)
+    margin-bottom: 24px
+
+.center
+  position: relative
+  flex: 1
+  max-width: 992px
+  display: flex
+  justify-content: space-between
+  align-items: center
 
 .logo
-  display: none
-  .home &
-    display: initial
+  @media screen and (max-width: 768px)
+    display: none
+    .home &
+      display: inline
+  @media screen and (min-width: 769px)
+    position: absolute
+    left: 0
   img
     height: 36px
 
 .back
-  display: initial
   width: 32px
   height: 32px
   .home &
     display: none
+  @media screen and (min-width: 769px)
+    position: absolute
+    left: 24px
+    top: 50%
+    transform: translateY(-50%)
 
 .title
+  margin: 0 auto
   font-size: 24px
   font-weight: 700
   color: #383838
@@ -58,4 +81,9 @@ nav
   width: 32px
   height: 32px
   padding: 4px
+  @media screen and (min-width: 769px)
+    position: absolute
+    right: 0
+    .home &
+      display: none
 </style>
