@@ -45,13 +45,13 @@ for(const name in SheetsSchema) {
     return data
   }
   // TODO: race condition :(
-  sheet.getRow = wrapCache( (token) => {
+  sheet.getRow = (token) => {
     const data = sheet.getAllData(true)
     for(const row of data)
       if (token === row.token)
         return row
     return null
-  } )
+  }
   Sheets[name] = sheet
 }
 
@@ -182,7 +182,6 @@ function showTalk() {
   return { talks: talks.filterCol(dataCols) }
 
 }
-showTalk = wrapCache(showTalk)
 
 function saveVote({ token, votes }) {
   if (!token) return { message: 'Missing token' }
@@ -215,7 +214,6 @@ function showRank() {
   Sheets.rank.getAllRange(savedTalks.length).setValues(savedTalks)
   return { talks: talks.filterCol(dataCols) }
 }
-showRank = wrapCache(showRank)
 
 function showStat({ token, post, vote }) {
   if (!post) post = !!Sheets.talks.getRow(token)
