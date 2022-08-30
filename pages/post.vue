@@ -2,7 +2,7 @@
 const store = useStore()
 
 const form = ref(null)
-
+const loading = ref(false)
 const data = ref({
   name: '',
   title: '',
@@ -15,8 +15,12 @@ const submit = async () => {
     return false
   if (!confirm("送出投稿後將無法修改，確定送出嗎？"))
     return false
+  loading.value = true
   const res = await workerFetch('post', data)
-  if (res.uuid) store.status.post = true
+  loading.value = false
+  if (res.uuid) {
+    store.status.post = true
+  }
 }
 </script>
 
@@ -27,18 +31,18 @@ const submit = async () => {
     <div class="page">
       <form class="inputs" ref="form" @submit.prevent="submit">
         <span class="text">講者姓名</span>
-        <input type="text" v-model="data.name" placeholder="請輸入姓名…" required />
+        <input type="text" v-model="data.name" placeholder="請輸入姓名…" required :disabled="loading" />
 
         <span class="text">議題</span>
-        <input type="text" v-model="data.title" placeholder="請輸入議題…" required />
+        <input type="text" v-model="data.title" placeholder="請輸入議題…" required :disabled="loading" />
 
         <span class="text">摘要</span>
-        <textarea v-model="data.description" placeholder="請輸入摘要…" required />
+        <textarea v-model="data.description" placeholder="請輸入摘要…" required :disabled="loading" />
 
         <span class="text">聯絡方式</span>
-        <input type="text" v-model="data.contact" placeholder="請輸入聯絡方式…" required />
+        <input type="text" v-model="data.contact" placeholder="請輸入聯絡方式…" required :disabled="loading" />
       </form>
-      <btn class="submit" @click="submit">送出</btn>
+      <btn class="submit" @click="submit" :disabled="loading">{{  loading ? '正在投稿' : '送出'  }}</btn>
     </div>
   </div>
 </template>
@@ -93,6 +97,9 @@ input, textarea
     outline: 1px solid #82D357
   &:required:invalid:not(:empty)
     outline: 1px solid #FF5252
+  &:disabled,&[disabled]
+    background: #EBE1CC
+    color: #9D9D9D
 .text + *:is(input, textarea)
   margin-top: -24px
   @media screen and (max-width: 768px)
