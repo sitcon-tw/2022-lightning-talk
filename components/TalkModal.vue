@@ -82,15 +82,15 @@ watch(open, (v) => {
 .close
   position: relative
   flex: 0 0 40px
-  transition: all .25s ease
-  &:hover
-    opacity: 0.8
-    cursor: pointer
-    transform: scale(.95)
   img
     position: absolute
     top: 0
     right: 0
+    &:hover
+      transition: all .25s ease
+      opacity: 0.8
+      cursor: pointer
+      transform: scale(.95)
 
 .info
   overflow-y: scroll
