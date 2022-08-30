@@ -11,10 +11,27 @@ const data = ref({
   contact: '',
 })
 
+const refTitle = ref()
+const refDescription = ref()
+
 const submit = async () => {
   firstSubmit.value = true
   if (!form.value.reportValidity())
     return false
+  if (countWords(data.value.title) > config.limit.title) {
+    refTitle.value.classList.add('invalid')
+    alert(`議題名稱不可超過${config.limit.title}個字`)
+    return false
+  } else {
+    refTitle.value.classList.remove('invalid')
+  }
+  if (countWords(data.value.description) > config.limit.description) {
+    refDescription.value.classList.add('invalid')
+    alert(`議題摘要不可超過${config.limit.description}個字`)
+    return false
+  } else {
+    refDescription.value.classList.remove('invalid')
+  }
   if (!confirm("送出投稿後將無法修改，確定送出嗎？"))
     return false
   watiSubmit.value = true
@@ -36,13 +53,13 @@ const submit = async () => {
         <input type="text" v-model="data.name" placeholder="請輸入姓名…" required :disabled="watiSubmit" />
 
         <span class="text">議題</span>
-        <input type="text" v-model="data.title" placeholder="請輸入議題…" required :disabled="watiSubmit" />
+        <input type="text" ref="refTitle" v-model="data.title" placeholder="請輸入議題…" required :disabled="watiSubmit" />
 
         <span class="text">摘要</span>
-        <textarea v-model="data.description" placeholder="請輸入摘要…" required :disabled="watiSubmit" />
+        <textarea ref="refDescription" v-model="data.description" placeholder="請輸入摘要…" required :disabled="watiSubmit" />
 
         <span class="text">聯絡方式</span>
-        <input type="text" v-model="data.contact" placeholder="請輸入聯絡方式…" required :disabled="watiSubmit" />
+        <input  type="text" v-model="data.contact" placeholder="請輸入聯絡方式…" required :disabled="watiSubmit" />
       </form>
       <btn class="submit" @click="submit" :disabled="watiSubmit">{{ watiSubmit ? '正在投稿' : '送出' }}</btn>
     </div>
@@ -93,7 +110,7 @@ input, textarea
   margin-bottom: 24px
   &:focus
     outline: 1px solid #82D357
-  .firstSubmit &:required:invalid
+  .firstSubmit &:required:invalid, .firstSubmit &.invalid
     outline: 1px solid #FF5252
   &:disabled,&[disabled]
     background: #EBE1CC
