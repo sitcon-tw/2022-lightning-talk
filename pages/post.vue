@@ -27,16 +27,16 @@ const submit = async () => {
     <div class="page">
       <form class="inputs" ref="form" @submit.prevent="submit">
         <span class="text">講者姓名</span>
-        <input type="text" v-model="data.name" placeholder="請輸入姓名..." required />
+        <input type="text" v-model="data.name" placeholder="請輸入姓名…" required />
 
         <span class="text">議題</span>
-        <input type="text" v-model="data.title" placeholder="請輸入議題..." required />
+        <input type="text" v-model="data.title" placeholder="請輸入議題…" required />
 
         <span class="text">摘要</span>
-        <textarea v-model="data.description" placeholder="請輸入摘要..." required></textarea>
+        <textarea v-model="data.description" placeholder="請輸入摘要…" required />
 
         <span class="text">聯絡方式</span>
-        <input type="text" v-model="data.contact" placeholder="請輸入聯絡方式..." required />
+        <input type="text" v-model="data.contact" placeholder="請輸入聯絡方式…" required />
       </form>
       <btn class="submit" @click="submit">送出</btn>
     </div>
