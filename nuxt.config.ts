@@ -31,6 +31,11 @@ export default defineNuxtConfig({
           href: '/2022-lightning-talk/favicon-16x16.png',
         },
         { rel: 'manifest', href: '/2022-lightning-talk/site.webmanifest' },
+        // normalize css
+        {
+          rel: 'stylesheet',
+          href: 'https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css',
+        },
         // Style
         {
           rel: 'stylesheet',
