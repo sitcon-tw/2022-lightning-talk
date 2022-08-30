@@ -174,7 +174,7 @@ function saveTalk({ token, name, title, description, contact }) {
   Sheets.talks.append(row)
   if (!valid) return { message: 'Invalid token' }
   // if (oldRow) return { message: 'Token used', uuid: oldRow.uuid }
-  return { uuid }
+  return { row }
 }
 
 function showTalk() {
@@ -197,7 +197,7 @@ function saveVote({ token, votes }) {
   if (!validToken) return { message: 'Invalid token' }
   // if (oldRow) return { message: 'Token used', vote: true }
   if (!validLength) return { message: `You only have ${VoteCount} vote(s).` }
-  return { vote: true }
+  return { row }
 }
 
 function showRank() {
