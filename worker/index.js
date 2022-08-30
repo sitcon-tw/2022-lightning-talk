@@ -25,23 +25,37 @@ function check_action(action) {
   return true
 }
 
-function requestData(action, body = null) {
+async function requestData(event, action, body = null) {
   const res = check_action(action)
   if (res !== true) return res
-  const opt = {}
-  if (body) {
-    opt.method = 'POST'
-    opt.body = JSON.stringify(body)
-    if (!opt.headers) opt.headers = {}
-    opt.headers['Content-Type'] = 'application/json'
+  const url = `${config.server_url}?action=${encodeURIComponent(action)}`
+
+  const cacheKey = new Request(url, event.request)
+  const cache = caches.default
+  let response = await cache.match(cacheKey)
+
+  if (!response) {
+    const opt = {}
+    if (body) {
+      opt.method = 'POST'
+      opt.body = JSON.stringify(body)
+      if (!opt.headers) opt.headers = {}
+      opt.headers['Content-Type'] = 'application/json'
+    }
+    response = await fetch(url, opt)
+    response = new Response(response.body, response)
+    if (!body) {
+      response.headers.set('Cache-Control', 'max-age=60')
+    }
+    event.waitUntil(cache.put(cacheKey, response))
   }
-  return fetch(`${config.server_url}?action=${encodeURIComponent(action)}`, opt)
-    .then(res => res.json())
+  const ret = await response.json()
+  return ret
 }
 
 router.get('/:action', async (request, event) => {
   const action = request.params.action
-  const returnData = await requestData(action)
+  const returnData = await requestData(event, action)
   if (returnData instanceof Response) return returnData
   return responseJson(returnData)
 })
@@ -51,7 +65,7 @@ router.post('/:action', async (request, event) => {
     return badRequest('Content-Type must be application/json')
   const action = request.params.action
   const body = await request.json()
-  const returnData = await requestData(action, body)
+  const returnData = await requestData(event, action, body)
   if (returnData instanceof Response) return returnData
   return responseJson(returnData)
 })
