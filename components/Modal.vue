@@ -34,6 +34,10 @@ const close = () => emit('update:open', false)
 </template>
 
 <style scoped lang="sass">
+.modal-wrap .close + :slotted(*)
+  margin-left: 40px
+  margin-right: 40px
+
 .modal
   position: fixed
   top: 0
