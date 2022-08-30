@@ -115,7 +115,7 @@ hr
   padding: 8px
   margin: 0 -8px
 .talk
-  height: 240px
+  min-height: 248px
   position: relative
   display: flex
   flex-direction: column
@@ -131,9 +131,7 @@ hr
     -webkit-line-clamp: 3
     -webkit-box-orient: vertical
     text-align: left
-    align-self: center
     flex: 1
-    letter-spacing: 5px
   .lookup
     height: 36px
     font-size: 20px

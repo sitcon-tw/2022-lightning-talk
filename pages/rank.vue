@@ -125,6 +125,7 @@ const addComma = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     font-size: 14px
     font-weight: 400
     margin: 0
+    margin-bottom: 8px
     @media screen and (min-width: 769px)
       font-size: 24px
       font-weight: 900
