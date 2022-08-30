@@ -39,7 +39,7 @@ function sumArray(arr) {
       <template v-if="message.vote">
         <!-- {{ message.vote }} -->
         <p>
-          您已於 {{ dayjs(message.vote.time).format('YYYY-MM-DD HH:mm:ss') }} 投給以下搞件
+          您已於 {{ dayjs(message.vote.time).format('YYYY-MM-DD HH:mm:ss') }} 投給以下稿件
         </p>
         <ul>
           <li v-for="([uuid, count]) of sumArray(message.vote.votes)">
