@@ -15,7 +15,7 @@ export const useStore = defineStore('main', () => {
 
   const title = computed(() => config.scopes[route.name]?.title ?? 'Unknown')
 
-  function invisableMessage(scope = route.name) {
+  function invisibleMessage(scope = route.name) {
     if (scope === 'index') return null
     const name = config.scopes[scope]?.name ?? title.value
     if (!getIsAvailable(scope))
@@ -45,11 +45,11 @@ export const useStore = defineStore('main', () => {
     return null
   }
   function canView(scope = route.name) {
-    return !invisableMessage(scope)
+    return !invisibleMessage(scope)
   }
   function canVisit(scope = route.name) {
-    const invisable = invisableMessage(scope)
-    return !invisable || invisable.req
+    const invisible = invisibleMessage(scope)
+    return !invisible || invisible.req
   }
 
   const token = useLocalStorage('token', null)
@@ -92,7 +92,7 @@ export const useStore = defineStore('main', () => {
     getIsExpire,
     getRequired,
     title,
-    invisable: computed(() => invisableMessage()),
+    invisible: computed(() => invisibleMessage()),
     canView,
     canVisit,
     token: readonly(token),

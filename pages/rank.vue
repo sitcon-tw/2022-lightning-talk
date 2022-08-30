@@ -3,7 +3,7 @@ import { storeToRefs } from 'pinia'
 import ordinal from 'ordinal'
 
 const store = useStore()
-const { talks, invisable } = storeToRefs(store)
+const { talks, invisible } = storeToRefs(store)
 
 const loading = ref(true)
 workerFetch('rank')
@@ -18,7 +18,7 @@ const addComma = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
 <template>
   <div class="root">
-    <non-token-modal :style="{ zIndex: invisable.req ? 300 : null }" v-if="invisable?.req" />
+    <non-token-modal :style="{ zIndex: invisible.req ? 300 : null }" v-if="invisible?.req" />
 
     <div class="status-text" v-if="loading">
       <Loader />

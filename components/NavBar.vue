@@ -12,7 +12,7 @@ useHead({ title })
 
 <template>
   <nav :class="{ home: isHome }" class="nav-bar">
-    <visable-check-modal />
+    <visible-check-modal />
 
     <NuxtLink to="/" class="back">
       <img src="~/assets/img/arrow-left.svg" />
