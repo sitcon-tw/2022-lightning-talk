@@ -35,8 +35,8 @@ const routes = [
 
       <div class="btns">
         <div class="btn-block" v-for="{ name, text } in routes" :class="name" :key="name">
-          <div class="time">開放時段：{{ store.getTimeText(name) }}</div>
-          <btn :to="`/${name}`" :disabled="!store.canVisit(name)">{{ text }}</btn>
+          <div class="time">開放時段：{{  store.getTimeText(name)  }}</div>
+          <btn :to="`/${name}`" :disabled="!store.canVisit(name)">{{  text  }}</btn>
         </div>
       </div>
     </div>
@@ -108,6 +108,7 @@ h2
   @media screen and (max-width: 768px)
     width: 70%
     margin: 40px 0
+    gap: 16px
     grid-template-areas: "post" "vote" "rank"
   @media screen and (min-width: 769px)
     width: 100%

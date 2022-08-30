@@ -100,21 +100,20 @@ hr
 
 .modal-enter-active, .modal-leave-active
   transition: all .25s ease-in-out
-.modal-enter-from
-  opacity: 0
-  .modal
-    transform: scale(.5)
+  transform-origin: bottom center
+.modal-enter-from,
 .modal-leave-to
   opacity: 0
-  .modal
-    transform: scale(.5)
+  transform: translateY(10em)
 
 
 .talks
-  overflow: scroll
+  overflow-y: scroll
   flex: 1
   display: grid
   gap: 16px
+  padding: 8px
+  margin: 0 -8px
 .talk
   height: 240px
   position: relative

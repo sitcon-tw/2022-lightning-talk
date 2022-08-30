@@ -44,6 +44,7 @@ const link = computed(() => props.disabled ? "" : props.href || props.to)
   letter-spacing: 8px
   text-indent: 8px
   transition: all 0.2s ease
+  cursor: pointer
   &:hover
     background: transparent
     color: #82D357

@@ -22,7 +22,7 @@ const submit = async () => {
 
 <template>
   <div class="root">
-    <non-token-modal  />
+    <non-token-modal />
 
     <div class="page">
       <form class="inputs" ref="form" @submit.prevent="submit">
@@ -86,6 +86,8 @@ input, textarea
     outline: 1px solid #82D357
   &:required:invalid
     outline: 1px solid #FF5252
+.text + *:is(input, textarea)
+  margin-top: -24px
 textarea
   flex: 1
   max-height: 300px
