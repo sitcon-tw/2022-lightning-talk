@@ -44,6 +44,7 @@ const routes = [
 
 <style scoped lang="sass">
 .index
+  margin-top: 24px
   display: grid
   height: 100%
   @media screen and (min-width: 769px)
@@ -90,7 +91,7 @@ h1
     position: absolute
     top: 0
     left: 50%
-    transform: translate(-50%, -100%)
+    transform: translate(-50%, -50%)
     font-size: 24px
   @media screen and (min-width: 769px)
     font-size: 36px
