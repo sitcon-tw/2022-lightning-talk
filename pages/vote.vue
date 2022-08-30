@@ -1,7 +1,9 @@
 <script setup>
-const store = useStore()
+import { storeToRefs } from 'pinia'
 
-const talks = ref([])
+const store = useStore()
+const { talks } = storeToRefs(store)
+
 const loading = ref(true)
 workerFetch('talk')
   .then(res => {
@@ -27,14 +29,19 @@ const count = ref({
   }
 })
 
+const watiSubmit = ref(false)
 const submit = async () => {
   if (!confirm("送出投票後將無法修改，確定送出嗎？"))
     return false
   const votes = Object.entries(vote.value)
     .filter(([, v]) => v > 0)
     .reduce((a, [k, v]) => a.concat(Array(v).fill(k)), [])
-  const res = await workerFetch('vote', { votes })
-  if (res.vote) store.status.vote = true
+  watiSubmit.value = true
+  const { row } = await workerFetch('vote', { votes })
+  watiSubmit.value = false
+  if (row) {
+    store.status.vote = row
+  }
   return true
 }
 </script>
@@ -58,14 +65,14 @@ const submit = async () => {
         <div class="talk" v-for="talk in talks" :key="talk.uuid" :class="{ active: modelTalk === talk }">
           <h1 class="title">{{  talk.title  }}</h1>
           <hr />
-          <vote-counter v-model="vote[talk.uuid]" :disableIncrease="count.remain <= 0" />
+          <vote-counter v-model="vote[talk.uuid]" :disableIncrease="count.remain <= 0" :disabled="watiSubmit" />
           <button class="lookup" @click="modelTalk = talk">查看摘要</button>
         </div>
       </div>
       <hr class="hide-mobile" />
       <div class="footer">
         <div class="remain-text hide-mobile">剩餘票數：{{  count.remain  }}</div>
-        <btn class="submit" @click="submit">送出</btn>
+        <btn class="submit" @click="submit" :disabled="watiSubmit">{{ loading ? '正在投票' : '送出' }}</btn>
       </div>
     </div>
     <talk-modal v-model:talk="modelTalk" v-model:vote="vote[modelTalk?.uuid]" :count="count" />

@@ -1,9 +1,10 @@
 <script setup>
+import { storeToRefs } from 'pinia'
 import ordinal from 'ordinal'
 
 const store = useStore()
+const { talks } = storeToRefs(store)
 
-const talks = ref([])
 const loading = ref(true)
 workerFetch('rank')
   .then(res => {

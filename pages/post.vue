@@ -2,7 +2,7 @@
 const store = useStore()
 
 const form = ref(null)
-const loading = ref(false)
+const watiSubmit = ref(false)
 const firstSubmit = ref(false)
 const data = ref({
   name: '',
@@ -17,11 +17,11 @@ const submit = async () => {
     return false
   if (!confirm("送出投稿後將無法修改，確定送出嗎？"))
     return false
-  loading.value = true
-  const res = await workerFetch('post', data)
-  loading.value = false
-  if (res.uuid) {
-    store.status.post = true
+  watiSubmit.value = true
+  const { row } = await workerFetch('post', data)
+  watiSubmit.value = false
+  if (row) {
+    store.status.post = row
   }
 }
 </script>
@@ -33,18 +33,18 @@ const submit = async () => {
     <div class="page">
       <form class="inputs" :class="{ firstSubmit }" ref="form" @submit.prevent="submit">
         <span class="text">講者姓名</span>
-        <input type="text" v-model="data.name" placeholder="請輸入姓名…" required :disabled="loading" />
+        <input type="text" v-model="data.name" placeholder="請輸入姓名…" required :disabled="watiSubmit" />
 
         <span class="text">議題</span>
-        <input type="text" v-model="data.title" placeholder="請輸入議題…" required :disabled="loading" />
+        <input type="text" v-model="data.title" placeholder="請輸入議題…" required :disabled="watiSubmit" />
 
         <span class="text">摘要</span>
-        <textarea v-model="data.description" placeholder="請輸入摘要…" required :disabled="loading" />
+        <textarea v-model="data.description" placeholder="請輸入摘要…" required :disabled="watiSubmit" />
 
         <span class="text">聯絡方式</span>
-        <input type="text" v-model="data.contact" placeholder="請輸入聯絡方式…" required :disabled="loading" />
+        <input type="text" v-model="data.contact" placeholder="請輸入聯絡方式…" required :disabled="watiSubmit" />
       </form>
-      <btn class="submit" @click="submit" :disabled="loading">{{  loading ? '正在投稿' : '送出'  }}</btn>
+      <btn class="submit" @click="submit" :disabled="watiSubmit">{{ watiSubmit ? '正在投稿' : '送出' }}</btn>
     </div>
   </div>
 </template>

@@ -20,7 +20,12 @@ export const useStore = defineStore('main', () => {
     if (!getIsAvailable(scope)) return '尚未開放'
     if (getIsExpire(scope)) return '已經結束'
     if (status.value[scope]) {
-      return { msg: `已完成${config.scopes[scope].name}`, btnText: '完成', icon: `bx bxs-check-circle` }
+      return {
+        msg: `已完成${config.scopes[scope].name}`,
+        btnText: '完成',
+        icon: `bx bxs-check-circle`,
+        [scope]: status.value[scope],
+       }
     }
     for (const req of getRequired(scope)) {
       if (!getIsExpire(req) && !status.value[req]) {
@@ -67,6 +72,7 @@ export const useStore = defineStore('main', () => {
   }
 
   const loading = ref(0)
+  const talks = ref([])
 
   return {
     getIsAvailable,
@@ -80,5 +86,6 @@ export const useStore = defineStore('main', () => {
     setupToken,
     getTimeText,
     loading,
+    talks,
   }
 })
