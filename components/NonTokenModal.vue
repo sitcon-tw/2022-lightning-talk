@@ -62,7 +62,7 @@ onMounted(async () => {
     <modal v-model:open="manualInputModal">
       <h2 class="title">手動輸入票券代碼</h2>
       <p class="text">請輸入 OPass 票券代碼。</p>
-      <input type="text" v-model="inputToken" placeholder="請輸入票券代碼..." autofocus @keyup.enter="submit" />
+      <input type="text" v-model="inputToken" placeholder="請輸入票券代碼…" autofocus @keyup.enter="submit" />
       <btn class="submit" @click="submit">送出</btn>
     </modal>
 
