@@ -128,6 +128,8 @@ function init() {
     sheet.deleteColumns(size, sheet.getMaxColumns() - size)
     sheet.setFrozenRows(1)
     sheet.getRange(1,1,1,size).setValues([ headers ])
+    const protection = sheet.protect().setDescription('protected sheet')
+    protection.setWarningOnly(true)
     console.log(`${name} created`)
   }
 }
