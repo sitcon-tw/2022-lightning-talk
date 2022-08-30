@@ -58,7 +58,7 @@ const submit = async () => {
     max-height: 900px
     padding-right: 50%
     align-items: flex-end
-    background-image: url(~/assets/img/cat-post.svg) no-repeat
+    background-image: url(~/assets/img/cat-post.svg)
     background-repeat: no-repeat
     background-size: auto 200%
     background-position: calc(50% + 300px) bottom

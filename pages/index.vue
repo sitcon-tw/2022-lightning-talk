@@ -49,10 +49,18 @@ const routes = [
     grid-template-columns: 1fr 1fr
 
 .left
-  background-image: url(~/assets/img/cat-index.svg)
-  background-repeat: no-repeat
-  background-size: cover
-  background-position: right
+  position: relative
+  &::before
+    content: ''
+    position: absolute
+    top: 0
+    right: 0
+    width: 200%
+    height: 200%
+    background-image: url(~/assets/img/cat-index.svg)
+    background-repeat: no-repeat
+    background-size: 70%
+    background-position: right top
 
 .right
   display: flex
