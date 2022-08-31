@@ -1,5 +1,13 @@
 import { Router } from 'itty-router'
 import config from './config'
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.extend(customParseFormat)
+dayjs.tz.setDefault('Asia/Taipei')
 
 const router = Router()
 
@@ -25,14 +33,14 @@ function check_action(action) {
   const scope = config.scopes[action]
   if (scope) {
     let { available_time, expire_time } = scope
-    let now = new Date().getTime()
+    const now = dayjs()
     if (available_time) {
-      available_time = new Date(available_time).getTime()
-      if (now < available_time) return badRequest('action is not available yet')
+      available_time = dayjs.tz(available_time, 'YYYY-MM-DD HH:mm', 'Asia/Taipei')
+      if (now.isBefore(available_time)) return badRequest('action is not available yet')
     }
     if (expire_time) {
-      expire_time = new Date(expire_time).getTime()
-      if (now > expire_time) return badRequest('action is expired')
+      expire_time = dayjs.tz(expire_time, 'YYYY-MM-DD HH:mm', 'Asia/Taipei')
+      if (now.isAfter(expire_time)) return badRequest('action is expired')
     }
   }
   return true
