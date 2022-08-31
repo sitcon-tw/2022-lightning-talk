@@ -15,6 +15,7 @@
     "ordinal": "^1.0.3",
     "pinia": "^2.0.20",
     "qrcode-reader-vue3": "^3.1.2",
-    "sass": "^1.54.5"
+    "sass": "^1.54.5",
+    "seedrandom": "^3.0.5"
   }
 }

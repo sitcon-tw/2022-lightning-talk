@@ -7,7 +7,7 @@ const { talks } = storeToRefs(store)
 const loading = ref(true)
 workerFetch('talk')
   .then(res => {
-    talks.value = res.talks
+    talks.value = shuffle(res.talks)
     loading.value = false
   })
 const modelTalk = ref()
