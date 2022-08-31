@@ -27,6 +27,7 @@ export const useStore = defineStore('main', () => {
         msg: `已完成${name}`,
         btnText: '完成',
         icon: `bx bxs-check-circle`,
+        done: true,
         [scope]: status.value[scope],
        }
     }
@@ -49,7 +50,7 @@ export const useStore = defineStore('main', () => {
   }
   function canVisit(scope = route.name) {
     const invisible = invisibleMessage(scope)
-    return !invisible || invisible.req
+    return !invisible || invisible.req || invisible.done
   }
 
   const token = useLocalStorage('token', null)
