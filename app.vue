@@ -96,7 +96,9 @@ hr
     @media screen and (min-width: 769px)
       &.has-talk-modal
         width: 60%
-  .hide & > *
+
+.hide .root
+  :not(.page), .page > *
     display: none
 
 .status-text
