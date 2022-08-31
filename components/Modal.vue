@@ -34,9 +34,13 @@ const close = () => emit('update:open', false)
 </template>
 
 <style scoped lang="sass">
-.modal-wrap .close + :slotted(*)
-  margin-left: 40px
-  margin-right: 40px
+.modal-wrap
+  .close + :slotted(*)
+    margin-left: 40px
+    margin-right: 40px
+  :slotted(*)
+    margin-top: 0
+    margin-bottom: 0
 
 .modal
   position: fixed
@@ -56,6 +60,7 @@ const close = () => emit('update:open', false)
   flex-direction: column
   justify-content: space-around
   align-items: center
+  gap: 12px
   min-width: min(512px, 100vw - 40px)
   max-width: 960px
   min-height: 200px

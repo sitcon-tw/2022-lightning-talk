@@ -26,8 +26,8 @@ function sumArray(arr) {
 
 <template>
   <modal :open="open" disable-close :zIndex="300">
-    <h1 style="margin-bottom: 0"><i :class='icon' style="font-size: 64px;"></i></h1>
-    <h1 style="margin-top: 0;font-size: 32px;">{{  text  }}</h1>
+    <i :class='icon' style="margin-bottom: -16px; font-size: 64px;"></i>
+    <h1 style="font-size: 32px;">{{  text  }}</h1>
     <div class="detail">
       <template v-if="invisible.post">
         <p>
@@ -51,7 +51,4 @@ function sumArray(arr) {
 </template>
 
 <style scoped lang="sass">
-.detail
-  p
-    margin-top: 0
 </style>
