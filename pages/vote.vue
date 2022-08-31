@@ -3,11 +3,12 @@ import { storeToRefs } from 'pinia'
 
 const store = useStore()
 const { talks } = storeToRefs(store)
+const shuffledTalks = computed(() => shuffle(talks.value))
 
 const loading = ref(true)
 workerFetch('talk')
   .then(res => {
-    talks.value = shuffle(res.talks)
+    talks.value = res.talks
     loading.value = false
   })
 const modelTalk = ref()
@@ -62,7 +63,7 @@ const submit = async () => {
     <div class="status-text" v-else-if="!talks || !talks.length">尚無稿件!?</div>
     <div class="page has-talk-modal" v-else>
       <div class="talks">
-        <div class="talk" v-for="talk in talks" :key="talk.uuid" :class="{ active: modelTalk === talk }">
+        <div class="talk" v-for="talk in shuffledTalks" :key="talk.uuid" :class="{ active: modelTalk === talk }">
           <h1 class="title">{{  talk.title  }}</h1>
           <hr />
           <vote-counter v-model="vote[talk.uuid]" :disableIncrease="count.remain <= 0" :disabled="watiSubmit" />
