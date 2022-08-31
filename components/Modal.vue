@@ -56,7 +56,7 @@ const close = () => emit('update:open', false)
   flex-direction: column
   justify-content: space-around
   align-items: center
-  // min-width: calc(100vw - 40px)
+  min-width: min(512px, 100vw - 40px)
   max-width: 960px
   min-height: 200px
   max-height: calc(var(--vh,1vh) * 100 - 40px)
@@ -64,7 +64,6 @@ const close = () => emit('update:open', false)
     max-height: calc(100dvh - 40px)
   margin: 20px 8px
   padding: 16px
-  min-width: min(512px,100vw)
   border-radius: 10px
   background-color: #FFFFFF
   color: #383838
