@@ -7,7 +7,9 @@ export const fetchJSON = async (...args) => {
     return res
   } catch (err) {
     console.error(err)
-    return err
+    return {
+      message: `Error: ${err.message}\nContact the developer if this problem persists.\n\nDebug Info:\n${err.stack}`,
+    }
   } finally {
     store.loading -= 1
   }
