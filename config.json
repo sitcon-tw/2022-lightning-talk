@@ -13,20 +13,20 @@
     "post": {
       "name": "投稿",
       "title": "投稿頁面",
-      "available_time": "2022-09-04 08:30",
+      "available_time": "2022-08-04 08:30",
       "expire_time":    "2022-09-04 12:30"
     },
     "vote": {
       "name": "投票",
       "title": "投票頁面",
-      "available_time": "2022-09-04 12:30",
+      "available_time": "2022-08-04 12:30",
       "expire_time":    "2022-09-04 15:15"
     },
     "rank": {
       "name": "結果",
       "title": "投票結果",
       "required": ["vote"],
-      "available_time": "2022-09-04 12:30",
+      "available_time": "2022-08-04 12:30",
       "expire_time":    "2022-09-04 18:00"
     }
   }
