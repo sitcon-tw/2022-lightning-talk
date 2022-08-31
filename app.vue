@@ -66,7 +66,8 @@ input
 hr
   border: 0.5px solid #C6C6C6
   margin: 0
-
+ul
+  padding-left: 20px
 
 .hide-desktop
   @media screen and (min-width: 769px)
