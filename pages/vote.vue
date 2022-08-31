@@ -72,8 +72,11 @@ const submit = async () => {
       </div>
       <hr class="hide-mobile" />
       <div class="footer">
-        <div class="remain-text hide-mobile">剩餘票數：{{  count.remain  }}</div>
-        <btn class="submit" @click="submit" :disabled="watiSubmit">{{ loading ? '正在投票' : '送出' }}</btn>
+        <div class="remain-text hide-mobile">剩餘票數：{{ count.remain }}</div>
+        <btn class="submit" @click="submit" v-if="!watiSubmit"> 送出 </btn>
+        <btn class="submit disabled" @click="submit" v-else disabled>
+          <loader />
+        </btn>
       </div>
     </div>
     <talk-modal v-model:talk="modelTalk" v-model:vote="vote[modelTalk?.uuid]" :count="count" />
