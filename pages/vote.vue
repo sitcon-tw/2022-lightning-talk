@@ -74,7 +74,7 @@ const submit = async () => {
       <div class="footer">
         <div class="remain-text hide-mobile">剩餘票數：{{ count.remain }}</div>
         <btn class="submit" @click="submit" v-if="!watiSubmit"> 送出 </btn>
-        <btn class="submit disabled" @click="submit" v-else disabled>
+        <btn class="submit disabled" v-else disabled>
           <loader />
         </btn>
       </div>
