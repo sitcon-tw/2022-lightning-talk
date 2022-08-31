@@ -230,9 +230,9 @@ function showRank() {
   return { talks: talks.filterCol(dataCols) }
 }
 
-function showStat({ token, post, vote }) {
-  if (!post) post = Sheets.talks.getRow(token)
-  if (!vote) vote = Sheets.votes.getRow(token)
+function showStat({ token }) {
+  const post = Sheets.talks.getRow(token)
+  const vote = Sheets.votes.getRow(token)
   return { post, vote }
 }
 
