@@ -21,15 +21,21 @@ const SpreadSheet = SpreadsheetApp.openById(SpreadsheetId)
 const Sheets = {}
 for(const name in SheetsSchema) {
   const headers = SheetsSchema[name]
+  const size = headers.length
   const sheet = SpreadSheet.getSheetByName(name)
   if (!sheet) {
     console.warn(`${name} sheet not exist`)
     continue
   }
   sheet.headers = headers
+  sheet.format =  headers.map(v => v === 'time' ? 'yyyy-mm-dd hh:mm:ss' : '@')
   sheet.mapping = generateMapping(headers)
-  sheet.append = (obj) => sheet.appendRow(toArray(headers)(obj))
-  sheet.getAllRange = (cRow = sheet.getLastRow()-1) => sheet.getRange(2,1,cRow,sheet.getLastColumn())
+  sheet.append = (obj) => {
+    sheet.appendRow(toArray(headers)(obj))
+    sheet.getRange(sheet.getLastRow(),1,1,size).setNumberFormats([ sheet.format ])
+    return sheet
+  }
+  sheet.getAllRange = (cRow = sheet.getLastRow()-1) => sheet.getRange(2,1,cRow,size)
   sheet.getAllData = (validate = true) => {
     if (sheet.getLastRow() <= 1) return []
     const rawData = sheet.getAllRange().getValues().map(toObject(headers))
@@ -128,13 +134,18 @@ function init() {
     sheet.deleteColumns(size, sheet.getMaxColumns() - size)
     sheet.setFrozenRows(1)
     sheet.getRange(1,1,1,size).setValues([ headers ])
-    const count = sheet.getMaxRows()
-    sheet.getRange(1,1,count,size).setNumberFormats(Array.from(Array(count)).map(() =>
-      headers.map(v => v === 'time' ? 'yyyy-mm-dd hh:mm:ss' : '@')
-    ))
     const protection = sheet.protect().setDescription('protected sheet')
     protection.setWarningOnly(true)
     console.log(`${name} created`)
+  }
+}
+
+function reformat() {
+  for(const name in SheetsSchema) {
+    const sheet = Sheets[name]
+    const length = sheet.getLastRow() - 1
+    sheet.getAllRange().setNumberFormats(Array.from({ length }, () => sheet.format))
+    console.log(`${name} reformat`)
   }
 }
 
