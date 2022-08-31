@@ -8,9 +8,9 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  style: {
-    type: Object,
-    default: {},
+  zIndex: {
+    type: Number,
+    default: 100,
   },
 })
 const emit = defineEmits(['update:open'])
@@ -21,7 +21,7 @@ const close = () => emit('update:open', false)
 <template>
   <Teleport to="body">
     <Transition name="modal">
-      <div v-if="open" class="modal" :style="style">
+      <div v-if="open" class="modal" :style="{ zIndex }">
         <div class="modal-wrap">
           <a class="close" v-if="!disableClose" @click="close">
             <img src="~/assets/img/X.svg" />

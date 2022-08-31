@@ -6,6 +6,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  zIndex: {
+    type: Number,
+    default: 200,
+  }
 })
 
 const store = useStore()
@@ -39,40 +43,38 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="non-token-modal">
-    <modal v-model:open="open" v-bind="$attrs">
-      <h2 class="title">尚未登入或未完成報到</h2>
-      <p class="text">請檢查 OPass 是否已成功報到，或透過下列方式進入遊戲。</p>
-      <div class="select-items">
-        <div class="select-item" @click="manualInputModal = true">
-          <div class="icon">
-            <i class="bx bxs-keyboard"></i>
-          </div>
-          <div class="content">手動輸入票券代碼</div>
+  <modal v-model:open="open" :zIndex="zIndex">
+    <h2 class="title">尚未登入或未完成報到</h2>
+    <p class="text">請檢查 OPass 是否已成功報到，或透過下列方式進入遊戲。</p>
+    <div class="select-items">
+      <div class="select-item" @click="manualInputModal = true">
+        <div class="icon">
+          <i class="bx bxs-keyboard"></i>
         </div>
-        <div class="select-item" @click="scanQRCodeModal = true">
-          <div class="icon">
-            <i class="bx bx-qr-scan"></i>
-          </div>
-          <div class="content">掃描票券 QR Code</div>
-        </div>
+        <div class="content">手動輸入票券代碼</div>
       </div>
-    </modal>
+      <div class="select-item" @click="scanQRCodeModal = true">
+        <div class="icon">
+          <i class="bx bx-qr-scan"></i>
+        </div>
+        <div class="content">掃描票券 QR Code</div>
+      </div>
+    </div>
+  </modal>
 
-    <modal v-model:open="manualInputModal">
-      <h2 class="title">手動輸入票券代碼</h2>
-      <p class="text">請輸入 OPass 票券代碼。</p>
-      <input type="text" v-model="inputToken" placeholder="請輸入票券代碼…" autofocus @keyup.enter="submit" />
-      <btn class="submit" @click="submit">送出</btn>
-    </modal>
+  <modal v-model:open="manualInputModal" :zIndex="zIndex">
+    <h2 class="title">手動輸入票券代碼</h2>
+    <p class="text">請輸入 OPass 票券代碼。</p>
+    <input type="text" v-model="inputToken" placeholder="請輸入票券代碼…" autofocus @keyup.enter="submit" />
+    <btn class="submit" @click="submit">送出</btn>
+  </modal>
 
-    <modal v-model:open="scanQRCodeModal">
-      <h2 class="title">掃描票券 QR Code</h2>
-      <p class="text">請開啟 OPass 中的我的票券，並掃描其中的 QR Code。</p>
-      <component :is="qrcodestream" class="qrstream" @decode="onDecode">
-      </component>
-    </modal>
-  </div>
+  <modal v-model:open="scanQRCodeModal" :zIndex="zIndex">
+    <h2 class="title">掃描票券 QR Code</h2>
+    <p class="text">請開啟 OPass 中的我的票券，並掃描其中的 QR Code。</p>
+    <component :is="qrcodestream" class="qrstream" @decode="onDecode">
+    </component>
+  </modal>
 </template>
 
 <style scoped lang="sass">

@@ -18,7 +18,7 @@ const addComma = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
 <template>
   <div class="root">
-    <non-token-modal :style="{ zIndex: invisible.req ? 300 : null }" v-if="invisible?.req" />
+    <non-token-modal :zIndex="invisible.req ? 400 : null" v-if="invisible?.req" />
 
     <div class="status-text" v-if="loading">
       <Loader />
