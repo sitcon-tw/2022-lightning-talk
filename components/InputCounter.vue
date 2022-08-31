@@ -15,32 +15,62 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  min: {
+    type: Number,
+    default: -Infinity,
+  },
+  max: {
+    type: Number,
+    default: Infinity,
+  },
 })
 const emit = defineEmits(['update:modelValue'])
 
-const update = (value) => {
-  if (typeof value !== 'number' || value < 0) {
-    alert('請輸入合法數字')
-    return false
-  }
-  emit('update:modelValue', value)
+function validate(value) {
+  if (typeof value !== 'number') return alert('請輸入合法數字'), props.min
+  if (value < props.min) return alert('數字不能小於' + props.min), props.min
+  if (value > props.max) return alert('數字不能大於' + props.max), props.max
+  return true
 }
 
-const decrease = () => update(props.modelValue - 1)
-const increase = () => update(props.modelValue + 1)
+const refValue = ref()
+const count = computed({
+  get() {
+    return props.modelValue
+  },
+  set(value) {
+    const res = validate(value)
+    if (res === true) ;
+    else if (typeof res === 'number') value = res
+    else return
+    refValue.value.value = value
+    emit('update:modelValue', value)
+  },
+})
 </script>
 
 <template>
   <div class="counter">
     <button
       class="control"
-      :disabled="disabled || disableDecrease || modelValue <= 0"
-      @click="decrease">
-      <i class='bx bx-minus'></i>
+      :disabled="disabled || disableDecrease || count <= min"
+      @click="count--"
+    >
+      <i class="bx bx-minus"></i>
     </button>
-    <div class="value">{{  modelValue  }}</div>
-    <!-- <input disabled v-model="modelValue" /> -->
-    <button class="control" :disabled="disabled || disableIncrease" @click="increase"><i class='bx bx-plus'></i></button>
+    <input
+      class="value"
+      type="number"
+      ref="refValue"
+      v-model.lazy.number="count"
+    />
+    <button
+      class="control"
+      :disabled="disabled || disableIncrease || count >= max"
+      @click="count++"
+    >
+      <i class="bx bx-plus"></i>
+    </button>
   </div>
 </template>
 

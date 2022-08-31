@@ -7,13 +7,13 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  disableDecrease: {
-    type: Boolean,
-    default: false,
+  min: {
+    type: Number,
+    default: 0,
   },
-  disableIncrease: {
-    type: Boolean,
-    default: false,
+  max: {
+    type: Number,
+    default: Infinity,
   },
 })
 const emit = defineEmits(['update:modelValue'])
@@ -31,7 +31,12 @@ const vote = computed({
 <template>
   <div class="vote-counter">
     <div class="text">票數</div>
-    <input-counter v-model="vote" :disabled="disabled" :disableDecrease="disableDecrease" :disableIncrease="disableIncrease" />
+    <input-counter
+      v-model="vote"
+      :disabled="disabled"
+      :min="min"
+      :max="max"
+    />
   </div>
 </template>
 

@@ -66,7 +66,7 @@ const submit = async () => {
         <div class="talk" v-for="talk in shuffledTalks" :key="talk.uuid" :class="{ active: modelTalk === talk }">
           <h1 class="title">{{  talk.title  }}</h1>
           <hr />
-          <vote-counter v-model="vote[talk.uuid]" :disableIncrease="count.remain <= 0" :disabled="watiSubmit" />
+          <vote-counter v-model="vote[talk.uuid]" :max="vote[talk.uuid] + count.remain" :disabled="watiSubmit" />
           <button class="lookup" @click="modelTalk = talk">查看摘要</button>
         </div>
       </div>

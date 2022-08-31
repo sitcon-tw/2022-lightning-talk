@@ -45,7 +45,7 @@ watch(open, (v) => {
         </div>
         <template v-if="curVote !== null">
           <hr class="hide-desktop" />
-          <vote-counter class="hide-desktop" v-model="curVote" :disableIncrease="count.remain <= 0" />
+          <vote-counter class="hide-desktop" v-model="curVote" :max="curVote + count.remain" />
           <hr class="hide-desktop" />
           <btn class="hide-desktop" @click="close(true)">確認</btn>
         </template>

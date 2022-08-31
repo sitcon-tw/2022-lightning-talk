@@ -59,6 +59,10 @@ img
   max-width: 100%
 button, input, textarea
   border: none
+input
+  -moz-appearance: textfield
+  &::-webkit-outer-spin-button, &::-webkit-inner-spin-button
+    display: none
 hr
   border: 0.5px solid #C6C6C6
   margin: 0
