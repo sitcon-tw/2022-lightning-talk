@@ -91,9 +91,6 @@ router.post('/:action', async (request, event) => {
 })
 
 router.options('/:action', async (request, event) => {
-  const action = request.params.action
-  const res = check_action(action)
-  if (res !== true) return res
   return responseJson({})
 })
 
