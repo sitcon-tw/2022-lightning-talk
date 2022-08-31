@@ -137,6 +137,7 @@ ul
   padding: 8px
   margin: 0 -8px
   align-items: start
+  align-content: start
 .talk
   position: relative
   display: flex
