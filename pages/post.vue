@@ -61,7 +61,10 @@ const submit = async () => {
         <span class="text">聯絡方式</span>
         <input type="text" v-model="data.contact" placeholder="請輸入聯絡方式…" required :disabled="watiSubmit" />
       </form>
-      <btn class="submit" @click="submit" :disabled="watiSubmit">{{  watiSubmit ? '正在投稿' : '送出'  }}</btn>
+      <btn class="submit" @click="submit" v-if="!watiSubmit"> 送出 </btn>
+      <btn class="submit disabled" v-else disabled>
+        <loader />
+      </btn>
     </div>
   </div>
 </template>
