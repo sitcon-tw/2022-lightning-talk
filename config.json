@@ -1,6 +1,6 @@
 {
   "opass_url": "https://sitcon.opass.app",
-  "worker_url": "https://2022-lightning-talk.sitcon.party/",
+  "worker_url": "https://2022-lightning-talk.sitcon.party",
   "vote_count": 10,
   "limit": {
     "title": 20,
