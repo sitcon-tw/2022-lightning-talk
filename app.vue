@@ -1,13 +1,4 @@
 <script setup>
-import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc'
-import timezone from 'dayjs/plugin/timezone'
-import customParseFormat from 'dayjs/plugin/customParseFormat'
-dayjs.extend(utc)
-dayjs.extend(timezone)
-dayjs.extend(customParseFormat)
-dayjs.tz.setDefault('Asia/Taipei')
-
 useHead({
   titleTemplate: '%s | 閃電秀投稿投票系統',
 })
