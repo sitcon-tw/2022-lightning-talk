@@ -3,6 +3,7 @@ import { defineNuxtConfig } from 'nuxt'
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   modules: ['@pinia/nuxt', '@vueuse/nuxt'],
+  ssr: process.env.NODE_ENV !== 'development',
   app: {
     baseURL: '/2022-lightning-talk/',
     head: {
@@ -38,7 +39,6 @@ export default defineNuxtConfig({
       ],
     },
   },
-  ssr: false,
   nitro: {
     prerender: {
       routes: ['/404.html'],

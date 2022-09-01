@@ -53,7 +53,7 @@ export const useStore = defineStore('main', () => {
     return !invisible || invisible.req || invisible.done
   }
 
-  const token = useLocalStorage('token', null)
+  const token = useLocalStorageWrap('token', null)
   nextTick(() => {
     setupToken(route.query.token ?? token)
       .then((success) => !success && (token.value = null))
@@ -71,13 +71,20 @@ export const useStore = defineStore('main', () => {
     return true
   }
 
-  const status = useLocalStorage('status', {})
+  const status = useLocalStorageWrap('status', {})
   async function updateStatus() {
     const res = await workerFetch('stat', status)
     status.value = res
   }
   watch(token, updateStatus)
-  nextTick(updateStatus)
+  if (process.client) {
+    const saved = JSON.parse(JSON.stringify(status.value))
+    status.value = {}
+    nextTick(() => {
+      status.value = saved
+      updateStatus()
+    })
+  }
 
   function getTimeText(scope) {
     if (!config.scopes[scope]) return 'XX:XX - XX:XX'
