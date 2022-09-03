@@ -58,7 +58,7 @@ const submit = async () => {
         <span class="text">摘要</span>
         <textarea ref="refDescription" v-model="data.description" placeholder="請輸入摘要…" required :disabled="watiSubmit" />
 
-        <span class="text">聯絡方式</span>
+        <span class="text">（必填）聯絡電話＋（選擇性）其他聯絡方式</span>
         <input type="text" v-model="data.contact" placeholder="請輸入聯絡方式…" required :disabled="watiSubmit" />
       </form>
       <btn class="submit" @click="submit" v-if="!watiSubmit"> 送出 </btn>
