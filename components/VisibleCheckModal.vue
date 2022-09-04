@@ -41,7 +41,7 @@ function sumArray(arr) {
         </p>
         <ul>
           <li v-for="([uuid, count]) of sumArray(invisible.vote.votes)">
-            {{ count }} 票「{{ talks?.filter(v => v.uuid === uuid)[0]?.title ?? uuid }}」
+            {{ count }} 票「{{ talks.filter(v => v.uuid === uuid)[0]?.title ?? uuid }}」
           </li>
         </ul>
       </template>

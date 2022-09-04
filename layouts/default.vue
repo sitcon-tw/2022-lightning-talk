@@ -1,21 +1,3 @@
-<script>
-import { getCurrentInstance, onBeforeMount } from 'vue'
-
-export default {
-  methods: {
-    forceUpdate() {
-      this.$forceUpdate()
-    },
-  },
-  setup() {
-    const instance = getCurrentInstance()
-    onBeforeMount(() => {
-      instance.ctx.forceUpdate()
-    })
-  },
-}
-</script>
-
 <template>
   <div class="outer-container">
     <nav-bar />
