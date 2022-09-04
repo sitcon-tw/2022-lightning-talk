@@ -6,7 +6,7 @@ export const fetchJSON = async (...args) => {
   return (await window.fetch(...args).then(async response => {
     store.loading -= 1
     if (response.ok) {
-      return (await res.json())
+      return (await response.json())
     } else if (response.status == 403) {
       return {
         message: `請使用會場提供的 Wi-Fi`,
