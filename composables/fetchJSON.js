@@ -3,7 +3,7 @@ export const fetchJSON = async (...args) => {
   const store = useStore()
   store.loading += 1
 
-  let res = await window.fetch(...args).then(async response => {
+  return (await window.fetch(...args).then(async response => {
     store.loading -= 1
     if (response.ok) {
       return (await res.json())
@@ -17,5 +17,5 @@ export const fetchJSON = async (...args) => {
         message: `發生錯誤，請稍後再試`,
       }
     }
-  })
+  }))
 }
